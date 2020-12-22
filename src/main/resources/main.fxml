@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="center" hgap="10" prefHeight="175.0" prefWidth="328.0" vgap="10"
-          xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
-          fx:controller="com.angcyo.main.Controller">
+
+<GridPane alignment="center" hgap="10" prefHeight="175.0" prefWidth="328.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.angcyo.main.Controller">
     <columnConstraints>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
+        <ColumnConstraints />
+        <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
+        <RowConstraints />
+        <RowConstraints />
     </rowConstraints>
-    <children>
-        <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    </children>
+    <Button id="button" fx:id="button" mnemonicParsing="false" onAction="#handleButtonClick" text="Button" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
+   <Button mnemonicParsing="false" text="Button2" />
 </GridPane>
