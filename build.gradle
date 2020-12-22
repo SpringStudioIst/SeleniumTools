@@ -1,0 +1,63 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+}
+
+group 'com.angcyo'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { setUrl("http://maven.aliyun.com/nexus/content/repositories/jcenter/") }
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// kotlin 支持
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+// javafx 支持
+
+javafx {
+    version = "11.0.2"
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+project.extensions.add('startClassName', 'com.angcyo.Start')  //'com.angcyo.App'
+
+// 这个设置给插件运行配置使用
+mainClassName = project.extensions.getByName("startClassName")
+
+//这里配置到jar的包中
+jar {
+    manifest {
+        attributes 'Main-Class': project.extensions.getByName("startClassName")
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+//启动, 需要java 11
+//"D:\Java\corretto-11.0.9.1\bin\java.exe" -jar SeleniumTools-1.0-SNAPSHOT.jar
