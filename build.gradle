@@ -11,12 +11,44 @@ repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     maven { setUrl("http://maven.aliyun.com/nexus/content/repositories/jcenter/") }
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    //https://www.selenium.dev/documentation/zh-cn/selenium_installation/installing_selenium_libraries/
+    //https://jcenter.bintray.com/org/seleniumhq/selenium/selenium-java/
+    implementation "org.seleniumhq.selenium:selenium-java:4.0.0-alpha-7"
+
+//    //https://www.ctolib.com/topics-112518.html
+//    //https://jcenter.bintray.com/com/asprise/ocr/java-ocr-api/
+//    implementation "com.asprise.ocr:java-ocr-api:15.3.0.3"
+
+//    //所有语言包: https://github.com/tesseract-ocr/tessdata
+//    //https://github.com/lzhpo/readImage
+//    //https://jcenter.bintray.com/net/sourceforge/tess4j/tess4j/
+//    implementation "net.sourceforge.tess4j:tess4j:4.5.4"
+
+    //https://github.com/square/okhttp
+    //https://jcenter.bintray.com/com/squareup/okhttp3/
+    implementation "com.squareup.okhttp3:okhttp:4.8.1"
+
+    //https://jcenter.bintray.com/io/reactivex/rxjava2/
+    implementation "io.reactivex.rxjava2:rxjava:2.2.17"
+    implementation "io.reactivex.rxjava2:rxjavafx:2.2.2"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
+
+    //https://github.com/square/retrofit
+    //https://jcenter.bintray.com/com/squareup/retrofit2
+    implementation "com.squareup.retrofit2:retrofit:2.7.1"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.7.1"
+    implementation "com.squareup.retrofit2:converter-gson:2.7.1"
+
+    //https://github.com/ikidou/TypeBuilder/
+    implementation 'com.github.ikidou:TypeBuilder:1.0'
 }
 
 test {
@@ -44,7 +76,7 @@ javafx {
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
-project.extensions.add('startClassName', 'com.angcyo.Start')  //'com.angcyo.App'
+project.extensions.add('startClassName', 'com.angcyo.javafx.Start')  //'com.angcyo.App'
 
 // 这个设置给插件运行配置使用
 mainClassName = project.extensions.getByName("startClassName")

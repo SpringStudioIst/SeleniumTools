@@ -1,4 +1,4 @@
-package com.angcyo
+package com.angcyo.javafx
 
 /**
  * Email:angcyo@126.com
