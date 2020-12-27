@@ -2,14 +2,17 @@ package com.angcyo.javafx
 
 import com.angcyo.javafx.base.L
 import com.angcyo.javafx.base.getResource
+import com.angcyo.javafx.ui.Tray
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
+import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import java.io.File
 
 /**
  * Email:angcyo@126.com
@@ -48,6 +51,8 @@ class App : Application() {
 
         primaryStage.sizeToScene()
         primaryStage.show()
+
+        L.i(File("").absolutePath)
     }
 
     init {
@@ -58,6 +63,10 @@ class App : Application() {
     override fun init() {
         super.init()
         //JavaFX-Launcher
+
+        L.w(Screen.getScreens())
+        Tray.addTray()
+
         Platform.runLater {
 
         }

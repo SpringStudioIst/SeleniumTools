@@ -49,6 +49,14 @@ dependencies {
 
     //https://github.com/ikidou/TypeBuilder/
     implementation 'com.github.ikidou:TypeBuilder:1.0'
+
+    //log
+    //https://jcenter.bintray.com/org/slf4j/slf4j-api/
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    //https://jcenter.bintray.com/ch/qos/logback/logback-classic/
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    //https://jcenter.bintray.com/ch/qos/logback/logback-core/
+    implementation 'ch.qos.logback:logback-core:1.2.3'
 }
 
 test {

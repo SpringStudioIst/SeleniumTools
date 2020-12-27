@@ -85,4 +85,8 @@ fun onBack(action: () -> Unit) {
  * */
 fun isFxApplicationThread() = Platform.isFxApplicationThread()
 
+/**获取控制器*/
+inline fun <reified Controller : BaseController> ctl(): Controller? =
+    BaseController.controllerHolder[Controller::class.java] as? Controller
+
 //</editor-fold desc="JavaFX平台">
