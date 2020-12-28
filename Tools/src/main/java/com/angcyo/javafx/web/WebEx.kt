@@ -1,7 +1,7 @@
 package com.angcyo.javafx.web
 
-import com.angcyo.javafx.base.L
-import com.angcyo.javafx.base.have
+import com.angcyo.library.ex.have
+import com.angcyo.log.L
 import org.openqa.selenium.By
 import org.openqa.selenium.Rectangle
 import org.openqa.selenium.SearchContext

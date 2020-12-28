@@ -1,0 +1,21 @@
+project.extensions.add('startClassName', 'com.angcyo.javafx.Start')  //'com.angcyo.App'
+
+apply from: allGradle.app
+
+group 'com.angcyo.javafx'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    //https://www.selenium.dev/documentation/zh-cn/selenium_installation/installing_selenium_libraries/
+    //https://jcenter.bintray.com/org/seleniumhq/selenium/selenium-java/
+    implementation "org.seleniumhq.selenium:selenium-java:4.0.0-alpha-7"
+
+//    //https://www.ctolib.com/topics-112518.html
+//    //https://jcenter.bintray.com/com/asprise/ocr/java-ocr-api/
+//    implementation "com.asprise.ocr:java-ocr-api:15.3.0.3"
+
+//    //所有语言包: https://github.com/tesseract-ocr/tessdata
+//    //https://github.com/lzhpo/readImage
+//    //https://jcenter.bintray.com/net/sourceforge/tess4j/tess4j/
+//    implementation "net.sourceforge.tess4j:tess4j:4.5.4"
+}

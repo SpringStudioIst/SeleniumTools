@@ -1,6 +1,6 @@
 package com.angcyo.javafx.web
 
-import com.angcyo.javafx.base.L
+import com.angcyo.log.L
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.locators.RelativeLocator.withTagName
 import kotlin.concurrent.thread

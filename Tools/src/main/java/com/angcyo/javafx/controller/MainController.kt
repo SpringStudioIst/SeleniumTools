@@ -1,16 +1,18 @@
 package com.angcyo.javafx.controller
 
-import com.angcyo.javafx.base.*
+import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.OSinfo
+import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.web.WebControl
+import com.angcyo.library.ex.getResource
+import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
-import javafx.fxml.Initializable
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.Tooltip
-import javafx.stage.Popup
 import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
@@ -68,7 +70,7 @@ class MainController : BaseController() {
             }
 
             val root = FXMLLoader.load<Parent>(getResource("main.fxml")) //com.angcyo/main.fxml
-            stage.scene= Scene(root)
+            stage.scene = Scene(root)
             stage.isAlwaysOnTop = true
 
             stage.show()

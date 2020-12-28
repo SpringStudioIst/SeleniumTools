@@ -1,15 +1,12 @@
 package com.angcyo.javafx
 
-import com.angcyo.javafx.base.L
-import com.angcyo.javafx.base.getResource
 import com.angcyo.javafx.ui.Tray
-import javafx.application.Application
-import javafx.application.Platform
+import com.angcyo.library.ex.getResource
+import com.angcyo.log.L
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
-import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.io.File
@@ -20,21 +17,10 @@ import java.io.File
  * @author angcyo
  * @date 2020/12/22
  */
-class App : Application() {
-
-    companion object {
-        lateinit var app: App
-        fun runApp(vararg args: String) {
-            launch(App::class.java, *args)
-        }
-    }
-
-    lateinit var primaryStage: Stage
+class App : BaseApp() {
 
     override fun start(primaryStage: Stage) {
-        //JavaFX Application Thread
-        this.primaryStage = primaryStage
-        app = this
+        super.start(primaryStage)
 
         primaryStage.initStyle(StageStyle.DECORATED)
         primaryStage.icons.add(Image(getResource("logo.png").toString()))
@@ -53,30 +39,8 @@ class App : Application() {
         primaryStage.show()
 
         L.i(File("").absolutePath)
-    }
 
-    init {
-        //JavaFX Application Thread
-        L.init("JavaFx", true)
-    }
-
-    override fun init() {
-        super.init()
-        //JavaFX-Launcher
-
-        L.w(Screen.getScreens())
         Tray.addTray()
-
-        Platform.runLater {
-
-        }
     }
-
-    override fun stop() {
-        super.stop()
-        //JavaFX Application Thread
-        Platform.exit()
-    }
-
 }
 

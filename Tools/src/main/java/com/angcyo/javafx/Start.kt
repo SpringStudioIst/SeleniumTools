@@ -1,5 +1,7 @@
 package com.angcyo.javafx
 
+import javafx.application.Application
+
 /**
  * Email:angcyo@126.com
  *
@@ -15,7 +17,7 @@ class Start {
          */
         @JvmStatic
         fun main(vararg args: String) {
-            App.runApp(*args)
+            Application.launch(App::class.java)
         }
     }
 }
