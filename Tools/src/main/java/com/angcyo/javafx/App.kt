@@ -38,7 +38,7 @@ class App : BaseApp() {
         primaryStage.sizeToScene()
         primaryStage.show()
 
-        L.i(File("").absolutePath)
+        L.i("根目录:" + File("").absolutePath)
 
         Tray.addTray()
     }

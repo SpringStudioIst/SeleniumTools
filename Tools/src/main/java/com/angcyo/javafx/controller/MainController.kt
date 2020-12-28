@@ -2,9 +2,11 @@ package com.angcyo.javafx.controller
 
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.OSinfo
+import com.angcyo.javafx.base.ex.onDelay
 import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.web.WebControl
 import com.angcyo.library.ex.getResource
+import com.angcyo.library.ex.nowTime
 import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -63,25 +65,12 @@ class MainController : BaseController() {
 
             //startButton.scene.window.hide()
 
-            val stage = Stage(StageStyle.TRANSPARENT)
-            Screen.getPrimary().apply {
-                stage.x = 20.0
-                stage.y = visualBounds.maxY - 20 - stage.height
+            Tip.show("des", "title")
+
+            onDelay(2_000){
+                Tip.show("des${nowTime()}", "title")
             }
 
-            val root = FXMLLoader.load<Parent>(getResource("main.fxml")) //com.angcyo/main.fxml
-            stage.scene = Scene(root)
-            stage.isAlwaysOnTop = true
-
-            stage.show()
-
-            onMain {
-                L.i(stage.height)
-                Screen.getPrimary().apply {
-                    stage.x = 20.0
-                    stage.y = visualBounds.maxY - 20 - stage.height
-                }
-            }
         }
         startButton.tooltip = Tooltip("tooltip")
     }

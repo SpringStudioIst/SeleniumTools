@@ -1,6 +1,7 @@
 package com.angcyo.javafx.controller
 
 import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.ex.onMain
 import javafx.fxml.FXML
 import javafx.scene.control.Label
 import javafx.scene.image.ImageView
@@ -32,6 +33,18 @@ class TipController : BaseController() {
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         super.initialize(location, resources)
-        rootNode.scene.window
+        //rootNode.scene.window
+    }
+
+    fun setDes(des: String? = null) {
+        onMain {
+            desNode.text = des
+        }
+    }
+
+    fun setTitle(title: String? = null) {
+        onMain {
+            titleNode.text = title
+        }
     }
 }
