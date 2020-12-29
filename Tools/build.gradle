@@ -2,13 +2,11 @@ project.extensions.add('startClassName', 'com.angcyo.javafx.Start')  //'com.angc
 
 apply from: allGradle.app
 
-group 'com.angcyo.javafx'
+group 'com.angcyo.javafx.tools'
 version '1.0-SNAPSHOT'
 
 dependencies {
-    //https://www.selenium.dev/documentation/zh-cn/selenium_installation/installing_selenium_libraries/
-    //https://jcenter.bintray.com/org/seleniumhq/selenium/selenium-java/
-    implementation "org.seleniumhq.selenium:selenium-java:4.0.0-alpha-7"
+    implementation project(allModule.selenium)
 
 //    //https://www.ctolib.com/topics-112518.html
 //    //https://jcenter.bintray.com/com/asprise/ocr/java-ocr-api/

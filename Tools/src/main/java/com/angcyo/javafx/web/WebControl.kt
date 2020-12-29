@@ -1,6 +1,9 @@
 package com.angcyo.javafx.web
 
 import com.angcyo.log.L
+import com.angcyo.selenium.auto.BaseControl
+import com.angcyo.selenium.clickSafe
+import com.angcyo.selenium.sendKeysSafe
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.locators.RelativeLocator.withTagName
 import kotlin.concurrent.thread

@@ -9,6 +9,7 @@ import com.angcyo.library.ex.getImage
 import com.angcyo.library.ex.getResource
 import com.angcyo.library.ex.readText
 import com.angcyo.log.L
+import com.angcyo.selenium.DslSelenium
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
@@ -60,6 +61,7 @@ class App : BaseApp() {
 
         //读取配置
         appConfigBean = File(CONFIG_PATH).readText()?.fromJson() ?: appConfigBean
+        DslSelenium.initDriver(appConfigBean.driverPath)
     }
 
     override fun stop() {

@@ -68,11 +68,6 @@ class MainController : BaseController() {
     }
 
     fun testSeleniumhq() {
-        if (OSinfo.isWindows) {
-            System.setProperty("webdriver.edge.driver", "F:/FileDownloads/edgedriver_win64/msedgedriver.exe")
-        } else if (OSinfo.isMacOSX) {
-            System.setProperty("webdriver.edge.driver", "/Users/angcyo/Downloads/edgedriver_mac64/msedgedriver")
-        }
         val control = WebControl(EdgeDriver(EdgeOptions().apply {
             setPageLoadStrategy(PageLoadStrategy.EAGER)
         }))

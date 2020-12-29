@@ -8,6 +8,7 @@ import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.ui.chooserFile
 import com.angcyo.javafx.ui.ext
+import com.angcyo.selenium.DslSelenium
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
 import javafx.stage.Stage
@@ -32,6 +33,7 @@ class TabConfigController : BaseController() {
 
         fun saveConfig(appConfigBean: AppConfigBean) {
             appConfigBean.toJson().writeTo(File(CONFIG_PATH))
+            DslSelenium.initDriver(appConfigBean.driverPath)
         }
     }
 
