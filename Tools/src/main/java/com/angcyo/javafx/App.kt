@@ -1,8 +1,13 @@
 package com.angcyo.javafx
 
+import com.angcyo.http.base.fromJson
+import com.angcyo.javafx.bean.AppConfigBean
+import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PATH
 import com.angcyo.javafx.ui.Tray
+import com.angcyo.javafx.ui.remove
 import com.angcyo.library.ex.getImage
 import com.angcyo.library.ex.getResource
+import com.angcyo.library.ex.readText
 import com.angcyo.log.L
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -10,6 +15,7 @@ import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import java.awt.TrayIcon
 import java.io.File
 
 /**
@@ -20,6 +26,15 @@ import java.io.File
  */
 class App : BaseApp() {
 
+    var trayIcon: TrayIcon? = null
+
+    var appConfigBean = AppConfigBean()
+
+    companion object {
+        const val NAME = "Web全自动辅助工具"
+        const val VERSION = "2020-12-29"
+    }
+
     override fun start(primaryStage: Stage) {
         super.start(primaryStage)
 
@@ -27,7 +42,7 @@ class App : BaseApp() {
         primaryStage.icons.add(Image(getResource("logo.png").toString()))
 
         val root = FXMLLoader.load<Parent>(javaClass.classLoader.getResource("main.fxml")) //com.angcyo/main.fxml
-        primaryStage.title = "Hello JavaFX"
+        primaryStage.title = "$NAME $VERSION"
         //primaryStage.setIconified(true);//最小化
         //primaryStage.isAlwaysOnTop = true //置顶
         primaryStage.scene = Scene(root)
@@ -41,7 +56,16 @@ class App : BaseApp() {
 
         L.i("根目录:" + File("").absolutePath)
 
-        Tray.addTray(getImage("logo.png")!!, "SeleniumTools 2020-12-29")
+        trayIcon = Tray.addTray(getImage("logo.png")!!, "$NAME $VERSION")
+
+        //读取配置
+        appConfigBean = File(CONFIG_PATH).readText()?.fromJson() ?: appConfigBean
+    }
+
+    override fun stop() {
+        super.stop()
+        trayIcon?.remove()
     }
 }
 
+fun app() = BaseApp.app as App

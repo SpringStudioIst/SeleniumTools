@@ -1,23 +1,19 @@
 package com.angcyo.javafx.controller
 
+import com.angcyo.javafx.BaseApp.Companion.app
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.OSinfo
-import com.angcyo.javafx.base.ex.onDelay
+import com.angcyo.javafx.base.ex.getStage
+import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.base.ex.onMain
+import com.angcyo.javafx.controller.main.TabConfigController
+import com.angcyo.javafx.controller.main.TabHomeController
+import com.angcyo.javafx.controller.main.TabLogController
 import com.angcyo.javafx.web.WebControl
-import com.angcyo.library.ex.getResource
-import com.angcyo.library.ex.nowTime
 import com.angcyo.log.L
 import javafx.fxml.FXML
-import javafx.fxml.FXMLLoader
-import javafx.scene.Parent
-import javafx.scene.Scene
-import javafx.scene.control.Button
 import javafx.scene.control.Label
-import javafx.scene.control.Tooltip
-import javafx.stage.Screen
-import javafx.stage.Stage
-import javafx.stage.StageStyle
+import javafx.scene.control.MenuItem
 import okhttp3.internal.platform.Platform
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.edge.EdgeDriver
@@ -33,46 +29,42 @@ import java.util.*
  */
 class MainController : BaseController() {
 
-    @FXML
-    lateinit var startButton: Button
+    val tabConfigController = TabConfigController()
+    val tabLogController = TabLogController()
+    val tabHomeController = TabHomeController()
 
+    /**底部提示条*/
     @FXML
-    lateinit var bottomTipLabel: Label
+    lateinit var bottomTipNode: Label
 
-    @FXML
-    lateinit var textTipLabel: Label
+    /**关闭菜单*/
+    lateinit var closeMenu: MenuItem
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         super.initialize(location, resources)
-        bottomTipLabel.text = "就绪!"
-        textTipLabel.text = buildString {
-            appendln(Platform.get().toString())
-            System.getProperties().forEach { entry ->
-                appendln("${entry.key}->${System.getProperty(entry.key.toString())}".apply { L.i(this) })
-            }
-            //appendln(System.getProperty("os.name"))
-            //appendln(System.getProperty("os.version"))
-            //appendln(System.getProperty("os.arch"))
+        onLater {
+            tabHomeController.initialize(bottomTipNode.getStage(), location, resources)
+            tabConfigController.initialize(bottomTipNode.getStage(), location, resources)
+            tabLogController.initialize(bottomTipNode.getStage(), location, resources)
+
+            tabLogController.appendLog(buildString {
+                appendLine(Platform.get().toString())
+                System.getProperties().forEach { entry ->
+                    appendLine("${entry.key}->${System.getProperty(entry.key.toString())}".apply { L.i(this) })
+                }
+                //appendln(System.getProperty("os.name"))
+                //appendln(System.getProperty("os.version"))
+                //appendln(System.getProperty("os.arch"))
+            })
         }
 
-        startButton.setOnAction {
-            //testSeleniumhq()
+        //tip
+        bottomTipNode.text = "就绪!"
 
-//            Popup().apply {
-//                content.add(bottomTipLabel)
-//                show(startButton.scene.window)
-//            }
-
-            //startButton.scene.window.hide()
-
-            Tip.show("des", "title")
-
-            onDelay(2_000){
-                Tip.show("des${nowTime()}", "title")
-            }
-
+        //menu
+        closeMenu.setOnAction {
+            app.exit()
         }
-        startButton.tooltip = Tooltip("tooltip")
     }
 
     fun testSeleniumhq() {
@@ -89,8 +81,7 @@ class MainController : BaseController() {
 
     fun bottomTip(text: String) {
         onMain {
-            bottomTipLabel.text = text
+            bottomTipNode.text = text
         }
     }
-
 }
