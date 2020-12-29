@@ -1,6 +1,7 @@
 package com.angcyo.javafx
 
 import com.angcyo.javafx.ui.Tray
+import com.angcyo.library.ex.getImage
 import com.angcyo.library.ex.getResource
 import com.angcyo.log.L
 import javafx.fxml.FXMLLoader
@@ -40,7 +41,7 @@ class App : BaseApp() {
 
         L.i("根目录:" + File("").absolutePath)
 
-        Tray.addTray()
+        Tray.addTray(getImage("logo.png")!!, "SeleniumTools 2020-12-29")
     }
 }
 
