@@ -2,7 +2,6 @@ package com.angcyo.javafx.controller
 
 import com.angcyo.javafx.BaseApp.Companion.app
 import com.angcyo.javafx.base.BaseController
-import com.angcyo.javafx.base.OSinfo
 import com.angcyo.javafx.base.ex.getStage
 import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.base.ex.onMain
@@ -13,6 +12,7 @@ import com.angcyo.javafx.web.WebControl
 import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.scene.control.Label
+import javafx.scene.control.MenuBar
 import javafx.scene.control.MenuItem
 import okhttp3.internal.platform.Platform
 import org.openqa.selenium.PageLoadStrategy
@@ -40,6 +40,9 @@ class MainController : BaseController() {
     /**关闭菜单*/
     lateinit var closeMenu: MenuItem
 
+    /**主菜单*/
+    lateinit var mainMenuBar: MenuBar
+
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         super.initialize(location, resources)
         onLater {
@@ -62,6 +65,7 @@ class MainController : BaseController() {
         bottomTipNode.text = "就绪!"
 
         //menu
+        mainMenuBar.isUseSystemMenuBar = true
         closeMenu.setOnAction {
             app.exit()
         }

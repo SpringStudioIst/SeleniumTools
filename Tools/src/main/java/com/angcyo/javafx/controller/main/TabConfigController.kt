@@ -8,6 +8,7 @@ import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.ui.chooserFile
 import com.angcyo.javafx.ui.ext
+import com.angcyo.javafx.ui.exts
 import com.angcyo.selenium.DslSelenium
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
@@ -45,7 +46,12 @@ class TabConfigController : BaseController() {
         val appConfigBean = app().appConfigBean
         driverEditNode?.text = appConfigBean.driverPath
         selectorDriverNode?.setOnAction {
-            chooserFile("选择对应版本的驱动程序", ext = ext("驱动程序(*.exe)", "*.exe"))?.let {
+            chooserFile(
+                "选择对应版本的驱动程序", ext = exts(
+                    ext("驱动程序(*.exe)", "*.exe"),
+                    ext("所有文件", "*.*")
+                )
+            )?.let {
                 driverEditNode?.text = it.absolutePath
                 appConfigBean.driverPath = it.absolutePath
                 saveConfig(appConfigBean)
