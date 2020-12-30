@@ -27,14 +27,17 @@
     <!--设置系统日志目录-->
     <property name="APP_DIR" value="log"/>
 
+    <!--日志格式: http://logback.qos.ch/manual/layouts.html-->
+
     <!-- 不带彩色的日志在控制台输出时候的设置 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--<encoder>
             &lt;!&ndash; 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -> %msg%n</pattern>
+            <pattern>%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue([%thread]) %highlight(%-5level) %green(%caller{2..3})->%msg%n</pattern>
         </encoder>-->
         <encoder>
-            <pattern>%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue([%thread]) %highlight(%-5level) %green(%logger:%-3L) -> %msg%n</pattern>
+            <pattern>%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %blue([%thread]) %green(%caller{2..3})->%msg%n</pattern>
         </encoder>
     </appender>
 
@@ -56,7 +59,7 @@
         <append>true</append>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <!-- 此日志文件只记录info级别的 -->
@@ -78,7 +81,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -99,7 +102,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -120,7 +123,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -140,7 +143,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -155,7 +158,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -170,7 +173,7 @@
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger:%-3L -> %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %caller{2..3}%msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
