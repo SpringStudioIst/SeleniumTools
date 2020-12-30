@@ -4,6 +4,7 @@ import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.library.ex.getResource
 import com.angcyo.log.L
+import com.angcyo.selenium.auto.ControlTip
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
@@ -19,7 +20,8 @@ import javafx.stage.StageStyle
 object Tip {
     var tipStage: Stage? = null
 
-    fun show(des: String? = null, title: String? = null) {
+    /**显示提示舞台*/
+    fun show(tip: ControlTip) {
         if (tipStage == null) {
             //首次显示
 
@@ -60,9 +62,27 @@ object Tip {
             }
             tipStage = stage
         }
-        des?.let { ctl<TipController>()?.setDes(it) }
-        title?.let { ctl<TipController>()?.setTitle(it) }
+        tip.des?.let { ctl<TipController>()?.setDes(it) }
+        tip.title?.let { ctl<TipController>()?.setTitle(it) }
+        if (tip.nextTime > 0) {
+            ctl<TipController>()?.showProgress(tip.nextTime)
+        }
         tipStage?.sizeToScene()
         tipStage?.show()
     }
+
+    /**隐藏提示舞台*/
+    fun hide() {
+        tipStage?.hide()
+    }
+}
+
+fun dslTip(action: ControlTip.() -> Unit) {
+    val tip = ControlTip()
+    tip.action()
+    onMain { Tip.show(tip) }
+}
+
+fun dslTip(tip: ControlTip) {
+    onMain { Tip.show(tip) }
 }

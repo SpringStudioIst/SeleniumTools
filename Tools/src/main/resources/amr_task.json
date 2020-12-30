@@ -1,10 +1,15 @@
 {
+  "title": "辅助注册",
+  "des": "2020-12-30",
   "url": "https://amr.sz.gov.cn/aicmerout/jsp/gcloud/giapout/industry/aicmer/processpage/step_prewin.jsp",
   "config": {
     "maximize": true
   },
   "actionList": [
-
+    {
+      "title": "点击[我要申办]",
+      "start": "3000"
+    }
   ],
   "backActionList": [
   ]

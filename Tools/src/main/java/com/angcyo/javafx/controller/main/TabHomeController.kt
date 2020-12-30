@@ -1,5 +1,6 @@
 package com.angcyo.javafx.controller.main
 
+import com.angcyo.http.base.fromJson
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
@@ -7,12 +8,11 @@ import com.angcyo.javafx.base.ex.getImageFx
 import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.ui.dslAlert
 import com.angcyo.javafx.ui.switchById
+import com.angcyo.javafx.web.Task
 import com.angcyo.library.ex.getResourceAsStream
 import com.angcyo.selenium.DslSelenium
-import javafx.scene.control.Button
-import javafx.scene.control.ButtonType
-import javafx.scene.control.TextArea
-import javafx.scene.control.Tooltip
+import com.angcyo.selenium.bean.TaskBean
+import javafx.scene.control.*
 import javafx.stage.Stage
 import java.net.URL
 import java.util.*
@@ -36,9 +36,20 @@ class TabHomeController : BaseController() {
 
         startNode?.setOnAction {
             if (DslSelenium.checkDriver()) {
-                //Task.start()
+                val taskBean = taskTextNode?.text?.fromJson<TaskBean>()
+                if (taskBean == null) {
+                    dslAlert {
+                        alertType = Alert.AlertType.ERROR
+                        icons.add(getImageFx("logo.png")!!)
+                        contentText = "数据格式错误!"
+                    }
+                } else {
+                    startNode?.isDisable = true
+                    Task.start(taskBean)
+                }
             } else {
                 dslAlert {
+                    alertType = Alert.AlertType.ERROR
                     icons.add(getImageFx("logo.png")!!)
                     contentText = "无效的驱动程序!"
                 }?.let {

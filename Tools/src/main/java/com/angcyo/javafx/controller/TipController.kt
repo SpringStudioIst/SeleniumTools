@@ -2,8 +2,11 @@ package com.angcyo.javafx.controller
 
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.onMain
+import com.angcyo.javafx.ui.addKeyFrame
+import com.angcyo.javafx.ui.dslTimeline
 import javafx.fxml.FXML
 import javafx.scene.control.Label
+import javafx.scene.control.ProgressBar
 import javafx.scene.image.ImageView
 import javafx.scene.layout.AnchorPane
 import java.net.URL
@@ -31,6 +34,8 @@ class TipController : BaseController() {
     @FXML
     lateinit var controlNode: ImageView
 
+    lateinit var progressBarNode: ProgressBar
+
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         super.initialize(location, resources)
         //rootNode.scene.window
@@ -45,6 +50,15 @@ class TipController : BaseController() {
     fun setTitle(title: String? = null) {
         onMain {
             titleNode.text = title
+        }
+    }
+
+    fun showProgress(time: Long) {
+        onMain {
+            dslTimeline {
+                addKeyFrame(0.0, progressBarNode.progressProperty(), 0)
+                addKeyFrame(time.toDouble(), progressBarNode.progressProperty(), 1)
+            }
         }
     }
 }
