@@ -9,17 +9,14 @@ import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.controller.main.TabConfigController
 import com.angcyo.javafx.controller.main.TabHomeController
 import com.angcyo.javafx.controller.main.TabLogController
-import com.angcyo.javafx.web.WebControl
 import com.angcyo.library.ex.isFileExist
 import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.scene.control.Label
 import javafx.scene.control.MenuBar
 import javafx.scene.control.MenuItem
+import javafx.scene.control.TabPane
 import okhttp3.internal.platform.Platform
-import org.openqa.selenium.PageLoadStrategy
-import org.openqa.selenium.edge.EdgeDriver
-import org.openqa.selenium.edge.EdgeOptions
 import java.net.URL
 import java.util.*
 
@@ -44,6 +41,9 @@ class MainController : BaseController() {
 
     /**主菜单*/
     lateinit var mainMenuBar: MenuBar
+
+    /**Tab切换*/
+    lateinit var mainTabNode: TabPane
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         super.initialize(location, resources)
@@ -73,13 +73,6 @@ class MainController : BaseController() {
         closeMenu.setOnAction {
             app.exit()
         }
-    }
-
-    fun testSeleniumhq() {
-        val control = WebControl(EdgeDriver(EdgeOptions().apply {
-            setPageLoadStrategy(PageLoadStrategy.EAGER)
-        }))
-        control.doAction()
     }
 
     /**更新底部提示*/

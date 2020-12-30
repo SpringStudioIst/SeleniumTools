@@ -1,14 +1,16 @@
 package com.angcyo.javafx.controller.main
 
-import com.angcyo.javafx.SystemSoftware
 import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
-import com.angcyo.javafx.base.ex.onDelay
-import com.angcyo.javafx.controller.Tip
+import com.angcyo.javafx.base.ex.getImageFx
+import com.angcyo.javafx.controller.MainController
+import com.angcyo.javafx.ui.dslAlert
+import com.angcyo.javafx.ui.switchById
 import com.angcyo.library.ex.getResourceAsStream
-import com.angcyo.library.ex.nowTime
-import com.angcyo.log.L
+import com.angcyo.selenium.DslSelenium
 import javafx.scene.control.Button
+import javafx.scene.control.ButtonType
 import javafx.scene.control.TextArea
 import javafx.scene.control.Tooltip
 import javafx.stage.Stage
@@ -33,22 +35,18 @@ class TabHomeController : BaseController() {
         taskTextNode = stage?.findByCss("#taskTextNode")
 
         startNode?.setOnAction {
-            //testSeleniumhq()
-
-//            Popup().apply {
-//                content.add(bottomTipLabel)
-//                show(startButton.scene.window)
-//            }
-
-            //startButton.scene.window.hide()
-
-            Tip.show("des", "title")
-
-            onDelay(2_000) {
-                Tip.show("des${nowTime()}", "title")
+            if (DslSelenium.checkDriver()) {
+                //Task.start()
+            } else {
+                dslAlert {
+                    icons.add(getImageFx("logo.png")!!)
+                    contentText = "无效的驱动程序!"
+                }?.let {
+                    if (it.get() == ButtonType.OK) {
+                        ctl<MainController>()?.mainTabNode?.switchById("configTab")
+                    }
+                }
             }
-
-
         }
         startNode?.tooltip = Tooltip("启动任务")
 
