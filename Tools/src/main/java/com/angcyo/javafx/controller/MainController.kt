@@ -1,6 +1,7 @@
 package com.angcyo.javafx.controller
 
 import com.angcyo.javafx.BaseApp.Companion.app
+import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.getStage
 import com.angcyo.javafx.base.ex.onLater
@@ -9,6 +10,7 @@ import com.angcyo.javafx.controller.main.TabConfigController
 import com.angcyo.javafx.controller.main.TabHomeController
 import com.angcyo.javafx.controller.main.TabLogController
 import com.angcyo.javafx.web.WebControl
+import com.angcyo.library.ex.isFileExist
 import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.scene.control.Label
@@ -59,6 +61,8 @@ class MainController : BaseController() {
                 //appendln(System.getProperty("os.version"))
                 //appendln(System.getProperty("os.arch"))
             })
+
+            checkDriver()
         }
 
         //tip
@@ -78,9 +82,19 @@ class MainController : BaseController() {
         control.doAction()
     }
 
+    /**更新底部提示*/
     fun bottomTip(text: String) {
         onMain {
             bottomTipNode.text = text
+        }
+    }
+
+    /**检查驱动程序*/
+    fun checkDriver() {
+        if (app().appConfigBean.driverPath.isFileExist()) {
+            bottomTip("驱动程序:${app().appConfigBean.driverPath}")
+        } else {
+            bottomTip("驱动程序不存在, 请在[配置]页面, 设置驱动程序.")
         }
     }
 }

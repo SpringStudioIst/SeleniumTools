@@ -1,11 +1,13 @@
 package com.angcyo.javafx.controller.main
 
+import com.angcyo.javafx.SystemSoftware
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.base.ex.onDelay
 import com.angcyo.javafx.controller.Tip
 import com.angcyo.library.ex.getResourceAsStream
 import com.angcyo.library.ex.nowTime
+import com.angcyo.log.L
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
 import javafx.scene.control.Tooltip
@@ -45,6 +47,7 @@ class TabHomeController : BaseController() {
             onDelay(2_000) {
                 Tip.show("des${nowTime()}", "title")
             }
+
 
         }
         startNode?.tooltip = Tooltip("启动任务")

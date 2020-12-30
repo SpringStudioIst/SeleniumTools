@@ -4,8 +4,10 @@ import com.angcyo.core.component.file.writeTo
 import com.angcyo.http.base.toJson
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.bean.AppConfigBean
+import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.ui.dslChooserFile
 import com.angcyo.javafx.ui.ext
 import com.angcyo.javafx.ui.exts
@@ -33,7 +35,7 @@ class TabConfigController : BaseController() {
         const val CONFIG_PATH = "./config/config.json"
 
         fun saveConfig(appConfigBean: AppConfigBean) {
-            appConfigBean.toJson().writeTo(File(CONFIG_PATH))
+            appConfigBean.toJson().writeTo(File(CONFIG_PATH), false)
             DslSelenium.initDriver(appConfigBean.driverPath)
         }
     }
@@ -56,9 +58,13 @@ class TabConfigController : BaseController() {
                 )
             }?.let {
                 driverEditNode?.text = it.absolutePath
-                appConfigBean.driverPath = it.absolutePath
-                saveConfig(appConfigBean)
+
             }
+        }
+        driverEditNode?.textProperty()?.addListener { observable, oldValue, newValue ->
+            appConfigBean.driverPath = newValue
+            ctl<MainController>()?.checkDriver()
+            saveConfig(appConfigBean)
         }
     }
 }
