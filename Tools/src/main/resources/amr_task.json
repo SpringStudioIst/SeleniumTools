@@ -8,7 +8,16 @@
   "actionList": [
     {
       "title": "点击[我要申办]",
-      "start": "3000"
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "textList": [
+              "我要申办"
+            ]
+          }
+        ]
+      }
     }
   ],
   "backActionList": [

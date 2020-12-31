@@ -1,10 +1,12 @@
 package com.angcyo.javafx.web
 
+import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.controller.dslTip
+import com.angcyo.javafx.controller.main.TabHomeController
+import com.angcyo.javafx.controller.main.TabLogController
 import com.angcyo.log.L
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.bean.TaskBean
-import org.openqa.selenium.edge.EdgeDriver
 
 /**
  * Email:angcyo@126.com
@@ -23,9 +25,25 @@ object Task {
         _currentControl = control
 
         //日志输出
-        control.logAction = { tip ->
-            L.wt(tip.toString())
+        control.logAction = {
+            L.wt(it)
+            ctl<TabLogController>()?.appendLog(it)
+        }
+
+        //提示信息输出
+        control.tipAction = { tip ->
+            tip.toString().apply {
+                L.wt(this)
+                ctl<TabLogController>()?.appendLog(this)
+            }
             dslTip(tip)
+        }
+
+        //监听任务执行状态
+        control._controlState.addListener { observable, oldValue, newValue ->
+            if (newValue == AutoControl.STATE_FINISH) {
+                ctl<TabHomeController>()?.enableStartNode(true)
+            }
         }
 
         //启动

@@ -5,6 +5,7 @@ import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.base.ex.getImageFx
+import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.ui.dslAlert
 import com.angcyo.javafx.ui.switchById
@@ -62,6 +63,13 @@ class TabHomeController : BaseController() {
         startNode?.tooltip = Tooltip("启动任务")
 
         updateTaskText(getResourceAsStream("amr_task.json")?.bufferedReader()?.readText())
+    }
+
+    /**激活开始按钮*/
+    fun enableStartNode(enable: Boolean) {
+        onMain {
+            startNode?.isDisable = !enable
+        }
     }
 
     fun updateTaskText(string: String?) {

@@ -1,4 +1,5 @@
 import com.angcyo.library.ex.patternList
+import com.angcyo.selenium.parse.havePartition
 import org.junit.jupiter.api.Test
 
 /**
@@ -20,6 +21,7 @@ class ExampleUnitTest {
         val regex = "[-]?\\d+".toRegex()
         println(text.contains(regex))
         println(text.patternList(regex.toPattern()))
+        println(text.havePartition("~|-"))
     }
 
     /**测试正则表达式匹配*/
