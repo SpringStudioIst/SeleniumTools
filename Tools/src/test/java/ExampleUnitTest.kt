@@ -38,6 +38,12 @@ class ExampleUnitTest {
     /**测试正则表达式匹配*/
     @Test
     fun testMatch() {
-        println("...")
+        /* val text = "attr[xxx]"
+         val regex = "(?<=\\[).+(?=\\])".toRegex()
+         println(text.patternList(regex.toPattern()))*/
+
+        val text = "$[xxx]"
+        val regex = "(?<=\\$\\[).+(?=\\])".toRegex()
+        println(text.patternList(regex.toPattern()))
     }
 }

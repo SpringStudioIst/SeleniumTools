@@ -103,6 +103,92 @@
           }
         ]
       }
+    },
+    {
+      "title": "获取[验证码]图片",
+      "start": "300,0",
+      "check": {
+        "event": [
+          {
+            "cssList": [
+              "input[placeholder=请输入验证码]"
+            ],
+            "filter": {
+              "relativeBy": "img:toRightOf:0"
+            }
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "getAttr[src]:imageCode"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "解析验证码",
+      "start": "300,0",
+      "check": {
+        "handle": [
+          {
+            "actionList": [
+              "code:$[imageCode]:imageCode"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "输入验证码",
+      "start": "300,0",
+      "check": {
+        "event": [
+          {
+            "cssList": [
+              "input[placeholder=请输入验证码]"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "input:$[imageCode]"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "点击[登录]",
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "tags": "button",
+            "textList": [
+              "^登录$"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
     }
   ],
   "backActionList": [
