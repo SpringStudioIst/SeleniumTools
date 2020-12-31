@@ -5,6 +5,10 @@
   "config": {
     "maximize": true
   },
+  "wordList": [
+    "angcyo",
+    "!!angcyo521"
+  ],
   "actionList": [
     {
       "title": "点击[我要申办]",
@@ -12,8 +16,89 @@
       "check": {
         "event": [
           {
+            "tags": "button",
             "textList": [
               "我要申办"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "点击[帐号密码]",
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "tags": "a",
+            "textList": [
+              "^账号密码$"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "输入账号",
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "cssList": [
+              "input[placeholder=请输入账号]"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "input:$0"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "输入密码",
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "cssList": [
+              "input[placeholder=请输入密码]"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "input:$1"
             ]
           }
         ]

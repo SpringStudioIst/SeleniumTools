@@ -1,6 +1,7 @@
 package com.angcyo.javafx.web
 
 import com.angcyo.javafx.base.ex.ctl
+import com.angcyo.javafx.controller.TipController
 import com.angcyo.javafx.controller.dslTip
 import com.angcyo.javafx.controller.main.TabHomeController
 import com.angcyo.javafx.controller.main.TabLogController
@@ -44,6 +45,8 @@ object Task {
             if (newValue == AutoControl.STATE_FINISH) {
                 ctl<TabHomeController>()?.enableStartNode(true)
             }
+            //更新控制图标
+            ctl<TipController>()?.updateImageByState(newValue)
         }
 
         //启动

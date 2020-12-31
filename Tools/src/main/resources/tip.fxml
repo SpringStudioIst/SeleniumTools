@@ -23,7 +23,7 @@
                         <Insets right="5.0" />
                      </padding>
                   </VBox>
-                  <ImageView fx:id="controlNode" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="controlImageNode" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@play_%233246F0.png" />
                      </image>
