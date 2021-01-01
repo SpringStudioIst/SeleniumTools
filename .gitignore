@@ -7,3 +7,4 @@ JavaCore
 .jar
 .apk
 config
+/Tools/json/
