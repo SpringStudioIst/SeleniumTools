@@ -109,7 +109,10 @@ class TabHomeController : BaseController() {
             val actionJson = actionAreaNode?.text
             val actionBean: ActionBean? = actionJson?.fromJson()
             actionBean?.let {
-                Task._currentControl?.actionRunSchedule?.addNextAction(it)
+                Task._currentControl?.actionRunSchedule?.apply {
+                    clearTempAction()
+                    addNextAction(it)
+                }
 
                 //恢复启动
                 Task._currentControl?.resume()

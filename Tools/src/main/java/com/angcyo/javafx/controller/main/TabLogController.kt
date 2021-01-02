@@ -2,6 +2,7 @@ package com.angcyo.javafx.controller.main
 
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.findByCss
+import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.library.ex.nowTimeString
 import javafx.scene.control.TextArea
 import javafx.stage.Stage
@@ -25,17 +26,19 @@ class TabLogController : BaseController() {
 
     /**追加日志*/
     fun appendLog(log: String) {
-        logTextNode?.apply {
-            val old = text
-            text = buildString {
-                if (!old.isNullOrEmpty()) {
-                    appendLine(old)
+        onMain {
+            logTextNode?.apply {
+                val old = text
+                text = buildString {
+                    if (!old.isNullOrEmpty()) {
+                        appendLine(old)
+                    }
+                    appendLine("${nowTimeString()} ↓")
+                    appendLine(log)
                 }
-                appendLine("${nowTimeString()} ↓")
-                appendLine(log)
+                //滚动到底部
+                positionCaret(text.length)
             }
-            //滚动到底部
-            positionCaret(text.length)
         }
     }
 }

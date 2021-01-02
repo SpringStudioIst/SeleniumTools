@@ -9,8 +9,13 @@
     "angcyo",
     "!!angcyo521"
   ],
+  "textMap": {
+    "entType": "^内资",
+    "nzType": null
+  },
   "actionList": [
     {
+      "actionId": 100,
       "title": "点击[我要申办]",
       "start": "1000,0",
       "check": {
@@ -35,6 +40,7 @@
       }
     },
     {
+      "actionId": 110,
       "title": "点击[帐号密码]",
       "start": "1000,0",
       "check": {
@@ -59,6 +65,7 @@
       }
     },
     {
+      "actionId": 120,
       "title": "输入账号",
       "start": "1000,0",
       "check": {
@@ -82,6 +89,7 @@
       }
     },
     {
+      "actionId": 130,
       "title": "输入密码",
       "start": "1000,0",
       "check": {
@@ -105,8 +113,10 @@
       }
     },
     {
+      "actionId": 140,
       "title": "获取[验证码]图片",
       "start": "300,0",
+      "enable": true,
       "check": {
         "event": [
           {
@@ -131,8 +141,10 @@
       }
     },
     {
+      "actionId": 150,
       "title": "解析验证码",
       "start": "300,0",
+      "enable": false,
       "check": {
         "handle": [
           {
@@ -144,8 +156,10 @@
       }
     },
     {
+      "actionId": 160,
       "title": "输入验证码",
       "start": "300,0",
+      "enable": false,
       "check": {
         "event": [
           {
@@ -167,8 +181,10 @@
       }
     },
     {
+      "actionId": 170,
       "title": "点击[登录]",
       "start": "1000,0",
+      "enable": false,
       "check": {
         "event": [
           {
@@ -176,6 +192,101 @@
             "textList": [
               "^登录$"
             ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actionId": 180,
+      "title": "点击[使用其他企业名称申请]",
+      "enable": true,
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "textList": [
+              "使用其他企业名称申请"
+            ],
+            "tags": "button"
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actionId": 190,
+      "title": "选择[企业类别]",
+      "enable": true,
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "frame": {
+              "frameId": "layui-layer-iframe1"
+            },
+            "textList": [
+              "$[entType]"
+            ],
+            "tags": "p",
+            "filter": {
+              "index": "-1"
+            },
+            "after": {
+              "cssList": [
+                "input"
+              ],
+              "filter": {
+                "index": "0"
+              }
+            }
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actionId": 200,
+      "title": "点击[确认]",
+      "enable": true,
+      "start": "1000,0",
+      "check": {
+        "event": [
+          {
+            "frame": {
+              "frameId": "layui-layer-iframe1"
+            },
+            "textList": [
+              "确认"
+            ],
+            "tags": "button"
           }
         ],
         "handle": [
