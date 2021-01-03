@@ -11,7 +11,7 @@
   ],
   "textMap": {
     "entType": "^内资",
-    "nzType": null
+    "nzType": "input[value=GS]"
   },
   "actionList": [
     {
@@ -273,6 +273,44 @@
       }
     },
     {
+      "actionId": 191,
+      "title": "选择[内资企业类别]",
+      "enable": true,
+      "start": "1000,0",
+      "conditionList": [
+        {
+          "textMapList": [
+            "nzType"
+          ]
+        }
+      ],
+      "check": {
+        "event": [
+          {
+            "frame": {
+              "frameId": "layui-layer-iframe1"
+            },
+            "cssList": [
+              "$[nzType]"
+            ],
+            "filter": {
+              "index": "-1"
+            }
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
       "actionId": 200,
       "title": "点击[确认]",
       "enable": true,
@@ -287,6 +325,59 @@
               "确认"
             ],
             "tags": "button"
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actionId": 210,
+      "title": "点击[我已了解上述法规、规则]",
+      "start": "1000,0",
+      "enable": true,
+      "check": {
+        "event": [
+          {
+            "tags": "button",
+            "textList": [
+              "我已了解上述法规、规则"
+            ]
+          }
+        ],
+        "handle": [
+          {
+            "filter": {
+              "index": "0"
+            },
+            "actionList": [
+              "removeAttr:#nextButton:disabled",
+              "click"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actionId": 220,
+      "title": "点击[下一步]",
+      "start": "1000,0",
+      "enable": true,
+      "check": {
+        "event": [
+          {
+            "tags": "button",
+            "textList": [
+              "下一步"
+            ]
           }
         ],
         "handle": [
