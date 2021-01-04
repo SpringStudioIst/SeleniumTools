@@ -3,6 +3,7 @@ package com.angcyo.javafx
 import com.angcyo.http.base.fromJson
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PATH
+import com.angcyo.javafx.http.HttpHelper
 import com.angcyo.javafx.ui.Tray
 import com.angcyo.javafx.ui.remove
 import com.angcyo.library.ex.getImage
@@ -18,6 +19,7 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.awt.TrayIcon
 import java.io.File
+import kotlin.concurrent.thread
 
 /**
  * Email:angcyo@126.com
@@ -62,6 +64,10 @@ class App : BaseApp() {
         //读取配置
         appConfigBean = File(CONFIG_PATH).readText()?.fromJson() ?: appConfigBean
         DslSelenium.initDriver(appConfigBean.driverPath)
+
+        thread {
+            HttpHelper.loadIndustryList()
+        }
     }
 
     override fun stop() {

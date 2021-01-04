@@ -3,7 +3,7 @@ package com.angcyo.javafx.web
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.controller.TipController
 import com.angcyo.javafx.controller.dslTip
-import com.angcyo.javafx.controller.main.TabHomeController
+import com.angcyo.javafx.controller.main.TabDebugController
 import com.angcyo.javafx.controller.main.TabLogController
 import com.angcyo.log.L
 import com.angcyo.selenium.auto.AutoControl
@@ -43,7 +43,7 @@ object Task {
         //监听任务执行状态
         control._controlState.addListener { observable, oldValue, newValue ->
             if (newValue == AutoControl.STATE_FINISH) {
-                ctl<TabHomeController>()?.enableStartNode(true)
+                ctl<TabDebugController>()?.enableStartNode(true)
             }
             //更新控制图标
             ctl<TipController>()?.updateImageByState(newValue)

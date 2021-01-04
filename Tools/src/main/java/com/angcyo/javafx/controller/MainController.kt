@@ -7,8 +7,9 @@ import com.angcyo.javafx.base.ex.getStage
 import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.controller.main.TabConfigController
-import com.angcyo.javafx.controller.main.TabHomeController
+import com.angcyo.javafx.controller.main.TabDebugController
 import com.angcyo.javafx.controller.main.TabLogController
+import com.angcyo.javafx.controller.main.TabNameController
 import com.angcyo.library.ex.isFileExist
 import com.angcyo.log.L
 import javafx.fxml.FXML
@@ -28,9 +29,11 @@ import java.util.*
  */
 class MainController : BaseController() {
 
+    val tabHomeController = TabDebugController()
+    val tabNameController = TabNameController()
     val tabConfigController = TabConfigController()
     val tabLogController = TabLogController()
-    val tabHomeController = TabHomeController()
+    val tabDebugController = TabDebugController()
 
     /**底部提示条*/
     @FXML
@@ -49,8 +52,10 @@ class MainController : BaseController() {
         super.initialize(location, resources)
         onLater {
             tabHomeController.initialize(bottomTipNode.getStage(), location, resources)
+            tabNameController.initialize(bottomTipNode.getStage(), location, resources)
             tabConfigController.initialize(bottomTipNode.getStage(), location, resources)
             tabLogController.initialize(bottomTipNode.getStage(), location, resources)
+            tabDebugController.initialize(bottomTipNode.getStage(), location, resources)
 
             tabLogController.appendLog(buildString {
                 appendLine(Platform.get().toString())

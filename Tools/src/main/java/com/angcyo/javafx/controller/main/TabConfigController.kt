@@ -6,6 +6,7 @@ import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
+import com.angcyo.javafx.base.ex.openUrl
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.ui.dslChooserFile
@@ -13,7 +14,9 @@ import com.angcyo.javafx.ui.ext
 import com.angcyo.javafx.ui.exts
 import com.angcyo.selenium.DslSelenium
 import javafx.scene.control.Button
+import javafx.scene.control.ButtonBase
 import javafx.scene.control.TextField
+import javafx.scene.control.Tooltip
 import javafx.stage.Stage
 import java.io.File
 import java.net.URL
@@ -65,6 +68,25 @@ class TabConfigController : BaseController() {
             appConfigBean.driverPath = newValue
             ctl<MainController>()?.checkDriver()
             saveConfig(appConfigBean)
+        }
+
+        //驱动下载
+        fun initBin(css: String, url: String, enable: Boolean = true) {
+            stage?.findByCss<ButtonBase>(css)?.apply {
+                isDisable = !enable
+                setOnAction {
+                    openUrl(url)
+                }
+            }
+        }
+        initBin("#edgeBinLink", "https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/")
+        initBin("#chromeBinLink", "https://chromedriver.storage.googleapis.com/index.html", false)
+        initBin("#huohuBinLink", "https://github.com/mozilla/geckodriver/releases", false)
+        initBin("#operaBinLink", "https://github.com/operasoftware/operachromiumdriver/releases", false)
+        initBin("#safariBinLink", "https://github.com/operasoftware/operachromiumdriver/releases", false)
+        stage?.findByCss<ButtonBase>("#safariBinLink")?.apply {
+            isDisable = true
+            tooltip = Tooltip("内置")
         }
     }
 }
