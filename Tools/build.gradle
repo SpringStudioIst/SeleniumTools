@@ -5,6 +5,11 @@ apply from: allGradle.app
 group 'com.angcyo.javafx.tools'
 version '1.0-SNAPSHOT'
 
+javafx {
+    version = "11.0.2"
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+}
+
 dependencies {
     implementation project(allModule.selenium)
 
@@ -16,4 +21,8 @@ dependencies {
 //    //https://github.com/lzhpo/readImage
 //    //https://jcenter.bintray.com/net/sourceforge/tess4j/tess4j/
 //    implementation "net.sourceforge.tess4j:tess4j:4.5.4"
+
+    //https://mvnrepository.com/artifact/org.openjfx/javafx-web
+    //https://jcenter.bintray.com/org/openjfx/javafx-web/
+    //implementation "org.openjfx:javafx-web:15.0.1"
 }

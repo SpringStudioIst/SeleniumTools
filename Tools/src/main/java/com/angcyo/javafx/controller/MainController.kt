@@ -6,10 +6,7 @@ import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.getStage
 import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.base.ex.onMain
-import com.angcyo.javafx.controller.main.TabConfigController
-import com.angcyo.javafx.controller.main.TabDebugController
-import com.angcyo.javafx.controller.main.TabLogController
-import com.angcyo.javafx.controller.main.TabNameController
+import com.angcyo.javafx.controller.main.*
 import com.angcyo.library.ex.isFileExist
 import com.angcyo.log.L
 import javafx.fxml.FXML
@@ -29,7 +26,7 @@ import java.util.*
  */
 class MainController : BaseController() {
 
-    val tabHomeController = TabDebugController()
+    val tabHomeController = TabHomeController()
     val tabNameController = TabNameController()
     val tabConfigController = TabConfigController()
     val tabLogController = TabLogController()
