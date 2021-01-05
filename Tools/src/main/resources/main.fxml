@@ -295,7 +295,7 @@
                                                                   <Button fx:id="openAmrButton" mnemonicParsing="false" text="打开开办企业" />
                                                                   <Button fx:id="openUrlButton" mnemonicParsing="false" text="打开网址" />
                                                                   <Button fx:id="screenshotButton" mnemonicParsing="false" text="获取截图" />
-                                                                  <Button fx:id="startActionNode" mnemonicParsing="false" text="执行自定义动作" />
+                                                                  <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
                                                                </children>
                                                             </FlowPane>
                                                             <StackPane fx:id="screenshotPane" prefHeight="150.0" prefWidth="200.0">
@@ -322,6 +322,7 @@
                                                       <FlowPane hgap="5.0" prefWrapLength="0.0" vgap="5.0">
                                                          <children>
                                                             <Button fx:id="startNode" mnemonicParsing="false" text="启动任务" />
+                                                            <Button fx:id="startActionNode" mnemonicParsing="false" text="执行任务自定义动作" />
                                                          </children>
                                                       </FlowPane>
                                                    </content>

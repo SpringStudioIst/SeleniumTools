@@ -10,10 +10,7 @@ import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.ui.*
 import com.angcyo.javafx.web.Task
 import com.angcyo.library.LTime
-import com.angcyo.library.ex.getOrNull
-import com.angcyo.library.ex.getResourceAsStream
-import com.angcyo.library.ex.nowTimeString
-import com.angcyo.library.ex.readText
+import com.angcyo.library.ex.*
 import com.angcyo.log.L
 import com.angcyo.selenium.DslSelenium
 import com.angcyo.selenium.ImageOutputType
@@ -123,8 +120,14 @@ class TabDebugController : BaseController() {
             //插入一个指定的ActionBean, 并执行
             val actionJson = actionAreaNode?.text
             val actionBean: ActionBean? = actionJson?.fromJson()
-            actionBean?.let {
-                Task._currentControl?.actionRunSchedule?.startNextAction(it)
+            actionBean?.also {
+                Task._currentControl?.apply {
+                    actionRunSchedule.startNextAction(it)
+                }.elseNull {
+                    ctl<MainController>()?.bottomTip("请先[启动任务]!")
+                }
+            }.elseNull {
+                ctl<MainController>()?.bottomTip("数据格式不合法!")
             }
         }
 
@@ -162,12 +165,23 @@ class TabDebugController : BaseController() {
             }
         }
 
+        //check
+        fun checkConnect(action: AutoControl.() -> Unit) {
+            testControl?.let {
+                it.action()
+            }.elseNull {
+                ctl<MainController>()?.bottomTip("请先[连接驱动]!")
+            }
+        }
+
         //打开amr
         val amrUrl = "https://amr.sz.gov.cn/aicmerout/jsp/gcloud/giapout/industry/aicmer/processpage/step_prewin.jsp"
         stage?.findByCss<Node>("#openAmrButton")?.setOnMouseClicked {
-            testControl?.actionRunSchedule?.startNextAction(ActionBean(check = CheckBean().apply {
-                handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$amrUrl")))
-            }))
+            checkConnect {
+                actionRunSchedule.startNextAction(ActionBean(check = CheckBean().apply {
+                    handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$amrUrl")))
+                }))
+            }
         }
 
         //打开任意url
@@ -182,9 +196,11 @@ class TabDebugController : BaseController() {
             }.getOrNull()
             if (!url.isNullOrEmpty()) {
                 customUrl = url
-                testControl?.actionRunSchedule?.startNextAction(ActionBean(check = CheckBean().apply {
-                    handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$customUrl")))
-                }))
+                checkConnect {
+                    actionRunSchedule.startNextAction(ActionBean(check = CheckBean().apply {
+                        handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$customUrl")))
+                    }))
+                }
             }
         }
 
@@ -197,18 +213,36 @@ class TabDebugController : BaseController() {
         screenshotPane?.visible(false)
         stage?.findByCss<Node>("#screenshotButton")?.setOnMouseClicked {
             LTime.tick()
-            (testControl?.driver as? RemoteWebDriver)?.getScreenshotAs(ImageOutputType())?.let { image ->
-                screenshotPane?.visible(true)
-                screenshotImageView?.image = image
-                screenshotTipNode?.text = "${LTime.time()} ${image.width}×${image.height}"
+            checkConnect {
+                (driver as? RemoteWebDriver)?.getScreenshotAs(ImageOutputType())?.let { image ->
+                    screenshotPane?.visible(true)
+                    screenshotImageView?.image = image
+                    screenshotTipNode?.text = "${LTime.time()} ${image.width}×${image.height}"
 
-                val clipImage = image.clipRect(100, 100, 100, 100)
-                screenshotImageView1?.image = clipImage
-                screenshotImageView2?.image = clipImage.toByteArray().toImage(50, 50)
+                    val clipImage = image.clipRect(100, 100, 100, 100)
+                    screenshotImageView1?.image = clipImage
+                    screenshotImageView2?.image = clipImage.toByteArray().toImage(50, 50)
 
-                //双击查看大图
-                screenshotImageView?.setOnMouseDoubleClicked {
-                    showImagePreview(image)
+                    //双击查看大图
+                    screenshotImageView?.setOnMouseDoubleClicked {
+                        showImagePreview(image)
+                    }
+                }
+            }
+        }
+
+        //run action
+        val runActionNode: Button? = stage?.findByCss("#runActionNode")
+        val actionAreaNode: TextArea? = stage?.findByCss("#actionAreaNode")
+        runActionNode?.setOnAction {
+            //插入一个指定的ActionBean, 并执行
+            val actionJson = actionAreaNode?.text
+            val actionBean: ActionBean? = actionJson?.fromJson()
+            actionBean?.let {
+                checkConnect {
+                    actionRunSchedule.startNextAction(it)
+                }.elseNull {
+                    ctl<MainController>()?.bottomTip("数据格式不合法!")
                 }
             }
         }

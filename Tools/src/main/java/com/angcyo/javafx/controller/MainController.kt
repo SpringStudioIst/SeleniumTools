@@ -8,6 +8,7 @@ import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.controller.main.*
 import com.angcyo.library.ex.isFileExist
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.scene.control.Label
@@ -80,7 +81,7 @@ class MainController : BaseController() {
     /**更新底部提示*/
     fun bottomTip(text: String) {
         onMain {
-            bottomTipNode.text = text
+            bottomTipNode.text = "${nowTimeString()}:$text"
         }
     }
 
