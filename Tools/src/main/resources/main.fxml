@@ -167,21 +167,25 @@
                                        <children>
                                           <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <GridPane hgap="5.0" maxWidth="1.7976931348623157E308" vgap="5.0">
-                                                  <columnConstraints>
-                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
-                                                  </columnConstraints>
-                                                  <rowConstraints>
-                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                  </rowConstraints>
-                                                   <children>
-                                                      <Label text="驱动程序的路径:" />
-                                                      <TextField fx:id="driverEditNode" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" GridPane.columnIndex="1" />
-                                                      <Button fx:id="selectorDriverNode" mnemonicParsing="false" text="选择..." GridPane.columnIndex="2" />
-                                                   </children>
-                                                </GridPane>
+                                                <TitledPane text="选择驱动程序路径">
+                                                   <content>
+                                                      <GridPane hgap="5.0" maxWidth="1.7976931348623157E308" vgap="5.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="驱动程序的路径:" />
+                                                            <TextField fx:id="driverEditNode" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" GridPane.columnIndex="1" />
+                                                            <Button fx:id="selectorDriverNode" mnemonicParsing="false" text="选择..." GridPane.columnIndex="2" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </TitledPane>
                                                 <TitledPane text="驱动下载(请下载与浏览器相同版本的驱动程序 )">
                                                    <content>
                                                       <GridPane>
@@ -207,6 +211,29 @@
                                                    <VBox.margin>
                                                       <Insets top="5.0" />
                                                    </VBox.margin>
+                                                </TitledPane>
+                                                <TitledPane text="行业用语秒批更新">
+                                                   <VBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </VBox.margin>
+                                                   <content>
+                                                      <GridPane hgap="5.0" vgap="5.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="Cookie:" />
+                                                            <TextField fx:id="cookieFieldNode" GridPane.columnIndex="1" />
+                                                            <Button fx:id="cookieUpdateNode" disable="true" mnemonicParsing="false" text="更新" GridPane.columnIndex="2" />
+                                                            <ProgressIndicator fx:id="cookieProgressBar" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" visible="false" GridPane.columnIndex="2" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
                                                 </TitledPane>
                                              </children>
                                           </VBox>

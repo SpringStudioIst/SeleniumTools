@@ -1,6 +1,7 @@
 package com.angcyo.javafx
 
 import com.angcyo.http.base.fromJson
+import com.angcyo.javafx.base.ex.onBack
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PATH
 import com.angcyo.javafx.http.HttpHelper
@@ -19,7 +20,6 @@ import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.awt.TrayIcon
 import java.io.File
-import kotlin.concurrent.thread
 
 /**
  * Email:angcyo@126.com
@@ -62,11 +62,10 @@ class App : BaseApp() {
         trayIcon = Tray.addTray(getImage("logo.png")!!, "$NAME $VERSION")
 
         //读取配置
-        appConfigBean = File(CONFIG_PATH).readText()?.fromJson() ?: appConfigBean
-        DslSelenium.initDriver(appConfigBean.driverPath)
-
-        thread {
-            HttpHelper.loadIndustryList()
+        onBack {
+            appConfigBean = File(CONFIG_PATH).readText()?.fromJson() ?: appConfigBean
+            DslSelenium.initDriver(appConfigBean.driverPath)
+            HttpHelper.init()
         }
     }
 

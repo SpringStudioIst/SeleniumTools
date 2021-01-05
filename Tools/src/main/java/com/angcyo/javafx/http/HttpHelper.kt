@@ -1,12 +1,15 @@
 package com.angcyo.javafx.http
 
 import com.angcyo.core.component.file.writeTo
+import com.angcyo.http.base.fromJson
 import com.angcyo.http.base.listType
 import com.angcyo.http.base.toJson
 import com.angcyo.http.post
 import com.angcyo.http.rx.observe
 import com.angcyo.http.toBean
 import com.angcyo.javafx.bean.IndustryBean
+import com.angcyo.library.ex.getString
+import com.angcyo.library.ex.readText
 import com.google.gson.JsonElement
 import retrofit2.Response
 import java.io.File
@@ -27,10 +30,26 @@ object HttpHelper {
     /**所有可以选择的子项*/
     val industryList = mutableListOf<IndustryBean>()
 
+    fun init() {
+        val industryJson = INDUSTRY_PATH.readText() ?: getString("industry.json")
+        industryJson?.let {
+            rootIndustry.childList = it.fromJson<List<IndustryBean>>(listType(IndustryBean::class.java))
+        }
+
+        val industryListJson = INDUSTRY_LIST_PATH.readText() ?: getString("industry_list.json")
+        industryListJson?.let {
+            industryList.clear()
+            industryList.addAll(it.fromJson<List<IndustryBean>>(listType(IndustryBean::class.java)) ?: emptyList())
+        }
+    }
+
     /**加载所有行业用语秒批*/
-    fun loadIndustryList(cookie: String = "JSESSIONID=0000PFjxUQNB1aNCNLdskqv5F66:-1; __jsluid_s=82fbd04630601bfcba99591798872d0b; __jsluid_h=6462bcc9ea1e0c0eb86abd13cf58aab5; insert_cookie=13500475; sangfor_cookie=28150568; userType=1; ishelp=false; Hm_lvt_f89f708d1e989e02c93927bcee99fb29=1608290543,1608803383,1609744992; Hm_lpvt_f89f708d1e989e02c93927bcee99fb29=1609744992; swfUrl=%2Fztzl2020%2Fcnill_polyfill.swf; isCaUser=true; isSameUser=644BA689257D8F5CE20DC25BEE9BE39F; psout_sso_token=cOgCn5OrnuQobmNihcKZySh; gdbsTokenId=AQIC5wM2LY4Sfcxcz_aAHLFznG-6M6d_HmzOMca2csbRvKY.*AAJTSQACMDcAAlNLABQtODU5MTcwMzU0NTM5NTIwMzM1Mw..*@node2; accessToken=bd83601a-b325-4805-bd25-1f754b5454ef@node2; JSESSIONID=00002APouKoRTyHfa8AQ7aAkt_f:-1") {
+    fun loadIndustryList(
+        cookie: String,
+        end: (Response<JsonElement>?, Throwable?) -> Unit = { _, _ -> }
+    ) {
         //获取根分类目录
-        loadByIndustryBean(rootIndustry, cookie)
+        loadByIndustryBean(rootIndustry, cookie, end)
     }
 
     fun loadByIndustryBean(
@@ -51,8 +70,11 @@ object HttpHelper {
                 bean.childList = data?.toBean<List<IndustryBean>>(listType(IndustryBean::class.java))
                 bean.childList?.forEach {
                     if (it.isParent == "true") {
-                        loadByIndustryBean(it, cookie)
+                        loadByIndustryBean(it, cookie, end)
                     } else {
+                        if (bean == rootIndustry) {
+                            industryList.clear()
+                        }
                         industryList.add(it)
                         rootIndustry.childList.toJson().writeTo(File(INDUSTRY_PATH), false)
                         industryList.toJson().writeTo(File(INDUSTRY_LIST_PATH), false)

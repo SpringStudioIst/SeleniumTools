@@ -4,19 +4,14 @@ import com.angcyo.core.component.file.writeTo
 import com.angcyo.http.base.toJson
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
-import com.angcyo.javafx.base.ex.ctl
-import com.angcyo.javafx.base.ex.findByCss
-import com.angcyo.javafx.base.ex.openUrl
+import com.angcyo.javafx.base.CancelRunnable
+import com.angcyo.javafx.base.ex.*
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.MainController
-import com.angcyo.javafx.ui.dslChooserFile
-import com.angcyo.javafx.ui.ext
-import com.angcyo.javafx.ui.exts
+import com.angcyo.javafx.http.HttpHelper
+import com.angcyo.javafx.ui.*
 import com.angcyo.selenium.DslSelenium
-import javafx.scene.control.Button
-import javafx.scene.control.ButtonBase
-import javafx.scene.control.TextField
-import javafx.scene.control.Tooltip
+import javafx.scene.control.*
 import javafx.stage.Stage
 import java.io.File
 import java.net.URL
@@ -87,6 +82,49 @@ class TabConfigController : BaseController() {
         stage?.findByCss<ButtonBase>("#safariBinLink")?.apply {
             isDisable = true
             tooltip = Tooltip("内置")
+        }
+
+        //行业用语秒批更新
+        val cookieFieldNode: TextField? = stage?.findByCss("#cookieFieldNode")
+        val cookieUpdateNode: Button? = stage?.findByCss("#cookieUpdateNode")
+        val cookieProgressBar: ProgressIndicator? = stage?.findByCss("#cookieProgressBar")
+        cookieFieldNode?.textProperty()?.addListener { observable, oldValue, newValue ->
+            cookieUpdateNode?.enable(!newValue.isNullOrEmpty())
+        }
+        fun switchToLoading(loading: Boolean) {
+            cookieProgressBar.visible(loading)
+            //cookieUpdateNode.visible(!loading)
+            cookieUpdateNode.enable(!loading)
+            cookieFieldNode.enable(!loading)
+        }
+        cookieUpdateNode?.setOnAction {
+            switchToLoading(true)
+            var lastRunnable: CancelRunnable? = null
+            onBack {
+                HttpHelper.loadIndustryList(cookieFieldNode?.text ?: "") { response, throwable ->
+                    throwable?.let {
+                        switchToLoading(false)
+                        dslAlert {
+                            alertType = Alert.AlertType.ERROR
+                            icons.add(getImageFx("logo.png")!!)
+                            contentText = "更新失败:$it"
+                        }
+                    }
+                    response?.let {
+                        lastRunnable?.isEnd = true
+                        lastRunnable = onDelay(1_000) {
+                            switchToLoading(false)
+                            dslAlert {
+                                icons.add(getImageFx("logo.png")!!)
+                                contentText = "更新成功,共${HttpHelper.industryList.size}条!"
+                                expandableContent = TextArea().apply {
+                                    text = HttpHelper.industryList.toJson()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
