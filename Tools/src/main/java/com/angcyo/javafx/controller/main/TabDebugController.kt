@@ -140,7 +140,7 @@ class TabDebugController : BaseController() {
 
         fun connectLoading(loading: Boolean) {
             connectDriverNode.enable(!loading)
-            connectDriverProgressBar?.visible(loading)
+            connectDriverProgressBar?.visible(false)
         }
 
         //连接驱动
@@ -204,7 +204,7 @@ class TabDebugController : BaseController() {
 
                 val clipImage = image.clipRect(100, 100, 100, 100)
                 screenshotImageView1?.image = clipImage
-                screenshotImageView2?.image = clipImage.toByteArray().toImage(100, 100)
+                screenshotImageView2?.image = clipImage.toByteArray().toImage(50, 50)
 
                 //双击查看大图
                 screenshotImageView?.setOnMouseDoubleClicked {
