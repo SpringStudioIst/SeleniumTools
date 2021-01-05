@@ -5,20 +5,35 @@ import com.angcyo.http.base.toJson
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
-import com.angcyo.javafx.base.ex.getImageFx
 import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.controller.MainController
-import com.angcyo.javafx.ui.dslAlert
-import com.angcyo.javafx.ui.saveOnTextChanged
-import com.angcyo.javafx.ui.switchById
+import com.angcyo.javafx.ui.*
 import com.angcyo.javafx.web.Task
+import com.angcyo.library.LTime
+import com.angcyo.library.ex.getOrNull
 import com.angcyo.library.ex.getResourceAsStream
+import com.angcyo.library.ex.nowTimeString
 import com.angcyo.library.ex.readText
+import com.angcyo.log.L
 import com.angcyo.selenium.DslSelenium
+import com.angcyo.selenium.ImageOutputType
+import com.angcyo.selenium.auto.AutoControl
+import com.angcyo.selenium.auto.action.Action
 import com.angcyo.selenium.bean.ActionBean
+import com.angcyo.selenium.bean.CheckBean
+import com.angcyo.selenium.bean.HandleBean
 import com.angcyo.selenium.bean.TaskBean
+import javafx.geometry.Pos
+import javafx.scene.Node
+import javafx.scene.Scene
 import javafx.scene.control.*
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
+import javafx.scene.layout.Region
+import javafx.scene.layout.StackPane
 import javafx.stage.Stage
+import javafx.stage.StageStyle
+import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 import java.util.*
 
@@ -50,7 +65,6 @@ class TabDebugController : BaseController() {
                 if (taskBean == null) {
                     dslAlert {
                         alertType = Alert.AlertType.ERROR
-                        icons.add(getImageFx("logo.png")!!)
                         contentText = "数据格式错误!"
                     }
                 } else {
@@ -60,7 +74,6 @@ class TabDebugController : BaseController() {
             } else {
                 dslAlert {
                     alertType = Alert.AlertType.ERROR
-                    icons.add(getImageFx("logo.png")!!)
                     contentText = "无效的驱动程序!"
                 }?.let {
                     if (it.get() == ButtonType.OK) {
@@ -74,7 +87,9 @@ class TabDebugController : BaseController() {
         updateTaskText(TASK_PATH.readText() ?: getResourceAsStream("amr_task.json")?.bufferedReader()?.readText())
         taskTextNode?.saveOnTextChanged(TASK_PATH)
 
+        //init
         _initTestNode(stage)
+        _initTestDriver(stage)
     }
 
     /**激活开始按钮*/
@@ -109,13 +124,7 @@ class TabDebugController : BaseController() {
             val actionJson = actionAreaNode?.text
             val actionBean: ActionBean? = actionJson?.fromJson()
             actionBean?.let {
-                Task._currentControl?.actionRunSchedule?.apply {
-                    clearTempAction()
-                    addNextAction(it)
-                }
-
-                //恢复启动
-                Task._currentControl?.resume()
+                Task._currentControl?.actionRunSchedule?.startNextAction(it)
             }
         }
 
@@ -123,4 +132,97 @@ class TabDebugController : BaseController() {
         actionAreaNode?.saveOnTextChanged(ACTION_PATH)
     }
 
+    //测试驱动
+    var testControl: AutoControl? = null
+    fun _initTestDriver(stage: Stage?) {
+        val connectDriverNode: Region? = stage?.findByCss("#connectDriverNode")
+        val connectDriverProgressBar: Region? = stage?.findByCss("#connectDriverProgressBar")
+
+        fun connectLoading(loading: Boolean) {
+            connectDriverNode.enable(!loading)
+            connectDriverProgressBar?.visible(loading)
+        }
+
+        //连接驱动
+        connectLoading(false)
+        connectDriverNode?.setOnMouseClicked {
+            connectLoading(true)
+            testControl = AutoControl().apply {
+                logAction = {
+                    L.wt(it)
+                    ctl<TabLogController>()?.appendLog(it)
+                }
+                driverProperty.addListener { observable, oldValue, newValue ->
+                    connectLoading(false)
+                }
+                start(TaskBean().apply {
+                    title = "驱动测试任务"
+                    des = nowTimeString()
+                })
+            }
+        }
+
+        //打开amr
+        val amrUrl = "https://amr.sz.gov.cn/aicmerout/jsp/gcloud/giapout/industry/aicmer/processpage/step_prewin.jsp"
+        stage?.findByCss<Node>("#openAmrButton")?.setOnMouseClicked {
+            testControl?.actionRunSchedule?.startNextAction(ActionBean(check = CheckBean().apply {
+                handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$amrUrl")))
+            }))
+        }
+
+        //打开任意url
+        var customUrl: String? = amrUrl
+        stage?.findByCss<Node>("#openUrlButton")?.setOnMouseClicked {
+            val url = dslInput {
+                textInputDefaultValue = customUrl
+                title = "请输入需要跳转的网址"
+                configInputDialog = {
+                    it.dialogPane.prefWidth = 500.0
+                }
+            }.getOrNull()
+            if (!url.isNullOrEmpty()) {
+                customUrl = url
+                testControl?.actionRunSchedule?.startNextAction(ActionBean(check = CheckBean().apply {
+                    handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$customUrl")))
+                }))
+            }
+        }
+
+        //截图
+        val screenshotPane = stage?.findByCss<Node>("#screenshotPane")
+        val screenshotImageView = stage?.findByCss<ImageView>("#screenshotImageView")
+        val screenshotImageView1 = stage?.findByCss<ImageView>("#screenshotImageView1")
+        val screenshotImageView2 = stage?.findByCss<ImageView>("#screenshotImageView2")
+        val screenshotTipNode = stage?.findByCss<Label>("#screenshotTipNode")
+        screenshotPane?.visible(false)
+        stage?.findByCss<Node>("#screenshotButton")?.setOnMouseClicked {
+            LTime.tick()
+            (testControl?.driver as? RemoteWebDriver)?.getScreenshotAs(ImageOutputType())?.let { image ->
+                screenshotPane?.visible(true)
+                screenshotImageView?.image = image
+                screenshotTipNode?.text = "${LTime.time()} ${image.width}×${image.height}"
+
+                val clipImage = image.clipRect(100, 100, 100, 100)
+                screenshotImageView1?.image = clipImage
+                screenshotImageView2?.image = clipImage.toByteArray().toImage(100, 100)
+
+                //双击查看大图
+                screenshotImageView?.setOnMouseDoubleClicked {
+                    showImagePreview(image)
+                }
+            }
+        }
+    }
+
+    fun showImagePreview(image: Image) {
+        val stage = Stage()
+        stage.initStyle(StageStyle.UTILITY)
+        stage.scene = Scene(StackPane().apply {
+            alignment = Pos.CENTER
+            children.add(ImageView().apply {
+                setImage(image)
+            })
+        })
+        stage.show()
+    }
 }

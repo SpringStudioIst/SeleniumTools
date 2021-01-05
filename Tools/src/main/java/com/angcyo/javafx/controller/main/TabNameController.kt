@@ -2,10 +2,12 @@ package com.angcyo.javafx.controller.main
 
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.findByCss
+import com.angcyo.javafx.ui.visible
 import com.angcyo.log.L
 import javafx.scene.control.RadioButton
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.Pane
+import javafx.scene.layout.Region
 import javafx.stage.Stage
 import java.net.URL
 import java.util.*
@@ -35,6 +37,14 @@ class TabNameController : BaseController() {
                     //companyNzTypeFlowPane?.parent?.isDisable = newValue.id != "entValueNode1"
                     //stage.findByCss<Node>("#companyNzTypePane")?.isDisable = newValue.id != "entValueNode1"
                     companyNzTypeFlowPane?.isDisable = newValue.id != "entValueNode1"
+                    stage.findByCss<Region>("#companyNzTypePane")?.visible(newValue.id == "entValueNode1")
+
+                    if (newValue.id != "entValueNode1") {
+                        companyNzTypeFlowPane?.maxHeight = 0.0
+
+                    } else {
+                        companyNzTypeFlowPane?.maxHeight = Region.USE_COMPUTED_SIZE
+                    }
                 }
             }
         }
