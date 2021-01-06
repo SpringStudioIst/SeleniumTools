@@ -25,4 +25,7 @@ dependencies {
     //https://mvnrepository.com/artifact/org.openjfx/javafx-web
     //https://jcenter.bintray.com/org/openjfx/javafx-web/
     //implementation "org.openjfx:javafx-web:15.0.1"
+
+    //https://jcenter.bintray.com/com/vladsch/javafx-webview-debugger/javafx-webview-debugger/
+    //implementation "com.vladsch.javafx-webview-debugger:javafx-webview-debugger:0.8.6"
 }

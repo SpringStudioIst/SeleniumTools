@@ -296,6 +296,7 @@
                                                                   <Button fx:id="openUrlButton" mnemonicParsing="false" text="打开网址" />
                                                                   <Button fx:id="screenshotButton" mnemonicParsing="false" text="获取截图" />
                                                                   <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
+                                                                  <Hyperlink fx:id="openAmrLink" text="开办企业" />
                                                                </children>
                                                             </FlowPane>
                                                             <StackPane fx:id="screenshotPane" prefHeight="150.0" prefWidth="200.0">

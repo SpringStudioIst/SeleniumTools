@@ -3,9 +3,7 @@ package com.angcyo.javafx.controller.main
 import com.angcyo.http.base.fromJson
 import com.angcyo.http.base.toJson
 import com.angcyo.javafx.base.BaseController
-import com.angcyo.javafx.base.ex.ctl
-import com.angcyo.javafx.base.ex.findByCss
-import com.angcyo.javafx.base.ex.onMain
+import com.angcyo.javafx.base.ex.*
 import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.ui.*
 import com.angcyo.javafx.web.Task
@@ -13,7 +11,7 @@ import com.angcyo.library.LTime
 import com.angcyo.library.ex.*
 import com.angcyo.log.L
 import com.angcyo.selenium.DslSelenium
-import com.angcyo.selenium.ImageOutputType
+import com.angcyo.selenium.PairOutputType
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.auto.action.Action
 import com.angcyo.selenium.bean.ActionBean
@@ -214,8 +212,9 @@ class TabDebugController : BaseController() {
         stage?.findByCss<Node>("#screenshotButton")?.setOnMouseClicked {
             LTime.tick()
             checkConnect {
-                (driver as? RemoteWebDriver)?.getScreenshotAs(ImageOutputType())?.let { image ->
+                (driver as? RemoteWebDriver)?.getScreenshotAs(PairOutputType())?.let { pair ->
                     screenshotPane?.visible(true)
+                    val image = pair.second
                     screenshotImageView?.image = image
                     screenshotTipNode?.text = "${LTime.time()} ${image.width}×${image.height}"
 
@@ -227,6 +226,8 @@ class TabDebugController : BaseController() {
                     screenshotImageView?.setOnMouseDoubleClicked {
                         showImagePreview(image)
                     }
+
+                    //showDocument(pair.first)
                 }
             }
         }
@@ -244,6 +245,13 @@ class TabDebugController : BaseController() {
                 }.elseNull {
                     ctl<MainController>()?.bottomTip("数据格式不合法!")
                 }
+            }
+        }
+
+        //url
+        stage?.findByCss<Node>("#openAmrLink")?.apply {
+            setOnMouseClicked {
+                openUrl(amrUrl)
             }
         }
     }

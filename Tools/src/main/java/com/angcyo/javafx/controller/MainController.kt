@@ -81,7 +81,7 @@ class MainController : BaseController() {
     /**更新底部提示*/
     fun bottomTip(text: String) {
         onMain {
-            bottomTipNode.text = "${nowTimeString()}:$text"
+            bottomTipNode.text = "${nowTimeString()} $text"
         }
     }
 
