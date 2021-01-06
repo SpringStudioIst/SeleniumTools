@@ -339,7 +339,7 @@
                                                       <TextArea fx:id="actionAreaNode" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumnCount="0" prefHeight="500.0" promptText="编辑自定义的ActionBean" />
                                                    </content>
                                                 </TitledPane>
-                                                <TitledPane text="自定义任务">
+                                                <TitledPane expanded="false" text="自定义任务">
                                                    <VBox.margin>
                                                       <Insets top="5.0" />
                                                    </VBox.margin>
