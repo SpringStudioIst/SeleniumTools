@@ -339,6 +339,14 @@
                                                       <TextArea fx:id="actionAreaNode" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefColumnCount="0" prefHeight="500.0" promptText="编辑自定义的ActionBean" />
                                                    </content>
                                                 </TitledPane>
+                                                <TitledPane text="自定义任务">
+                                                   <VBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </VBox.margin>
+                                                   <content>
+                                                      <TextArea fx:id="taskTextNode" prefColumnCount="0" prefHeight="800.0" promptText="编辑自定义的TaskBean" />
+                                                   </content>
+                                                </TitledPane>
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -348,7 +356,7 @@
                                     </ScrollPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <TextArea fx:id="taskTextNode" layoutX="40.0" layoutY="40.0" promptText="编辑TaskBean" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0" />
+                                          <ListView fx:id="debugListView" layoutX="39.0" layoutY="27.0" prefHeight="575.0" prefWidth="358.0" />
                                        </children>
                                     </AnchorPane>
                                 </items>

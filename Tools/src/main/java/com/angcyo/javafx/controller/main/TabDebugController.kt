@@ -3,8 +3,13 @@ package com.angcyo.javafx.controller.main
 import com.angcyo.http.base.fromJson
 import com.angcyo.http.base.toJson
 import com.angcyo.javafx.base.BaseController
-import com.angcyo.javafx.base.ex.*
+import com.angcyo.javafx.base.ex.ctl
+import com.angcyo.javafx.base.ex.findByCss
+import com.angcyo.javafx.base.ex.onMain
+import com.angcyo.javafx.base.ex.showDocument
 import com.angcyo.javafx.controller.MainController
+import com.angcyo.javafx.list.DslListItem
+import com.angcyo.javafx.list.renderList
 import com.angcyo.javafx.ui.*
 import com.angcyo.javafx.web.Task
 import com.angcyo.library.LTime
@@ -25,6 +30,7 @@ import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.Region
+import javafx.scene.layout.Region.USE_COMPUTED_SIZE
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
@@ -85,6 +91,7 @@ class TabDebugController : BaseController() {
         //init
         _initTestNode(stage)
         _initTestDriver(stage)
+        _initDebugListView(stage)
     }
 
     /**激活开始按钮*/
@@ -219,8 +226,8 @@ class TabDebugController : BaseController() {
                     screenshotTipNode?.text = "${LTime.time()} ${image.width}×${image.height}"
 
                     val clipImage = image.clipRect(100, 100, 100, 100)
-                    screenshotImageView1?.image = clipImage
-                    screenshotImageView2?.image = clipImage.toByteArray().toImage(50, 50)
+                    //screenshotImageView1?.image = clipImage
+                    //screenshotImageView2?.image = clipImage.toByteArray().toImage(50, 50)
 
                     //双击查看大图
                     screenshotImageView?.setOnMouseDoubleClicked {
@@ -251,7 +258,8 @@ class TabDebugController : BaseController() {
         //url
         stage?.findByCss<Node>("#openAmrLink")?.apply {
             setOnMouseClicked {
-                openUrl(amrUrl)
+                //openUrl(amrUrl)
+                showDocument(amrUrl)
             }
         }
     }
@@ -266,5 +274,41 @@ class TabDebugController : BaseController() {
             })
         })
         stage.show()
+    }
+
+    fun _initDebugListView(stage: Stage?) {
+        val debugListView = stage?.findByCss<ListView<DslListItem>>("#debugListView")
+        debugListView?.renderList {
+            DslListItem()() {
+                bindItem = {
+                    Button().apply {
+                        text = nowTimeString()
+                    }
+                }
+            }
+            DslListItem()() {
+                bindItem = {
+                    TitledPane().apply {
+                        val pane = this
+                        text = nowTimeString()
+                        prefHeight = 300.0
+                        content = Button().apply {
+                            text = nowTimeString()
+                            setOnAction {
+                                L.i("requestLayout")
+                                pane.prefHeight = if (pane.prefHeight == USE_COMPUTED_SIZE) 100.0 else USE_COMPUTED_SIZE
+                            }
+                        }
+                    }
+                }
+            }
+            DslListItem()() {
+                bindItem = {
+                    Button().apply {
+                        text = nowTimeString()
+                    }
+                }
+            }
+        }
     }
 }

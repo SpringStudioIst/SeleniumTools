@@ -30,6 +30,7 @@ object HttpHelper {
     /**所有可以选择的子项*/
     val industryList = mutableListOf<IndustryBean>()
 
+    /**初始化, 读取本地数据*/
     fun init() {
         val industryJson = INDUSTRY_PATH.readText() ?: getString("industry.json")
         industryJson?.let {
