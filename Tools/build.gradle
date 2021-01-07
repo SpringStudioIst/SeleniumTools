@@ -12,7 +12,7 @@ javafx {
 
 dependencies {
     implementation project(allModule.selenium)
-
+    
 //    //https://www.ctolib.com/topics-112518.html
 //    //https://jcenter.bintray.com/com/asprise/ocr/java-ocr-api/
 //    implementation "com.asprise.ocr:java-ocr-api:15.3.0.3"
@@ -29,3 +29,28 @@ dependencies {
     //https://jcenter.bintray.com/com/vladsch/javafx-webview-debugger/javafx-webview-debugger/
     //implementation "com.vladsch.javafx-webview-debugger:javafx-webview-debugger:0.8.6"
 }
+
+/*
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+
+apply plugin: 'java'
+
+apply plugin: 'javafx-gradle-plugin'
+
+jfx {
+    // minimal requirement for jfxJar-task
+    mainClass = 'full.qualified.nameOf.TheMainClass'
+
+    // minimal requirement for jfxNative-task
+    vendor = 'YourName'
+}*/
