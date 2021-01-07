@@ -3,11 +3,10 @@ package com.angcyo.javafx.controller.main
 import com.angcyo.http.base.fromJson
 import com.angcyo.http.base.toJson
 import com.angcyo.javafx.base.BaseController
-import com.angcyo.javafx.base.ex.ctl
-import com.angcyo.javafx.base.ex.findByCss
-import com.angcyo.javafx.base.ex.onMain
-import com.angcyo.javafx.base.ex.showDocument
+import com.angcyo.javafx.base.ex.*
 import com.angcyo.javafx.controller.MainController
+import com.angcyo.javafx.controller.showBottomTip
+import com.angcyo.javafx.item.DslTaskDebugItem
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.renderList
 import com.angcyo.javafx.ui.*
@@ -30,7 +29,6 @@ import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.Region
-import javafx.scene.layout.Region.USE_COMPUTED_SIZE
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
@@ -129,10 +127,10 @@ class TabDebugController : BaseController() {
                 Task._currentControl?.apply {
                     actionRunSchedule.startNextAction(it)
                 }.elseNull {
-                    ctl<MainController>()?.bottomTip("请先[启动任务]!")
+                    showBottomTip("请先[启动任务]!")
                 }
             }.elseNull {
-                ctl<MainController>()?.bottomTip("数据格式不合法!")
+                showBottomTip("数据格式不合法!")
             }
         }
 
@@ -170,19 +168,10 @@ class TabDebugController : BaseController() {
             }
         }
 
-        //check
-        fun checkConnect(action: AutoControl.() -> Unit) {
-            testControl?.let {
-                it.action()
-            }.elseNull {
-                ctl<MainController>()?.bottomTip("请先[连接驱动]!")
-            }
-        }
-
         //打开amr
         val amrUrl = "https://amr.sz.gov.cn/aicmerout/jsp/gcloud/giapout/industry/aicmer/processpage/step_prewin.jsp"
         stage?.findByCss<Node>("#openAmrButton")?.setOnMouseClicked {
-            checkConnect {
+            _checkTestConnect {
                 actionRunSchedule.startNextAction(ActionBean(check = CheckBean().apply {
                     handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$amrUrl")))
                 }))
@@ -201,7 +190,7 @@ class TabDebugController : BaseController() {
             }.getOrNull()
             if (!url.isNullOrEmpty()) {
                 customUrl = url
-                checkConnect {
+                _checkTestConnect {
                     actionRunSchedule.startNextAction(ActionBean(check = CheckBean().apply {
                         handle = listOf(HandleBean(actionList = listOf("${Action.ACTION_TO}:$customUrl")))
                     }))
@@ -218,7 +207,7 @@ class TabDebugController : BaseController() {
         screenshotPane?.visible(false)
         stage?.findByCss<Node>("#screenshotButton")?.setOnMouseClicked {
             LTime.tick()
-            checkConnect {
+            _checkTestConnect {
                 (driver as? RemoteWebDriver)?.getScreenshotAs(PairOutputType())?.let { pair ->
                     screenshotPane?.visible(true)
                     val image = pair.second
@@ -247,11 +236,21 @@ class TabDebugController : BaseController() {
             val actionJson = actionAreaNode?.text
             val actionBean: ActionBean? = actionJson?.fromJson()
             actionBean?.let {
-                checkConnect {
-                    actionRunSchedule.startNextAction(it)
-                }.elseNull {
-                    ctl<MainController>()?.bottomTip("数据格式不合法!")
-                }
+                _runTestAction(it)
+            }.elseNull {
+                showBottomTip("数据格式不合法!")
+            }
+        }
+
+        //pause run
+        stage?.find<Node>("#pauseActionNode")?.setOnMouseClicked {
+            testControl?.apply {
+                actionRunSchedule.clearTempAction()
+                pause()
+            }
+            Task._currentControl?.apply {
+                actionRunSchedule.clearTempAction()
+                pause()
             }
         }
 
@@ -261,6 +260,26 @@ class TabDebugController : BaseController() {
                 //openUrl(amrUrl)
                 showDocument(amrUrl)
             }
+        }
+    }
+
+    //check
+    fun _checkTestConnect(action: AutoControl.() -> Unit) {
+        testControl?.let {
+            it.action()
+        }.elseNull {
+            showBottomTip("请先[连接驱动]!")
+        }
+    }
+
+    //run action
+    fun _runTestAction(actionBean: ActionBean, fromTask: TaskBean? = null) {
+        _checkTestConnect {
+            fromTask?.apply {
+                _currentTaskBean?.wordList = wordList
+                _currentTaskBean?.textMap = textMap
+            }
+            actionRunSchedule.startNextAction(actionBean)
         }
     }
 
@@ -279,36 +298,33 @@ class TabDebugController : BaseController() {
     fun _initDebugListView(stage: Stage?) {
         val debugListView = stage?.findByCss<ListView<DslListItem>>("#debugListView")
         debugListView?.renderList {
-            DslListItem()() {
-                bindItem = {
-                    Button().apply {
-                        text = nowTimeString()
-                    }
+            DslTaskDebugItem()() {
+                taskBean = Task.getResTask("amr_task.json")
+                clickAction = {
+                    showToCustomActionPane(stage, it)
+                }
+                doubleAction = {
+                    _runTestAction(it, taskBean)
                 }
             }
-            DslListItem()() {
-                bindItem = {
-                    TitledPane().apply {
-                        val pane = this
-                        text = nowTimeString()
-                        prefHeight = 300.0
-                        content = Button().apply {
-                            text = nowTimeString()
-                            setOnAction {
-                                L.i("requestLayout")
-                                pane.prefHeight = if (pane.prefHeight == USE_COMPUTED_SIZE) 100.0 else USE_COMPUTED_SIZE
-                            }
-                        }
-                    }
-                }
-            }
-            DslListItem()() {
-                bindItem = {
-                    Button().apply {
-                        text = nowTimeString()
-                    }
-                }
+            DslTaskDebugItem()() {
+
             }
         }
+    }
+
+    /**展开自定义的ActionBean Pane*/
+    fun showToCustomActionPane(stage: Stage?, actionBean: ActionBean) {
+        val titledPane = stage?.find<TitledPane>("customActionPane")
+        val actionArea = stage?.find<TextArea>("actionAreaNode")
+        titledPane?.isExpanded = true
+        actionArea?.text = actionBean.toJson {
+            setPrettyPrinting()
+        }
+    }
+
+    /**展开自定义的TaskBean Pane*/
+    fun showToCustomTaskPane(stage: Stage?, taskBean: TaskBean) {
+
     }
 }

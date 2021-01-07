@@ -1,10 +1,12 @@
 package com.angcyo.javafx.web
 
+import com.angcyo.http.base.fromJson
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.controller.TipController
 import com.angcyo.javafx.controller.dslTip
 import com.angcyo.javafx.controller.main.TabDebugController
 import com.angcyo.javafx.controller.main.TabLogController
+import com.angcyo.library.ex.getResourceAsStream
 import com.angcyo.log.L
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.bean.TaskBean
@@ -51,5 +53,10 @@ object Task {
 
         //启动
         control.start(task)
+    }
+
+    /**从资源文件夹中, 获取[TaskBean]*/
+    fun getResTask(resName: String): TaskBean? {
+        return getResourceAsStream(resName)?.bufferedReader()?.readText()?.fromJson()
     }
 }

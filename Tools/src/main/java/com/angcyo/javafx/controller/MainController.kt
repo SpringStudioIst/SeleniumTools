@@ -3,6 +3,7 @@ package com.angcyo.javafx.controller
 import com.angcyo.javafx.BaseApp.Companion.app
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.getStage
 import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.base.ex.onMain
@@ -93,4 +94,8 @@ class MainController : BaseController() {
             bottomTip("驱动程序不存在, 请在[配置]页面, 设置驱动程序.")
         }
     }
+}
+
+fun showBottomTip(text: String) {
+    ctl<MainController>()?.bottomTip(text)
 }
