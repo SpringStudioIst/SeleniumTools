@@ -17,6 +17,7 @@ import javafx.scene.control.MenuBar
 import javafx.scene.control.MenuItem
 import javafx.scene.control.TabPane
 import okhttp3.internal.platform.Platform
+import java.io.File
 import java.net.URL
 import java.util.*
 
@@ -65,6 +66,8 @@ class MainController : BaseController() {
                 //appendln(System.getProperty("os.version"))
                 //appendln(System.getProperty("os.arch"))
             })
+
+            tabLogController.appendLog("运行目录:${File("").absolutePath}")
 
             checkDriver()
         }
