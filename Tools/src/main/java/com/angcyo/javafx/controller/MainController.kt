@@ -83,7 +83,7 @@ class MainController : BaseController() {
     }
 
     /**更新底部提示*/
-    fun bottomTip(text: String) {
+    fun bottomTip(text: String?) {
         onMain {
             bottomTipNode.text = "${nowTimeString()} $text"
         }
@@ -99,6 +99,6 @@ class MainController : BaseController() {
     }
 }
 
-fun showBottomTip(text: String) {
+fun showBottomTip(text: String?) {
     ctl<MainController>()?.bottomTip(text)
 }
