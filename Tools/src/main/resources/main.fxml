@@ -73,6 +73,15 @@
                                                 <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
                                              </children>
                                           </GridPane>
+                                          <Label layoutX="42.0" layoutY="312.0" text="Label">
+                                             <graphic>
+                                                <Button mnemonicParsing="false" text="Button">
+                                                   <graphic>
+                                                      <Label text="Label" />
+                                                   </graphic>
+                                                </Button>
+                                             </graphic>
+                                          </Label>
                                        </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
@@ -164,7 +173,7 @@
                                                                      <children>
                                                                         <GridPane hgap="5.0">
                                                                           <columnConstraints>
-                                                                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                                                                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" />
                                                                             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
                                                                           </columnConstraints>
                                                                           <rowConstraints>
@@ -178,8 +187,8 @@
                                                                               <Label text="字号建议:" GridPane.rowIndex="1" />
                                                                               <Label text="城市名:" GridPane.rowIndex="2" />
                                                                               <Label text="行业名:" GridPane.rowIndex="3" />
-                                                                              <ComboBox fx:id="cityComboBox" editable="true" promptText="输入城市名" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                              <ComboBox fx:id="industryComboBox" editable="true" promptText="输入行业名" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                              <ComboBox fx:id="cityComboBox" editable="true" maxWidth="1.7976931348623157E308" promptText="输入城市名" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                              <ComboBox fx:id="industryComboBox" editable="true" maxWidth="1.7976931348623157E308" promptText="输入行业名" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                               <Button fx:id="getWordSuggestButton" disable="true" mnemonicParsing="false" text="获取" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                            </children>
                                                                         </GridPane>
