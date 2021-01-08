@@ -46,7 +46,7 @@ class TabConfigController : BaseController() {
         val appConfigBean = app().appConfigBean
         driverEditNode?.text = appConfigBean.driverPath
         selectorDriverNode?.setOnAction {
-            dslChooserFile {
+            dslOpenFile {
                 title = "选择对应版本的驱动程序"
                 extList.addAll(
                     exts(

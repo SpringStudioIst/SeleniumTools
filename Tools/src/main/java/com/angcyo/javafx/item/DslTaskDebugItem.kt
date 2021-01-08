@@ -1,8 +1,5 @@
 package com.angcyo.javafx.item
 
-import com.angcyo.javafx.base.ex.find
-import com.angcyo.javafx.base.ex.findAll
-import com.angcyo.javafx.base.ex.getStage
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.DslListItemCell
 import com.angcyo.javafx.ui.*
@@ -47,7 +44,7 @@ class DslTaskDebugItem : DslListItem() {
             (content as? Pane)?.children?.reset {
                 taskBean?.actionList?.forEachIndexed { index, actionBean ->
                     add(button {
-                        text = "$index: ${actionBean.title.or()}${actionBean.des.des()}"
+                        text = "${index + 1}: ${actionBean.title.or()}${actionBean.des.des()}"
                         setOnMouseClicked {
                             clickAction(actionBean)
                         }

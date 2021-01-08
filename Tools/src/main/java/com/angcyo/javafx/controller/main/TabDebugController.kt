@@ -28,6 +28,8 @@ import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
 import javafx.scene.layout.Region
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
@@ -86,6 +88,23 @@ class TabDebugController : BaseController() {
         updateTaskText(TASK_PATH.readText() ?: getResourceAsStream("amr_task.json")?.bufferedReader()?.readText())
         taskTextNode?.saveOnTextChanged(TASK_PATH)
 
+        //key save
+        taskTextNode?.setOnKeyPressed {
+            if (it.match(KeyCode.S, KeyCodeCombination.CONTROL_DOWN)) {
+                //保存
+                val text = taskTextNode?.text
+                text?.fromJson<TaskBean>()?.let { taskBean ->
+                    dslSaveFile {
+                        title = "保存:${taskBean.title.or("")}"
+                        extList.add(ext("Json文件", "*.json"))
+                        extList.add(ext("所有文件", "*.*"))
+                    }?.let {
+                        it.writeText(text)
+                    }
+                }
+            }
+        }
+
         //init
         _initTestNode(stage)
         _initTestDriver(stage)
@@ -136,6 +155,23 @@ class TabDebugController : BaseController() {
 
         actionAreaNode?.text = ACTION_PATH.readText()
         actionAreaNode?.saveOnTextChanged(ACTION_PATH)
+
+        //key save
+        actionAreaNode?.setOnKeyPressed {
+            if (it.match(KeyCode.S, KeyCodeCombination.CONTROL_DOWN)) {
+                //保存
+                val text = actionAreaNode.text
+                text?.fromJson<ActionBean>()?.let { actionBean ->
+                    dslSaveFile {
+                        title = "保存:${actionBean.title.or("")}"
+                        extList.add(ext("Json文件", "*.json"))
+                        extList.add(ext("所有文件", "*.*"))
+                    }?.let {
+                        it.writeText(text)
+                    }
+                }
+            }
+        }
     }
 
     //测试驱动
