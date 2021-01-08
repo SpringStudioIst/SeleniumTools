@@ -75,7 +75,7 @@ class MainController : BaseController() {
         bottomTipNode.text = "就绪!"
 
         //menu
-        mainMenuBar.isUseSystemMenuBar = true
+        //mainMenuBar.isUseSystemMenuBar = true
         closeMenu.setOnAction {
             app.exit()
         }
