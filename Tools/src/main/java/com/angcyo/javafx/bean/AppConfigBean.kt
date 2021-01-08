@@ -31,4 +31,7 @@ data class History(
 
     /**行业用语输入历史*/
     var termsWordList: List<String>? = null,
+
+    var username: String? = null,
+    var password: String? = null,
 )

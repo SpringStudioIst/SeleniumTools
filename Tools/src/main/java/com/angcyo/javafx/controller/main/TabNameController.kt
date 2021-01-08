@@ -10,10 +10,15 @@ import com.angcyo.javafx.base.ex.find
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.bean.CompanyWordBean
+import com.angcyo.javafx.bean.NameTaskBean
 import com.angcyo.javafx.bean.history
 import com.angcyo.javafx.controller.showBottomTip
 import com.angcyo.javafx.http.HttpHelper
+import com.angcyo.javafx.item.DslNameTaskItem
+import com.angcyo.javafx.list.DslListItem
+import com.angcyo.javafx.list.renderList
 import com.angcyo.javafx.ui.*
+import com.angcyo.javafx.web.Task
 import com.angcyo.library.ex.orString
 import com.angcyo.log.L
 import javafx.scene.Node
@@ -46,35 +51,22 @@ class TabNameController : BaseController() {
     /**行业用语*/
     @NodeInject
     var termsWordComboBox: ComboBox<String>? = null
-    
+
+    @NodeInject
+    var nameTaskListView: ListView<DslListItem>? = null
+
     //企业类型
     val typeToggleGroup = ToggleGroup()
 
     //内资企业类型
     val nzTypeToggleGroup = ToggleGroup()
 
-    companion object {
-        val companyTypeMap = hashMapOf(
-            "entValueNode1" to "entValueNode1",
-            "entValueNode2" to "entValueNode1",
-            "entValueNode3" to "entValueNode1",
-            "entValueNode4" to "entValueNode1",
-            "entValueNode5" to "entValueNode1",
-            "entValueNode6" to "entValueNode1",
-        )
-        val nzCompanyTypeMap = hashMapOf(
-            "nzValueGSNode" to "entValueNode1",
-            "nzValueFGSNode" to "entValueNode1",
-            "nzValueGRDZNode" to "entValueNode1",
-            "nzValueGRDZFZNode" to "entValueNode1",
-            "nzValueHHQYNode" to "entValueNode1",
-            "nzValueHHFZNode" to "entValueNode1",
-            "nzValueOTHERNZNode" to "entValueNode1",
-        )
-    }
-
     override fun initialize(stage: Stage?, location: URL?, resources: ResourceBundle?) {
         super.initialize(stage, location, resources)
+
+        accountNameNode?.text = app().appConfigBean.history?.username
+        accountPwNode?.text = app().appConfigBean.history?.password
+
         stage?.let {
             initCompanyType(it)
             initCompanyWord(it)
@@ -310,6 +302,18 @@ class TabNameController : BaseController() {
             return false
         }
 
+        fun updateTaskList() {
+            nameTaskListView?.renderList {
+                Task.nameTaskList.forEach {
+                    DslNameTaskItem()() {
+                        nameTaskBean = it
+                    }
+                }
+            }
+        }
+
+        updateTaskList()
+
         createTaskButton?.setOnAction {
             val username = accountNameNode?.text
             val password = accountPwNode?.text
@@ -324,7 +328,86 @@ class TabNameController : BaseController() {
             ) {
 
             } else {
+                val bean = NameTaskBean().apply {
+                    this.username = username
+                    this.password = password
+                    this.companyWord = companyWord
+                    this.termsWord = termsWord
+                    this.companyTypeName = when (companyTypeNodeId) {
+                        "entValueNode1" -> "内资"
+                        "entValueNode2" -> "外资"
+                        "entValueNode3" -> "个体户"
+                        "entValueNode4" -> "集团"
+                        "entValueNode6" -> "深圳市内资有限公司全流程设立（秒批）"
+                        "entValueNode5" -> "深圳市个体户全流程设立（秒批）"
+                        else -> null
+                    }
+                    this.companyType = when (companyTypeNodeId) {
+                        //内资
+                        "entValueNode1" -> "input[name='entType1'][value='1']"
+                        //外资
+                        "entValueNode2" -> "input[name='entType1'][value='2']"
+                        //个体户
+                        "entValueNode3" -> "input[name='entType1'][value='3']"
+                        //集团
+                        "entValueNode4" -> "input[name='entType1'][value='4']"
+                        //深圳市内资有限公司全流程设立（秒批）
+                        "entValueNode6" -> "input[name='entType1'][value='6']"
+                        //深圳市个体户全流程设立（秒批）
+                        "entValueNode5" -> "input[name='entType1'][value='5']"
+                        else -> null
+                    }
+                    if (companyTypeNodeId == "entValueNode1") {
+                        //内资公司类型
+                        this.nzCompanyTypeName = when (nzCompanyTypeNodeId) {
+                            "nzValueGSNode" -> "公司"
+                            "nzValueFGSNode" -> "分公司"
+                            "nzValueGRDZNode" -> "个人独资"
+                            "nzValueGRDZFZNode" -> "个人独资分支"
+                            "nzValueHHQYNode" -> "合伙企业"
+                            "nzValueHHFZNode" -> "合伙分支"
+                            "nzValueOTHERNZNode" -> "其他"
+                            else -> null
+                        }
+                        this.nzCompanyType = when (nzCompanyTypeNodeId) {
+                            //公司
+                            "nzValueGSNode" -> "input[name='nzType1'][value='GS']"
+                            //分公司
+                            "nzValueFGSNode" -> "input[name='nzType1'][value='FGS']"
+                            //个人独资
+                            "nzValueGRDZNode" -> "input[name='nzType1'][value='GRDZ']"
+                            //个人独资分支
+                            "nzValueGRDZFZNode" -> "input[name='nzType1'][value='GRDZFZ']"
+                            //合伙企业
+                            "nzValueHHQYNode" -> "input[name='nzType1'][value='HHQY']"
+                            //合伙分支
+                            "nzValueHHFZNode" -> "input[name='nzType1'][value='HHFZ']"
+                            //其他
+                            "nzValueOTHERNZNode" -> "input[name='nzType1'][value='OTHERNZ']"
+                            else -> null
+                        }
+                    }
+                }
 
+                //保存历史记录
+                app().appConfigBean.history().apply {
+                    (termsWordList?.toMutableList() ?: mutableListOf()).apply {
+                        remove(termsWord)
+                        add(0, termsWord ?: "")
+                        termsWordList = this
+                    }
+                    this.username = username
+                    this.password = password
+                }
+                TabConfigController.saveConfig()
+                Task.addNameTaskBean(bean)
+
+                nameTaskListView?.renderList(false) {
+                    itemsList.add(0, DslNameTaskItem().apply {
+                        nameTaskBean = bean
+                    })
+                    updateList()
+                }
             }
         }
     }

@@ -192,7 +192,7 @@ class TabDebugController : BaseController() {
             testControl = AutoControl().apply {
                 logAction = {
                     L.wt(it)
-                    ctl<TabLogController>()?.appendLog(it)
+                    appendLog(it)
                 }
                 driverProperty.addListener { observable, oldValue, newValue ->
                     connectLoading(false)
@@ -315,6 +315,8 @@ class TabDebugController : BaseController() {
                 _currentTaskBean?.wordList = wordList
                 _currentTaskBean?.textMap = textMap
             }
+            actionBean.enable = true
+            //actionBean.conditionList
             actionRunSchedule.startNextAction(actionBean)
         }
     }

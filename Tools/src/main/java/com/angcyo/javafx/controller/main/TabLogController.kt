@@ -1,6 +1,7 @@
 package com.angcyo.javafx.controller.main
 
 import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.library.ex.nowTimeString
@@ -41,4 +42,8 @@ class TabLogController : BaseController() {
             }
         }
     }
+}
+
+fun appendLog(log: String?) {
+    ctl<TabLogController>()?.appendLog(log ?: "--")
 }

@@ -55,7 +55,25 @@
                            <children>
                               <SplitPane dividerPositions="0.31" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <GridPane layoutX="57.0" layoutY="72.0" prefHeight="210.0" prefWidth="266.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Button mnemonicParsing="false" text="Button" />
+                                                <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
+                                                <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                       </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
                                           <WebView fx:id="homeWebView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -160,8 +178,8 @@
                                                                               <Label text="字号建议:" GridPane.rowIndex="1" />
                                                                               <Label text="城市名:" GridPane.rowIndex="2" />
                                                                               <Label text="行业名:" GridPane.rowIndex="3" />
-                                                                              <ComboBox fx:id="industryComboBox" editable="true" promptText="输入行业名" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                               <ComboBox fx:id="cityComboBox" editable="true" promptText="输入城市名" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                              <ComboBox fx:id="industryComboBox" editable="true" promptText="输入行业名" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                               <Button fx:id="getWordSuggestButton" disable="true" mnemonicParsing="false" text="获取" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                            </children>
                                                                         </GridPane>
@@ -217,7 +235,10 @@
                                           </ScrollPane>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <ListView fx:id="nameTaskListView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children></AnchorPane>
                                 </items>
                               </SplitPane>
                            </children>
@@ -320,18 +341,6 @@
                            </padding></AnchorPane>
                   </content>
                 </Tab>
-                  <Tab fx:id="logTab" text="日志">
-                    <content>
-                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
-                           <children>
-                              <TextArea fx:id="logTextNode" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </AnchorPane>
-                    </content>
-                  </Tab>
                 <Tab fx:id="nameTab" text="调试">
                   <content>
                     <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
@@ -430,6 +439,18 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab fx:id="logTab" text="日志">
+                    <content>
+                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <TextArea fx:id="logTextNode" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
               </tabs>
             </TabPane>
          </children>
