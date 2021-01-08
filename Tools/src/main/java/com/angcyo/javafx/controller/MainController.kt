@@ -10,7 +10,6 @@ import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.controller.main.*
 import com.angcyo.library.ex.isFileExist
 import com.angcyo.library.ex.nowTimeString
-import com.angcyo.log.L
 import javafx.fxml.FXML
 import javafx.scene.control.Label
 import javafx.scene.control.MenuBar
@@ -60,7 +59,7 @@ class MainController : BaseController() {
             tabLogController.appendLog(buildString {
                 appendLine(Platform.get().toString())
                 System.getProperties().forEach { entry ->
-                    appendLine("${entry.key}->${System.getProperty(entry.key.toString())}".apply { L.i(this) })
+                    appendLine("${entry.key}->${System.getProperty(entry.key.toString())}")
                 }
                 //appendln(System.getProperty("os.name"))
                 //appendln(System.getProperty("os.version"))

@@ -33,7 +33,9 @@ class TabConfigController : BaseController() {
         const val CONFIG_PATH = "./config/config.json"
 
         fun saveConfig(appConfigBean: AppConfigBean = app().appConfigBean) {
-            appConfigBean.toJson().writeTo(File(CONFIG_PATH), false)
+            appConfigBean.toJson {
+                setPrettyPrinting()
+            }.writeTo(File(CONFIG_PATH), false)
             DslSelenium.initDriver(appConfigBean.driverPath)
         }
     }
