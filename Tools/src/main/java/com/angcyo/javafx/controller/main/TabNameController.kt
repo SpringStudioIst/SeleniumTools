@@ -6,6 +6,7 @@ import com.angcyo.http.toBean
 import com.angcyo.javafx.annotation.NodeInject
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
+import com.angcyo.javafx.base.OSInfo
 import com.angcyo.javafx.base.ex.find
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.base.ex.onLater
@@ -230,7 +231,7 @@ class TabNameController : BaseController() {
                     //更新列表ui
                     companyWordListView?.apply {
                         visible(true)
-                        fixedCellSize = 20.0
+                        fixedCellSize = if (OSInfo.isMac) 30.0 else 20.0
                         val mapList = it.result?.mapIndexedTo(mutableListOf()) { index, s ->
                             "$s    L${it.level?.getOrNull(index)}"
                         }
