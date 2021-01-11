@@ -85,6 +85,8 @@ class MainController : BaseController() {
     fun bottomTip(text: String?) {
         onMain {
             bottomTipNode.text = "${nowTimeString()} $text"
+
+            appendLog(text)
         }
     }
 

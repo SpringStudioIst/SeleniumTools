@@ -26,6 +26,9 @@ data class NameTaskBean(
 
     /**任务状态*/
     var taskState: Int = STATE_NORMAL,
+
+    /**激活*/
+    var enable: Boolean = true,
 ) {
     companion object {
         //正常

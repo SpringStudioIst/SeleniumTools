@@ -70,6 +70,10 @@ object Task {
     val nameTaskList = mutableListOf<NameTaskBean>()
     fun addNameTaskBean(bean: NameTaskBean) {
         nameTaskList.add(0, bean)
+        saveNameTask()
+    }
+
+    fun saveNameTask() {
         File("./json/name_task_list.json").writeText(nameTaskList.toJson {
             setPrettyPrinting()
         }, false)

@@ -23,6 +23,8 @@ class TabLogController : BaseController() {
     override fun initialize(stage: Stage?, location: URL?, resources: ResourceBundle?) {
         super.initialize(stage, location, resources)
         logTextNode = stage?.findByCss("#logTextNode")
+
+
     }
 
     /**追加日志*/

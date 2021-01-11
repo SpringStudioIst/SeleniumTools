@@ -294,6 +294,7 @@ class TabNameController : BaseController() {
 
     fun initCreateTask(stage: Stage) {
         val createTaskButton: Button? = stage.find("createTaskButton")
+        val runNameTaskButton: Button? = stage.find("runNameTaskButton")
 
         fun checkEmpty(text: String?, message: String): Boolean {
             if (text.isNullOrEmpty()) {
@@ -308,6 +309,13 @@ class TabNameController : BaseController() {
                 Task.nameTaskList.forEach {
                     DslNameTaskItem()() {
                         nameTaskBean = it
+                        deleteAction = {
+                            Task.nameTaskList.remove(it)
+                            Task.saveNameTask()
+                            onLater {
+                                updateTaskList()
+                            }
+                        }
                     }
                 }
             }
@@ -315,6 +323,7 @@ class TabNameController : BaseController() {
 
         updateTaskList()
 
+        //创建任务
         createTaskButton?.setOnAction {
             val username = accountNameNode?.text
             val password = accountPwNode?.text
@@ -327,7 +336,7 @@ class TabNameController : BaseController() {
                 checkEmpty(companyWord, "请输入字号") ||
                 checkEmpty(termsWord, "请输入行业用语")
             ) {
-
+                //no op
             } else {
                 val bean = NameTaskBean().apply {
                     this.username = username
@@ -410,6 +419,11 @@ class TabNameController : BaseController() {
                     updateList()
                 }
             }
+        }
+
+        //运行任务
+        runNameTaskButton?.setOnAction {
+
         }
     }
 }
