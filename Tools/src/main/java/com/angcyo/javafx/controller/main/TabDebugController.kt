@@ -336,20 +336,20 @@ class TabDebugController : BaseController() {
     fun _initDebugListView(stage: Stage?) {
         val debugListView = stage?.findByCss<ListView<DslListItem>>("#debugListView")
         debugListView?.renderList {
-            DslTaskDebugItem()() {
-                taskBean = Task.getResTask("amr_task.json")
-                clickAction = {
-                    showToCustomActionPane(stage, it)
+            //load list
+            Task.getResTaskList().forEach { bean ->
+                DslTaskDebugItem()() {
+                    taskBean = bean
+                    clickAction = {
+                        showToCustomActionPane(stage, it)
+                    }
+                    doubleAction = {
+                        _runTestAction(it, taskBean)
+                    }
+                    clickTaskAction = {
+                        showToCustomTaskPane(stage, it)
+                    }
                 }
-                doubleAction = {
-                    _runTestAction(it, taskBean)
-                }
-                clickTaskAction = {
-                    showToCustomTaskPane(stage, it)
-                }
-            }
-            DslTaskDebugItem()() {
-
             }
         }
     }

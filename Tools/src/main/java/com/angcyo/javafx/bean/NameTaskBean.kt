@@ -15,8 +15,8 @@ data class NameTaskBean(
     var companyTypeName: String? = null,//中文显示
     var nzCompanyType: String? = null,
     var nzCompanyTypeName: String? = null,//中文显示
-    var companyWord: String? = null,
-    var termsWord: String? = null,
+    var companyWord: String? = null,//字号
+    var termsWord: String? = null,//行业用语
 
     /**唯一标识*/
     var uuid: String = uuid(),

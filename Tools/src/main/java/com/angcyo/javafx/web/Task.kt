@@ -62,6 +62,13 @@ object Task {
         control.start(task)
     }
 
+    fun getResTaskList(): List<TaskBean> {
+        val result = mutableListOf<TaskBean>()
+        getResTask("all_nz_task.json")?.let { result.add(it) }
+        getResTask("amr_task.json")?.let { result.add(it) }
+        return result
+    }
+
     /**从资源文件夹中, 获取[TaskBean]*/
     fun getResTask(resName: String): TaskBean? {
         return getResourceAsStream(resName)?.bufferedReader()?.readText()?.fromJson()
