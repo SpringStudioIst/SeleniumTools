@@ -3,7 +3,7 @@ project.extensions.add('startClassName', 'com.angcyo.javafx.Start')  //'com.angc
 apply from: allGradle.app
 
 group 'com.angcyo.javafx.tools'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 javafx {
     version = "11.0.2"
