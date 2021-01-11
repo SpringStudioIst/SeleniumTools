@@ -35,8 +35,9 @@ class App : BaseApp() {
     var appConfigBean = AppConfigBean()
 
     companion object {
-        const val NAME = "Web全自动辅助工具"
+        const val NAME = "全自动辅助工具"
         const val VERSION = "2020-12-29"
+        const val VERSION_CODE = 1
     }
 
     override fun start(primaryStage: Stage) {
