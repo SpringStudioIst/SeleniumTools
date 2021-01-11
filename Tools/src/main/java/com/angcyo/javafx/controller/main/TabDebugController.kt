@@ -344,6 +344,9 @@ class TabDebugController : BaseController() {
                 doubleAction = {
                     _runTestAction(it, taskBean)
                 }
+                clickTaskAction = {
+                    showToCustomTaskPane(stage, it)
+                }
             }
             DslTaskDebugItem()() {
 
@@ -363,6 +366,15 @@ class TabDebugController : BaseController() {
 
     /**展开自定义的TaskBean Pane*/
     fun showToCustomTaskPane(stage: Stage?, taskBean: TaskBean) {
+        val actionTitledPane = stage?.find<TitledPane>("customActionPane")
+        actionTitledPane?.isExpanded = false
 
+        val titledPane = stage?.find<TitledPane>("customTaskPane")
+        titledPane?.isExpanded = true
+
+        val taskTextNode = stage?.find<TextArea>("taskTextNode")
+        taskTextNode?.text = taskBean.toJson {
+            setPrettyPrinting()
+        }
     }
 }

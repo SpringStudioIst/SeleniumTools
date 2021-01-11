@@ -24,6 +24,10 @@ class DslTaskDebugItem : DslListItem() {
 
     }
 
+    var clickTaskAction: (TaskBean) -> Unit = {
+
+    }
+
     var doubleAction: (ActionBean) -> Unit = {
 
     }
@@ -41,6 +45,16 @@ class DslTaskDebugItem : DslListItem() {
 
         (rootNode as? TitledPane)?.apply {
             text = "${taskBean?.title.or()}${taskBean?.des.des()} 共(${taskBean?.actionList?.size ?: 0})步"
+            graphic = button {
+                text = "load"
+                taskBean?.let { taskBean ->
+                    setOnMouseClicked {
+                        clickTaskAction(taskBean)
+                    }
+                }
+            }
+
+            //内容
             (content as? Pane)?.children?.reset {
                 taskBean?.actionList?.forEachIndexed { index, actionBean ->
                     add(button {
