@@ -4,8 +4,13 @@ import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.ctl
 import com.angcyo.javafx.base.ex.findByCss
 import com.angcyo.javafx.base.ex.onMain
+import com.angcyo.javafx.ui.dslSaveFile
+import com.angcyo.javafx.ui.ext
+import com.angcyo.javafx.ui.match
 import com.angcyo.library.ex.nowTimeString
 import javafx.scene.control.TextArea
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
 import javafx.stage.Stage
 import java.net.URL
 import java.util.*
@@ -24,7 +29,22 @@ class TabLogController : BaseController() {
         super.initialize(stage, location, resources)
         logTextNode = stage?.findByCss("#logTextNode")
 
-
+        //key save
+        logTextNode?.setOnKeyPressed {
+            if (it.match(KeyCode.S, KeyCodeCombination.CONTROL_DOWN)) {
+                //保存
+                val text = logTextNode?.text
+                text?.let {
+                    dslSaveFile {
+                        title = "保存日志"
+                        extList.add(ext("Log文件", "*.log"))
+                        extList.add(ext("所有文件", "*.*"))
+                    }?.let {
+                        it.writeText(text)
+                    }
+                }
+            }
+        }
     }
 
     /**追加日志*/

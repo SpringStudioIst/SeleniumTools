@@ -1,5 +1,5 @@
 {
-  "title": "内资企业注册登记",
+  "title": "[内资]企业注册登记",
   "des": "2021-1-11",
   "textMap": {
     "username": "angcyo",
@@ -402,6 +402,9 @@
           {
             "cssList": [
               "input[placeholder=字号]"
+            ],
+            "rectList": [
+              ""
             ]
           }
         ],
@@ -416,8 +419,7 @@
           }
         ]
       }
-    },
-
+    }
   ],
   "backActionList": [
   ]

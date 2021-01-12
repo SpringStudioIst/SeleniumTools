@@ -18,6 +18,7 @@ import com.angcyo.selenium.DslSelenium
 import com.angcyo.selenium.PairOutputType
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.auto.action.Action
+import com.angcyo.selenium.auto.action.ScreenshotAction
 import com.angcyo.selenium.bean.ActionBean
 import com.angcyo.selenium.bean.CheckBean
 import com.angcyo.selenium.bean.HandleBean
@@ -109,6 +110,11 @@ class TabDebugController : BaseController() {
         _initTestNode(stage)
         _initTestDriver(stage)
         _initDebugListView(stage)
+
+        //test
+        ScreenshotAction.screenshotAction = { screenshot, clipImage ->
+            showScreenshot(stage, screenshot, clipImage)
+        }
     }
 
     /**激活开始按钮*/
@@ -193,6 +199,7 @@ class TabDebugController : BaseController() {
                 logAction = {
                     L.wt(it)
                     appendLog(it)
+                    showBottomTip(it)
                 }
                 driverProperty.addListener { observable, oldValue, newValue ->
                     connectLoading(false)
@@ -236,9 +243,6 @@ class TabDebugController : BaseController() {
 
         //截图
         val screenshotPane = stage?.findByCss<Node>("#screenshotPane")
-        val screenshotImageView = stage?.findByCss<ImageView>("#screenshotImageView")
-        val screenshotImageView1 = stage?.findByCss<ImageView>("#screenshotImageView1")
-        val screenshotImageView2 = stage?.findByCss<ImageView>("#screenshotImageView2")
         val screenshotTipNode = stage?.findByCss<Label>("#screenshotTipNode")
         screenshotPane?.visible(false)
         stage?.findByCss<Node>("#screenshotButton")?.setOnMouseClicked {
@@ -247,19 +251,9 @@ class TabDebugController : BaseController() {
                 (driver as? RemoteWebDriver)?.getScreenshotAs(PairOutputType())?.let { pair ->
                     screenshotPane?.visible(true)
                     val image = pair.second
-                    screenshotImageView?.image = image
                     screenshotTipNode?.text = "${LTime.time()} ${image.width}×${image.height}"
-
                     val clipImage = image.clipRect(100, 100, 100, 100)
-                    //screenshotImageView1?.image = clipImage
-                    //screenshotImageView2?.image = clipImage.toByteArray().toImage(50, 50)
-
-                    //双击查看大图
-                    screenshotImageView?.setOnMouseDoubleClicked {
-                        showImagePreview(image)
-                    }
-
-                    //showDocument(pair.first)
+                    showScreenshot(stage, image)
                 }
             }
         }
@@ -299,6 +293,32 @@ class TabDebugController : BaseController() {
         }
     }
 
+    /**显示截图*/
+    fun showScreenshot(stage: Stage?, image: Image? = null, image2: Image? = null, image3: Image? = null) {
+        val screenshotPane = stage?.findByCss<Node>("#screenshotPane")
+        val screenshotImageView = stage?.findByCss<ImageView>("#screenshotImageView")
+        val screenshotImageView1 = stage?.findByCss<ImageView>("#screenshotImageView1")
+        val screenshotImageView2 = stage?.findByCss<ImageView>("#screenshotImageView2")
+
+        screenshotPane?.visible(true)
+
+        screenshotImageView?.image = image
+        screenshotImageView1?.image = image2
+        screenshotImageView2?.image = image3
+
+        //双击查看大图
+        screenshotImageView?.setOnMouseDoubleClicked {
+            showImagePreview(image)
+        }
+        screenshotImageView1?.setOnMouseDoubleClicked {
+            showImagePreview(image2)
+        }
+        screenshotImageView2?.setOnMouseDoubleClicked {
+            showImagePreview(image3)
+        }
+        //showDocument(pair.first)
+    }
+
     //check
     fun _checkTestConnect(action: AutoControl.() -> Unit) {
         testControl?.let {
@@ -321,7 +341,7 @@ class TabDebugController : BaseController() {
         }
     }
 
-    fun showImagePreview(image: Image) {
+    fun showImagePreview(image: Image?) {
         val stage = Stage()
         stage.initStyle(StageStyle.UTILITY)
         stage.scene = Scene(StackPane().apply {
