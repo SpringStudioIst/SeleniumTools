@@ -6,7 +6,7 @@ import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.DslListItemCell
 import com.angcyo.javafx.list.itemIndex
 import com.angcyo.javafx.ui.*
-import com.angcyo.javafx.web.Task
+import com.angcyo.javafx.web.TaskManager
 import com.angcyo.library.ex.toTime
 import javafx.geometry.HPos
 import javafx.geometry.Insets
@@ -94,7 +94,7 @@ class DslNameTaskItem : DslListItem() {
                         isSelected = nameTaskBean?.enable == true
                         setOnAction {
                             nameTaskBean?.enable = isSelected
-                            Task.saveNameTask()
+                            TaskManager.saveNameTask()
                             updateItem(itemCell)
                         }
                     },

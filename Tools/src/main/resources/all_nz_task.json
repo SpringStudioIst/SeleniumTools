@@ -16,261 +16,73 @@
       "config": {
         "maximize": true
       },
-      "check": {
-        "handle": [
-          {
-            "actionList": [
-              "to:https://amr.sz.gov.cn/aicmerout/jsp/gcloud/giapout/industry/aicmer/processpage/step_prewin.jsp"
-            ]
-          }
-        ]
-      }
+      "checkId": 880010
     },
     {
       "actionId": 100,
       "title": "点击[我要申办]",
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "tags": "button",
-            "textList": [
-              "我要申办"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 880020
     },
     {
       "actionId": 110,
       "title": "点击[帐号密码]",
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "tags": "a",
-            "textList": [
-              "^账号密码$"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 880030
     },
     {
       "actionId": 120,
       "title": "输入账号",
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "cssList": [
-              "input[placeholder=请输入账号]"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "input:$[username]"
-            ]
-          }
-        ]
-      }
+      "checkId": 880040
     },
     {
       "actionId": 130,
       "title": "输入密码",
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "cssList": [
-              "input[placeholder=请输入密码]"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "input:$[password]"
-            ]
-          }
-        ]
-      }
+      "checkId": 880050
     },
     {
       "actionId": 140,
-      "title": "获取[验证码]图片",
+      "title": "获取登录[验证码]",
       "start": "300,0",
       "enable": true,
-      "check": {
-        "event": [
-          {
-            "cssList": [
-              "input[placeholder=请输入验证码]"
-            ],
-            "filter": {
-              "relativeBy": "img:toRightOf:0"
-            }
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "getAttr[src]:imageCode"
-            ]
-          }
-        ]
-      }
+      "checkId": 880060
     },
     {
       "actionId": 150,
-      "title": "解析验证码",
+      "title": "解析[登录验证码]",
       "start": "300,0",
       "enable": false,
-      "check": {
-        "handle": [
-          {
-            "actionList": [
-              "code:$[imageCode]:imageCode"
-            ]
-          }
-        ]
-      }
+      "checkId": 880070
     },
     {
       "actionId": 160,
-      "title": "输入验证码",
+      "title": "输入[登录验证码]",
       "start": "300,0",
       "enable": false,
-      "check": {
-        "event": [
-          {
-            "cssList": [
-              "input[placeholder=请输入验证码]"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "input:$[imageCode]"
-            ]
-          }
-        ]
-      }
+      "checkId": 880080
     },
     {
       "actionId": 170,
       "title": "点击[登录]",
       "start": "1000,0",
       "enable": false,
-      "check": {
-        "event": [
-          {
-            "tags": "button",
-            "textList": [
-              "^登录$"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 880090
     },
     {
       "actionId": 180,
       "title": "点击[使用其他企业名称申请]",
       "enable": true,
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "textList": [
-              "使用其他企业名称申请"
-            ],
-            "tags": "button"
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 880100
     },
     {
       "actionId": 190,
       "title": "选择[企业类别]",
       "enable": true,
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "frame": {
-              "frameId": "layui-layer-iframe1"
-            },
-            "cssList": [
-              "$[entType]"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 110010
     },
     {
       "actionId": 191,
@@ -284,141 +96,63 @@
           ]
         }
       ],
-      "check": {
-        "event": [
-          {
-            "frame": {
-              "frameId": "layui-layer-iframe1"
-            },
-            "cssList": [
-              "$[nzType]"
-            ],
-            "filter": {
-              "index": "-1"
-            }
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 110020
     },
     {
       "actionId": 200,
       "title": "点击[确认]",
       "enable": true,
       "start": "1000,0",
-      "check": {
-        "event": [
-          {
-            "frame": {
-              "frameId": "layui-layer-iframe1"
-            },
-            "textList": [
-              "确认"
-            ],
-            "tags": "button"
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 110030
     },
     {
       "actionId": 210,
       "title": "点击[我已了解上述法规、规则]",
       "start": "1000,0",
       "enable": true,
-      "check": {
-        "event": [
-          {
-            "tags": "button",
-            "textList": [
-              "我已了解上述法规、规则"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "removeAttr:#nextButton:disabled",
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 110040
     },
     {
       "actionId": 220,
       "title": "点击[下一步]",
       "start": "1000,0",
       "enable": true,
-      "check": {
-        "event": [
-          {
-            "tags": "button",
-            "textList": [
-              "下一步"
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "click"
-            ]
-          }
-        ]
-      }
+      "checkId": 880110
     },
     {
       "actionId": 230,
       "title": "输入[字号]",
       "start": "1000,0",
       "enable": true,
-      "check": {
-        "event": [
-          {
-            "cssList": [
-              "input[placeholder=字号]"
-            ],
-            "rectList": [
-              ""
-            ]
-          }
-        ],
-        "handle": [
-          {
-            "filter": {
-              "index": "0"
-            },
-            "actionList": [
-              "input:$[companyWord]"
-            ]
-          }
-        ]
-      }
+      "checkId": 110050
+    },
+    {
+      "actionId": 240,
+      "title": "获取[字号验证码]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110060
+    },
+    {
+      "actionId": 250,
+      "title": "解析[字号验证码]",
+      "start": "300,0",
+      "enable": false,
+      "checkId": 880071
+    },
+    {
+      "actionId": 260,
+      "title": "输入[字号验证码]",
+      "start": "300,0",
+      "enable": false,
+      "checkId": 880081
+    },
+    {
+      "actionId": 270,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
     }
   ],
   "backActionList": [

@@ -10,7 +10,7 @@ import com.angcyo.javafx.item.DslTaskDebugItem
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.renderList
 import com.angcyo.javafx.ui.*
-import com.angcyo.javafx.web.Task
+import com.angcyo.javafx.web.TaskManager
 import com.angcyo.library.LTime
 import com.angcyo.library.ex.*
 import com.angcyo.log.L
@@ -71,7 +71,7 @@ class TabDebugController : BaseController() {
                     }
                 } else {
                     startNode?.isDisable = true
-                    Task.start(taskBean)
+                    TaskManager.start(taskBean)
                 }
             } else {
                 dslAlert {
@@ -113,7 +113,9 @@ class TabDebugController : BaseController() {
 
         //test
         ScreenshotAction.screenshotAction = { screenshot, clipImage ->
-            showScreenshot(stage, screenshot, clipImage)
+            onMain {
+                showScreenshot(stage, screenshot, clipImage)
+            }
         }
     }
 
@@ -149,7 +151,7 @@ class TabDebugController : BaseController() {
             val actionJson = actionAreaNode?.text
             val actionBean: ActionBean? = actionJson?.fromJson()
             actionBean?.also {
-                Task._currentControl?.apply {
+                TaskManager._currentControl?.apply {
                     actionRunSchedule.startNextAction(it)
                 }.elseNull {
                     showBottomTip("请先[启动任务]!")
@@ -278,7 +280,7 @@ class TabDebugController : BaseController() {
                 actionRunSchedule.clearTempAction()
                 pause()
             }
-            Task._currentControl?.apply {
+            TaskManager._currentControl?.apply {
                 actionRunSchedule.clearTempAction()
                 pause()
             }
@@ -357,7 +359,7 @@ class TabDebugController : BaseController() {
         val debugListView = stage?.findByCss<ListView<DslListItem>>("#debugListView")
         debugListView?.renderList {
             //load list
-            Task.getResTaskList().forEach { bean ->
+            TaskManager.readResTaskList().forEach { bean ->
                 DslTaskDebugItem()() {
                     taskBean = bean
                     clickAction = {

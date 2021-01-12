@@ -1,0 +1,255 @@
+[
+  {
+    "checkId": 880010,
+    "title": "打开网页",
+    "des": "2021-1-12",
+    "handle": [
+      {
+        "actionList": [
+          "to:https://amr.sz.gov.cn/aicmerout/jsp/gcloud/giapout/industry/aicmer/processpage/step_prewin.jsp"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880020,
+    "title": "点击[我要申办]",
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "我要申办"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880030,
+    "title": "点击[帐号密码]",
+    "event": [
+      {
+        "tags": "a",
+        "textList": [
+          "^账号密码$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880040,
+    "title": "输入账号",
+    "event": [
+      {
+        "cssList": [
+          "input[placeholder=请输入账号]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "input:$[username]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880050,
+    "title": "输入密码",
+    "event": [
+      {
+        "cssList": [
+          "input[placeholder=请输入密码]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "input:$[password]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880060,
+    "title": "获取登录[验证码]",
+    "event": [
+      {
+        "cssList": [
+          "input[placeholder=请输入验证码]"
+        ],
+        "filter": {
+          "relativeBy": "img:toRightOf:0"
+        }
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "getAttr[src]:imageCode"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880070,
+    "title": "解析4位数字英文[验证码]",
+    "handle": [
+      {
+        "actionList": [
+          "code:$[imageCode] key:imageCode type:30400"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880071,
+    "title": "解析6位数字英文[验证码]",
+    "handle": [
+      {
+        "actionList": [
+          "code:$[imageCode] key:imageCode type:30600"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880080,
+    "title": "输入[登录验证码]",
+    "event": [
+      {
+        "cssList": [
+          "input[placeholder=请输入验证码]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "input:$[imageCode]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880081,
+    "title": "输入通用[验证码]",
+    "event": [
+      {
+        "tags": "input",
+        "attrList": [
+          "placeholder:验证码"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "input:$[imageCode]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880090,
+    "title": "点击[登录]",
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "^登录$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880100,
+    "title": "点击[使用其他企业名称申请]",
+    "event": [
+      {
+        "textList": [
+          "使用其他企业名称申请"
+        ],
+        "tags": "button"
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880110,
+    "title": "点击[下一步]",
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "下一步"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  }
+]

@@ -6,7 +6,7 @@ import com.angcyo.javafx.base.ex.onMain
 import com.angcyo.javafx.ui.addKeyFrame
 import com.angcyo.javafx.ui.dslTimeline
 import com.angcyo.javafx.ui.setImageResource
-import com.angcyo.javafx.web.Task
+import com.angcyo.javafx.web.TaskManager
 import com.angcyo.log.L
 import com.angcyo.selenium.auto.isControlEnd
 import com.angcyo.selenium.auto.isControlPause
@@ -48,13 +48,13 @@ class TipController : BaseController() {
         //rootNode.scene.window
 
 
-        Task._currentControl?._controlState?.get()?.apply {
+        TaskManager._currentControl?._controlState?.get()?.apply {
             updateImageByState(this)
         }
 
         //按钮
         controlImageNode.setOnMouseClicked {
-            Task._currentControl?.apply {
+            TaskManager._currentControl?.apply {
                 when {
                     _controlState.get().isControlPause() -> resume()
                     _controlState.get().isControlStart() -> pause()

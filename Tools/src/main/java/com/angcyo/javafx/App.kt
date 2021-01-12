@@ -7,7 +7,7 @@ import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PA
 import com.angcyo.javafx.http.HttpHelper
 import com.angcyo.javafx.ui.Tray
 import com.angcyo.javafx.ui.remove
-import com.angcyo.javafx.web.Task
+import com.angcyo.javafx.web.TaskManager
 import com.angcyo.library.ex.getImage
 import com.angcyo.library.ex.getResource
 import com.angcyo.library.ex.readText
@@ -68,7 +68,7 @@ class App : BaseApp() {
             appConfigBean = File(CONFIG_PATH).readText()?.fromJson() ?: appConfigBean
             DslSelenium.initDriver(appConfigBean.driverPath)
             HttpHelper.init()
-            Task.readNameTaskList()
+            TaskManager.init()
         }
     }
 

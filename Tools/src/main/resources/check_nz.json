@@ -1,0 +1,145 @@
+[
+  {
+    "checkId": 110010,
+    "title": "选择[企业类别]",
+    "event": [
+      {
+        "frame": {
+          "frameId": "layui-layer-iframe1"
+        },
+        "cssList": [
+          "$[entType]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110020,
+    "title": "选择[内资企业类别]",
+    "event": [
+      {
+        "frame": {
+          "frameId": "layui-layer-iframe1"
+        },
+        "cssList": [
+          "$[nzType]"
+        ],
+        "filter": {
+          "index": "-1"
+        }
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110030,
+    "title": "点击[确认]",
+    "event": [
+      {
+        "frame": {
+          "frameId": "layui-layer-iframe1"
+        },
+        "textList": [
+          "确认"
+        ],
+        "tags": "button"
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110040,
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "我已了解上述法规、规则"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "removeAttr:#nextButton:disabled",
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110050,
+    "title": "输入[字号]",
+    "event": [
+      {
+        "cssList": [
+          "input[placeholder=字号]"
+        ],
+        "rectList": [
+          ""
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "input:$[companyWord]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110060,
+    "title": "获取[字号验证码]",
+    "event": [
+      {
+        "cssList": [
+          "#validateCodeImg"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "shot"
+        ]
+      }
+    ]
+  }
+]

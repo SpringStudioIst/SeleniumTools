@@ -2,6 +2,7 @@ import com.angcyo.library.ex.count
 import com.angcyo.library.ex.decode
 import com.angcyo.library.ex.encode
 import com.angcyo.library.ex.patternList
+import com.angcyo.selenium.auto.action.toKeyValue
 import com.angcyo.selenium.parse.ValueParse
 import com.angcyo.selenium.parse.args
 import org.junit.jupiter.api.Test
@@ -50,13 +51,20 @@ class ExampleUnitTest {
          val regex = "(?<=\\[).+(?=\\])".toRegex()
          println(text.patternList(regex.toPattern()))*/
 
-        val text = "$[xxx 10ab表]"
+        /*val text = "$[xxx 10ab表]"
         val regex = "(?<=\\$\\[).+(?=\\])".toRegex()
-        println(text.patternList(regex.toPattern()))
+        println(text.patternList(regex.toPattern()))*/
 
         /*val text = "angcyo:xxx type:10ab表 arg:xxx"
         val regex = "(?<=type:)(\\S+)".toRegex()
         println(text.patternList(regex.toPattern()))*/
+
+        val text = "input:$[abc] clear:true "
+        val regex = "(\\S+)(?=:)".toRegex()
+        val regex2 = "(?<=:)(\\S*)".toRegex()
+        println(text.patternList(regex.toPattern()))
+        println(text.patternList(regex2.toPattern()))
+        println(text.toKeyValue())
     }
 
     @Test

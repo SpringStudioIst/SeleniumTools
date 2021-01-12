@@ -13,8 +13,11 @@ import com.angcyo.javafx.controller.main.TabLogController
 import com.angcyo.javafx.controller.main.appendLog
 import com.angcyo.library.ex.getResourceAsStream
 import com.angcyo.library.ex.readText
+import com.angcyo.library.ex.resetAll
 import com.angcyo.log.L
 import com.angcyo.selenium.auto.AutoControl
+import com.angcyo.selenium.bean.ActionBean
+import com.angcyo.selenium.bean.CheckBean
 import com.angcyo.selenium.bean.TaskBean
 import java.io.File
 
@@ -23,10 +26,16 @@ import java.io.File
  * @author angcyo
  * @date 2020/12/30
  */
-object Task {
+object TaskManager {
 
     //当前正在执行的控制
     var _currentControl: AutoControl? = null
+
+    fun init() {
+        checkList.resetAll(readResCheckList())
+        //getResTaskList()
+        readNameTaskList()
+    }
 
     /**启动任务*/
     fun start(task: TaskBean) {
@@ -62,15 +71,17 @@ object Task {
         control.start(task)
     }
 
-    fun getResTaskList(): List<TaskBean> {
+    //<editor-fold desc="Task">
+
+    fun readResTaskList(): List<TaskBean> {
         val result = mutableListOf<TaskBean>()
-        getResTask("all_nz_task.json")?.let { result.add(it) }
-        getResTask("amr_task.json")?.let { result.add(it) }
+        readResTask("all_nz_task.json")?.let { result.add(it.initCheck()) }
+        readResTask("amr_task.json")?.let { result.add(it.initCheck()) }
         return result
     }
 
     /**从资源文件夹中, 获取[TaskBean]*/
-    fun getResTask(resName: String): TaskBean? {
+    fun readResTask(resName: String): TaskBean? {
         return getResourceAsStream(resName)?.bufferedReader()?.readText()?.fromJson()
     }
 
@@ -86,6 +97,7 @@ object Task {
         }, false)
     }
 
+    /**读取一键核名保存的任务列表*/
     fun readNameTaskList() {
         File("./json/name_task_list.json").readText()?.fromJson<List<NameTaskBean>>(listType(NameTaskBean::class.java))
             ?.let {
@@ -93,4 +105,46 @@ object Task {
                 nameTaskList.addAll(it)
             }
     }
+
+    //</editor-fold desc="Task">
+
+    //<editor-fold desc="check">
+
+    /**保存所有[CheckBean]*/
+    val checkList = mutableListOf<CheckBean>()
+    fun readResCheckList(): List<CheckBean> {
+        val result = mutableListOf<CheckBean>()
+        fun addCheck(checkBean: CheckBean) {
+            if (checkBean.checkId > 0 && result.find { it.checkId == checkBean.checkId } != null) {
+                //已经存在
+            } else {
+                result.add(checkBean)
+            }
+        }
+        readResCheck("check_common.json")?.forEach { addCheck(it) }
+        readResCheck("check_nz.json")?.forEach { addCheck(it) }
+        return result
+    }
+
+    /**从资源文件夹中, 获取[CheckBean]*/
+    fun readResCheck(resName: String): List<CheckBean>? {
+        return getResourceAsStream(resName)?.bufferedReader()?.readText()
+            ?.fromJson<List<CheckBean>>(listType(CheckBean::class.java))
+    }
+
+    //</editor-fold desc="check">
+}
+
+fun List<ActionBean>.initCheck() {
+    forEach { action ->
+        if (action.check == null) {
+            action.check = TaskManager.checkList.find { check -> check.checkId == action.checkId }
+        }
+    }
+}
+
+fun TaskBean.initCheck(): TaskBean {
+    actionList?.initCheck()
+    backActionList?.initCheck()
+    return this
 }

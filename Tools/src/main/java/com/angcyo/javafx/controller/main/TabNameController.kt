@@ -19,7 +19,7 @@ import com.angcyo.javafx.item.DslNameTaskItem
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.renderList
 import com.angcyo.javafx.ui.*
-import com.angcyo.javafx.web.Task
+import com.angcyo.javafx.web.TaskManager
 import com.angcyo.library.ex.orString
 import com.angcyo.log.L
 import javafx.scene.Node
@@ -306,12 +306,12 @@ class TabNameController : BaseController() {
 
         fun updateTaskList() {
             nameTaskListView?.renderList {
-                Task.nameTaskList.forEach {
+                TaskManager.nameTaskList.forEach {
                     DslNameTaskItem()() {
                         nameTaskBean = it
                         deleteAction = {
-                            Task.nameTaskList.remove(it)
-                            Task.saveNameTask()
+                            TaskManager.nameTaskList.remove(it)
+                            TaskManager.saveNameTask()
                             onLater {
                                 updateTaskList()
                             }
@@ -410,7 +410,7 @@ class TabNameController : BaseController() {
                     this.password = password
                 }
                 TabConfigController.saveConfig()
-                Task.addNameTaskBean(bean)
+                TaskManager.addNameTaskBean(bean)
 
                 nameTaskListView?.renderList(false) {
                     itemsList.add(0, DslNameTaskItem().apply {
