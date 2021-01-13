@@ -165,6 +165,13 @@
       "checkId": 880110
     },
     {
+      "actionId": 271,
+      "title": "检查是否有[相似字号]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110061
+    },
+    {
       "actionId": 280,
       "title": "确认使用该字号",
       "start": "1000,0",

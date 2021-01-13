@@ -143,6 +143,26 @@
     ]
   },
   {
+    "checkId": 110061,
+    "title": "检查是否有[相似字号]",
+    "des": "如果没有[相似字号], 直接跳到输入[行业用语]",
+    "handle": [
+      {
+        "selectList": [
+          {
+            "tags": "legend",
+            "textList": [
+              "相似字号"
+            ]
+          }
+        ],
+        "noActionList": [
+          "jump:330"
+        ]
+      }
+    ]
+  },
+  {
     "checkId": 110070,
     "title": "确认使用该字号",
     "event": [

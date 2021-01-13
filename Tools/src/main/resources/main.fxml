@@ -341,6 +341,18 @@
                                                       </GridPane>
                                                    </content>
                                                 </TitledPane>
+                                                <TitledPane text="其他">
+                                                   <VBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </VBox.margin>
+                                                   <content>
+                                                      <FlowPane hgap="5.0" prefWrapLength="0.0" vgap="5.0">
+                                                         <children>
+                                                            <CheckBox fx:id="topCheckBox" mnemonicParsing="false" text="置顶窗口" />
+                                                         </children>
+                                                      </FlowPane>
+                                                   </content>
+                                                </TitledPane>
                                              </children>
                                           </VBox>
                                        </children>
@@ -383,6 +395,7 @@
                                                                   <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
                                                                   <Button fx:id="pauseActionNode" mnemonicParsing="false" text="暂停执行" />
                                                                   <Button fx:id="refreshActionNode" mnemonicParsing="false" text="刷新页面" />
+                                                                  <Button fx:id="gestureActionNode" mnemonicParsing="false" text="手势测试" />
                                                                   <Button fx:id="testActionNode" mnemonicParsing="false" text="test" />
                                                                   <Hyperlink fx:id="openAmrLink" text="开办企业..." />
                                                                </children>

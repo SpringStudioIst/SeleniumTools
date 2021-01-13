@@ -2,6 +2,7 @@ package com.angcyo.javafx.controller.main
 
 import com.angcyo.core.component.file.writeTo
 import com.angcyo.http.base.toJson
+import com.angcyo.javafx.App
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.CancelRunnable
@@ -126,6 +127,14 @@ class TabConfigController : BaseController() {
                         }
                     }
                 }
+            }
+        }
+
+        //其他配置
+        stage?.findByCss<CheckBox>("#topCheckBox")?.apply {
+            isSelected = App.isAlwaysOnTopProperty.get()
+            selectedProperty().addListener { observable, oldValue, newValue ->
+                App.isAlwaysOnTopProperty.set(newValue)
             }
         }
     }

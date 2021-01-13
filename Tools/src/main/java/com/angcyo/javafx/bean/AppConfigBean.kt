@@ -10,7 +10,10 @@ data class AppConfigBean(
     var driverPath: String? = null,
 
     /**输入历史*/
-    var history: History? = null
+    var history: History? = null,
+
+    /**主舞台是否置顶显示*/
+    var isAlwaysOnTop: Boolean = false
 )
 
 fun AppConfigBean.history(): History {

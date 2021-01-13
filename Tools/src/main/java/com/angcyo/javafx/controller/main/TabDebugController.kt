@@ -16,6 +16,7 @@ import com.angcyo.library.LTime
 import com.angcyo.library.ex.*
 import com.angcyo.log.L
 import com.angcyo.selenium.DslSelenium
+import com.angcyo.selenium.LocatableWebElement
 import com.angcyo.selenium.PairOutputType
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.auto.action.Action
@@ -37,6 +38,8 @@ import javafx.scene.layout.Region
 import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import org.openqa.selenium.Rectangle
+import org.openqa.selenium.interactions.touch.TouchActions
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 import java.util.*
@@ -292,6 +295,22 @@ class TabDebugController : BaseController() {
         stage?.find<Node>("#refreshActionNode")?.setOnMouseClicked {
             _checkTestConnect {
                 (driver as? RemoteWebDriver)?.navigate()?.refresh()
+            }
+        }
+
+        //手势测试
+        stage?.find<Node>("#gestureActionNode")?.setOnMouseClicked {
+            _checkTestConnect {
+                driver?.let {
+                    //Actions(it).moveByOffset(200, 200).perform()
+                    TouchActions(it).apply {
+                        //scroll(200, 200)
+                        //flick(200, 200)
+                        //down(95, 300)
+                        //up(95, 300)
+                        click(LocatableWebElement(Rectangle(95, 300, 10, 10)))
+                    }.perform()
+                }
             }
         }
 
