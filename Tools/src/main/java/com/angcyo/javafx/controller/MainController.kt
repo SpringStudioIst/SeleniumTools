@@ -85,21 +85,28 @@ class MainController : BaseController() {
     fun bottomTip(text: String?) {
         onMain {
             bottomTipNode.text = "${nowTimeString()} $text"
-
-            appendLog(text)
         }
     }
 
     /**检查驱动程序*/
     fun checkDriver() {
         if (app().appConfigBean.driverPath.isFileExist()) {
-            bottomTip("驱动程序:${app().appConfigBean.driverPath}")
+            bottomTip("驱动程序:${app().appConfigBean.driverPath}".apply {
+                appendLog(this)
+            })
         } else {
-            bottomTip("驱动程序不存在, 请在[配置]页面, 设置驱动程序.")
+            bottomTip("驱动程序不存在, 请在[配置]页面, 设置驱动程序.".apply {
+                appendLog(this)
+            })
         }
     }
 }
 
 fun showBottomTip(text: String?) {
     ctl<MainController>()?.bottomTip(text)
+}
+
+fun showBottomTipAndAppendLog(text: String?) {
+    showBottomTip(text)
+    appendLog(text)
 }

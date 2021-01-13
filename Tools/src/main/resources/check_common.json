@@ -251,5 +251,143 @@
         ]
       }
     ]
+  },
+  {
+    "checkId": 880120,
+    "title": "点击[提交]",
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "提交"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880130,
+    "title": "点击[确认]",
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "^确认$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880131,
+    "title": "点击[确认] frame:layui-layer-iframe1",
+    "event": [
+      {
+        "tags": "button",
+        "frame": {
+          "frameId": "layui-layer-iframe1"
+        },
+        "textList": [
+          "^确认$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880132,
+    "title": "点击[确认][a]",
+    "event": [
+      {
+        "tags": "a",
+        "textList": [
+          "^确认$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880133,
+    "title": "点击[确认][a] frame:layui-layer-iframe1",
+    "event": [
+      {
+        "tags": "a",
+        "frame": {
+          "frameId": "layui-layer-iframe1"
+        },
+        "textList": [
+          "^确认$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880134,
+    "title": "点击[确定][a]",
+    "event": [
+      {
+        "tags": "a",
+        "textList": [
+          "^确定$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
   }
 ]

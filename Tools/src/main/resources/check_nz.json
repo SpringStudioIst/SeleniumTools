@@ -137,7 +137,214 @@
           "index": "0"
         },
         "actionList": [
-          "shot"
+          "shot css:#validateCodeImg"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110070,
+    "title": "确认使用该字号",
+    "event": [
+      {
+        "cssList": [
+          "#isKeyWordConfirmUse"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110080,
+    "title": "输入[行业用语]",
+    "event": [
+      {
+        "cssList": [
+          "#industryName"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "input:$[termsWord]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110090,
+    "title": "打开[企业类型]下拉",
+    "event": [
+      {
+        "cssList": [
+          "#s2id_enterpriseType4Select"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110100,
+    "title": "选择[企业类型]",
+    "event": [
+      {
+        "tags": "div",
+        "textList": [
+          "$[entTypeSelect]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110110,
+    "title": "打开[组织形式]下拉",
+    "event": [
+      {
+        "cssList": [
+          "#s2id_organizationCode4Select"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110120,
+    "title": "选择[组织形式]",
+    "event": [
+      {
+        "cssList": [
+          "$[organizationCodeSelect]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110130,
+    "title": "选择[名称组合方式]",
+    "event": [
+      {
+        "cssList": [
+          "$[compoundMode]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110140,
+    "title": "勾选[承诺信息][名称查询结果对比告知信息]",
+    "event": [
+      {
+        "frameList": [
+          {
+            "frameId": "layui-layer-iframe1"
+          },
+          {
+            "frameId": "layui-layer-iframe3"
+          }
+        ],
+        "cssList": [
+          "#promiseMsgCheckbox"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 110150,
+    "title": "点击[确认符合申报条件并同意承担相关使用责任]",
+    "event": [
+      {
+        "frameList": [
+          {
+            "frameId": "layui-layer-iframe1"
+          },
+          {
+            "frameId": "layui-layer-iframe3"
+          }
+        ],
+        "tags": "a",
+        "textList": [
+          "确认符合申报条件并同意承担相关使用责任"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
         ]
       }
     ]

@@ -6,6 +6,7 @@ import com.angcyo.javafx.base.BaseController
 import com.angcyo.javafx.base.ex.*
 import com.angcyo.javafx.controller.MainController
 import com.angcyo.javafx.controller.showBottomTip
+import com.angcyo.javafx.controller.showBottomTipAndAppendLog
 import com.angcyo.javafx.item.DslTaskDebugItem
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.renderList
@@ -23,6 +24,7 @@ import com.angcyo.selenium.bean.ActionBean
 import com.angcyo.selenium.bean.CheckBean
 import com.angcyo.selenium.bean.HandleBean
 import com.angcyo.selenium.bean.TaskBean
+import com.angcyo.selenium.js.exeJs
 import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.Scene
@@ -112,9 +114,9 @@ class TabDebugController : BaseController() {
         _initDebugListView(stage)
 
         //test
-        ScreenshotAction.screenshotAction = { screenshot, clipImage ->
+        ScreenshotAction.screenshotAction = { screenshot, clipImage1, clipImage2 ->
             onMain {
-                showScreenshot(stage, screenshot, clipImage)
+                showScreenshot(stage, screenshot, clipImage1, clipImage2)
             }
         }
     }
@@ -283,6 +285,21 @@ class TabDebugController : BaseController() {
             TaskManager._currentControl?.apply {
                 actionRunSchedule.clearTempAction()
                 pause()
+            }
+        }
+
+        //refresh
+        stage?.find<Node>("#refreshActionNode")?.setOnMouseClicked {
+            _checkTestConnect {
+                (driver as? RemoteWebDriver)?.navigate()?.refresh()
+            }
+        }
+
+        //test
+        stage?.find<Node>("#testActionNode")?.setOnMouseClicked {
+            _checkTestConnect {
+                val exeJsResult = (driver as? RemoteWebDriver)?.exeJs("get_element_bounds.js", "button[tabindex='0']")
+                showBottomTipAndAppendLog("执行js返回:${exeJsResult}")
             }
         }
 

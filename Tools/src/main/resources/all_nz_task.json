@@ -5,9 +5,19 @@
     "username": "angcyo",
     "password": "!!angcyo521",
     "entType": "input[name='entType1'][value='1']",
+    "entTypeDes": "内资企业",
     "nzType": "input[value=GS]",
+    "nzTypeDes": "内资企业类型",
     "companyWord": "字号占位",
-    "termsWord": "行业用语占位"
+    "termsWord": "行业用语占位",
+    "entTypeSelect": "^（内资）有限公司$",
+    "entTypeSelectDes": "下拉选择企业类型(通过文本定位)",
+    "entTypeSelectId": "#select2-result-label-12",
+    "entTypeSelectIdDes": "下拉选择企业类型(Id一直在变)",
+    "organizationCodeSelect": "^有限公司$",
+    "organizationCodeSelectDes": "下拉选择组织形式(通过文本定位)",
+    "compoundMode": "#compoundMode1",
+    "compoundModeDes": ""
   },
   "actionList": [
     {
@@ -53,21 +63,21 @@
       "actionId": 150,
       "title": "解析[登录验证码]",
       "start": "300,0",
-      "enable": false,
+      "enable": true,
       "checkId": 880070
     },
     {
       "actionId": 160,
       "title": "输入[登录验证码]",
       "start": "300,0",
-      "enable": false,
+      "enable": true,
       "checkId": 880080
     },
     {
       "actionId": 170,
       "title": "点击[登录]",
       "start": "1000,0",
-      "enable": false,
+      "enable": true,
       "checkId": 880090
     },
     {
@@ -137,14 +147,14 @@
       "actionId": 250,
       "title": "解析[字号验证码]",
       "start": "300,0",
-      "enable": false,
+      "enable": true,
       "checkId": 880071
     },
     {
       "actionId": 260,
       "title": "输入[字号验证码]",
       "start": "300,0",
-      "enable": false,
+      "enable": true,
       "checkId": 880081
     },
     {
@@ -153,6 +163,140 @@
       "start": "300,0",
       "enable": true,
       "checkId": 880110
+    },
+    {
+      "actionId": 280,
+      "title": "确认使用该字号",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110070
+    },
+    {
+      "actionId": 290,
+      "title": "获取[字号验证码]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110060
+    },
+    {
+      "actionId": 300,
+      "title": "解析[字号验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880071
+    },
+    {
+      "actionId": 310,
+      "title": "输入[字号验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880081
+    },
+    {
+      "actionId": 320,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 330,
+      "title": "输入[行业用语]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110080
+    },
+    {
+      "actionId": 340,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 350,
+      "title": "打开[企业类型]下拉",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110090
+    },
+    {
+      "actionId": 360,
+      "title": "选择[企业类型]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110100
+    },
+    {
+      "actionId": 370,
+      "title": "打开[组织形式]下拉",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110110
+    },
+    {
+      "actionId": 380,
+      "title": "选择[组织形式]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110120
+    },
+    {
+      "actionId": 390,
+      "title": "选择[名称组合方式]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110130,
+      "des": "如果指定了[compoundMode], 则执行, 否则跳过",
+      "conditionList": [
+        {
+          "textMapList": [
+            "compoundMode"
+          ]
+        }
+      ]
+    },
+    {
+      "actionId": 400,
+      "title": "点击[提交]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880120
+    },
+    {
+      "actionId": 410,
+      "title": "勾选[承诺信息]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 110140
+    },
+    {
+      "actionId": 420,
+      "title": "点击[确认][a]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880133
+    },
+    {
+      "actionId": 430,
+      "title": "点击[确定][a]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880134
+    },
+    {
+      "actionId": 440,
+      "title": "勾选[名称查询结果对比告知信息]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 110140
+    },
+    {
+      "actionId": 450,
+      "title": "点击[确认符合申报条件并同意承担相关使用责任]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880134
     }
   ],
   "backActionList": [

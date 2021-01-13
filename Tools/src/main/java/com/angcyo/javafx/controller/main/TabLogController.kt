@@ -51,7 +51,7 @@ class TabLogController : BaseController() {
     fun appendLog(log: String) {
         onMain {
             logTextNode?.apply {
-                val old = text
+                val old = if (text.length > 1 * 1024 * 1024) "" else text
                 text = buildString {
                     if (!old.isNullOrEmpty()) {
                         appendLine(old)

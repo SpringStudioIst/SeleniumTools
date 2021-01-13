@@ -382,6 +382,8 @@
                                                                   <Button fx:id="openUrlButton" mnemonicParsing="false" text="打开网址..." />
                                                                   <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
                                                                   <Button fx:id="pauseActionNode" mnemonicParsing="false" text="暂停执行" />
+                                                                  <Button fx:id="refreshActionNode" mnemonicParsing="false" text="刷新页面" />
+                                                                  <Button fx:id="testActionNode" mnemonicParsing="false" text="test" />
                                                                   <Hyperlink fx:id="openAmrLink" text="开办企业..." />
                                                                </children>
                                                             </FlowPane>
