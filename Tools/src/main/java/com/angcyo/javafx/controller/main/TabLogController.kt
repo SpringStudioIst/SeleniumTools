@@ -75,7 +75,7 @@ class TabLogController : BaseController() {
                     if (!old.isNullOrEmpty()) {
                         appendLine(old)
                     }
-                    appendLine("${nowTimeString()} [${threadName}]↓")
+                    appendLine("[${threadName}] ${nowTimeString()} ↓")
                     appendLine(log)
                 }
                 //滚动到底部
