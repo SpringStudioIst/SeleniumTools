@@ -56,6 +56,9 @@ class TabDebugController : BaseController() {
 
     var taskTextNode: TextArea? = null
 
+    /**Control切换*/
+    val controlGroup = ToggleGroup()
+
     companion object {
         const val ACTION_PATH = "./json/action.json"
         const val TASK_PATH = "./json/task.json"
@@ -137,6 +140,15 @@ class TabDebugController : BaseController() {
 
     //测试界面
     fun _initTestNode(stage: Stage?) {
+        //control
+        stage?.find<RadioButton>("#testControlRadioButton")?.let {
+            it.isSelected = true
+            it.toggleGroup = controlGroup
+        }
+        stage?.find<RadioButton>("#taskControlRadioButton")?.let {
+            it.toggleGroup = controlGroup
+        }
+
         val startActionNode: Button? = stage?.findByCss("#startActionNode")
         val actionAreaNode: TextArea? = stage?.findByCss("#actionAreaNode")
 
@@ -202,19 +214,27 @@ class TabDebugController : BaseController() {
         connectLoading(false)
         connectDriverNode?.setOnMouseClicked {
             connectLoading(true)
-            testControl = AutoControl().apply {
-                logAction = {
-                    L.wt(it)
-                    appendLog(it)
-                    showBottomTip(it)
+
+            val taskBean = TaskBean().apply {
+                title = "驱动测试任务"
+                des = nowTimeString()
+            }
+
+            //connect
+            if (isSelectTaskControl()) {
+                TaskManager.start(taskBean)
+            } else {
+                testControl = AutoControl().apply {
+                    logAction = {
+                        L.wt(it)
+                        appendLog(it)
+                        showBottomTip(it)
+                    }
+                    driverProperty.addListener { observable, oldValue, newValue ->
+                        connectLoading(false)
+                    }
+                    start(taskBean)
                 }
-                driverProperty.addListener { observable, oldValue, newValue ->
-                    connectLoading(false)
-                }
-                start(TaskBean().apply {
-                    title = "驱动测试任务"
-                    des = nowTimeString()
-                })
             }
         }
 
@@ -291,6 +311,16 @@ class TabDebugController : BaseController() {
             }
         }
 
+        //resume run
+        stage?.find<Node>("#resumeActionNode")?.setOnMouseClicked {
+            testControl?.apply {
+                resume()
+            }
+            TaskManager._currentControl?.apply {
+                pause()
+            }
+        }
+
         //refresh
         stage?.find<Node>("#refreshActionNode")?.setOnMouseClicked {
             _checkTestConnect {
@@ -357,12 +387,22 @@ class TabDebugController : BaseController() {
         //showDocument(pair.first)
     }
 
+    fun isSelectTaskControl() = (controlGroup.selectedToggle as? Node)?.id == "taskControlRadioButton"
+
+    /**获取控制器*/
+    fun getSelectControl() = if (isSelectTaskControl()) {
+        TaskManager._currentControl
+    } else {
+        testControl
+    }
+
     //check
     fun _checkTestConnect(action: AutoControl.() -> Unit) {
-        testControl?.let {
+        getSelectControl()?.let {
             it.action()
         }.elseNull {
-            showBottomTip("请先[连接驱动]!")
+            val control = if(isSelectTaskControl()) "task" else "test"
+            showBottomTip("请先[连接驱动][${control}]!")
         }
     }
 

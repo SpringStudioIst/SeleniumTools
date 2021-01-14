@@ -412,6 +412,12 @@
                                                    <content>
                                                       <VBox>
                                                          <children>
+                                                            <FlowPane hgap="5.0" prefWrapLength="0.0" vgap="5.0">
+                                                               <children>
+                                                                  <RadioButton fx:id="testControlRadioButton" mnemonicParsing="false" text="使用测试Control" />
+                                                                  <RadioButton fx:id="taskControlRadioButton" mnemonicParsing="false" text="使用任务Control" />
+                                                               </children>
+                                                            </FlowPane>
                                                             <FlowPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWrapLength="0.0" vgap="5.0">
                                                                <children>
                                                                   <Button fx:id="connectDriverNode" contentDisplay="RIGHT" mnemonicParsing="false" text="连接驱动">
@@ -422,13 +428,25 @@
                                                                   <Button fx:id="openAmrButton" mnemonicParsing="false" text="打开开办企业" />
                                                                   <Button fx:id="screenshotButton" mnemonicParsing="false" text="获取截图" />
                                                                   <Button fx:id="openUrlButton" mnemonicParsing="false" text="打开网址..." />
-                                                                  <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
-                                                                  <Button fx:id="pauseActionNode" mnemonicParsing="false" text="暂停执行" />
                                                                   <Button fx:id="refreshActionNode" mnemonicParsing="false" text="刷新页面" />
                                                                   <Button fx:id="gestureActionNode" mnemonicParsing="false" text="手势测试" />
                                                                   <Button fx:id="testActionNode" mnemonicParsing="false" text="test" />
                                                                   <Hyperlink fx:id="openAmrLink" text="开办企业..." />
                                                                </children>
+                                                               <VBox.margin>
+                                                                  <Insets top="5.0" />
+                                                               </VBox.margin>
+                                                            </FlowPane>
+                                                            <FlowPane hgap="5.0" prefWrapLength="0.0" vgap="5.0">
+                                                               <children>
+                                                                  <Button fx:id="startNode" mnemonicParsing="false" text="启动任务" />
+                                                                  <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
+                                                                  <Button fx:id="pauseActionNode" mnemonicParsing="false" text="暂停执行" />
+                                                                  <Button fx:id="resumeActionNode" mnemonicParsing="false" text="恢复执行" />
+                                                               </children>
+                                                               <VBox.margin>
+                                                                  <Insets top="5.0" />
+                                                               </VBox.margin>
                                                             </FlowPane>
                                                             <StackPane fx:id="screenshotPane" prefHeight="150.0" prefWidth="200.0">
                                                                <children>
@@ -448,19 +466,6 @@
                                                          </children>
                                                       </VBox>
                                                    </content>
-                                                </TitledPane>
-                                                <TitledPane maxHeight="-Infinity" text="任务流程测试">
-                                                   <content>
-                                                      <FlowPane hgap="5.0" prefWrapLength="0.0" vgap="5.0">
-                                                         <children>
-                                                            <Button fx:id="startNode" mnemonicParsing="false" text="启动任务" />
-                                                            <Button fx:id="startActionNode" mnemonicParsing="false" text="执行任务自定义动作" />
-                                                         </children>
-                                                      </FlowPane>
-                                                   </content>
-                                                   <VBox.margin>
-                                                      <Insets top="5.0" />
-                                                   </VBox.margin>
                                                 </TitledPane>
                                                 <TitledPane fx:id="customActionPane" expanded="false" text="自定义动作">
                                                    <VBox.margin>

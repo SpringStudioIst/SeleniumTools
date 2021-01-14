@@ -61,10 +61,22 @@ class MainController : BaseController() {
                 System.getProperties().forEach { entry ->
                     appendLine("${entry.key}->${System.getProperty(entry.key.toString())}")
                 }
+
+                val key = "angcyo.config"
+                appendLine("${key}->${System.getProperty(key)}")
                 //appendln(System.getProperty("os.name"))
                 //appendln(System.getProperty("os.version"))
                 //appendln(System.getProperty("os.arch"))
             })
+
+            /*https://blog.csdn.net/weter_drop/article/details/108307593*/
+            tabLogController.appendLog(buildString {
+                System.getenv().forEach { entry ->
+                    appendLine("${entry.key}->${entry.value}")
+                }
+            })
+
+            tabLogController.appendLog("启动参数:${app().parameters?.raw}")
 
             tabLogController.appendLog("运行目录:${File("").absolutePath}")
 

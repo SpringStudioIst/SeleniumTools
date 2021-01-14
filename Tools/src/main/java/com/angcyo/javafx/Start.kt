@@ -17,7 +17,7 @@ class Start {
          */
         @JvmStatic
         fun main(vararg args: String) {
-            Application.launch(App::class.java)
+            Application.launch(App::class.java, *args)
         }
     }
 }
