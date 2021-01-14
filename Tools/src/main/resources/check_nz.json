@@ -362,14 +362,14 @@
     "title": "点击[确认符合申报条件并同意承担相关使用责任]",
     "event": [
       {
-        "frameList": [
-          {
-            "frameId": "layui-layer-iframe1"
-          },
-          {
-            "frameId": "layui-layer-iframe3"
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
           }
-        ],
+        },
         "tags": "a",
         "textList": [
           "确认符合申报条件并同意承担相关使用责任"
