@@ -364,7 +364,7 @@
                                                         </rowConstraints>
                                                          <children>
                                                             <Label text="Cookie:" />
-                                                            <TextField fx:id="cookieFieldNode" GridPane.columnIndex="1" />
+                                                            <TextField fx:id="cookieFieldNode" promptText="登录政务网站, 复制登录成功的Cookie, 粘贴到此处." GridPane.columnIndex="1" />
                                                             <Button fx:id="cookieUpdateNode" disable="true" mnemonicParsing="false" text="更新" GridPane.columnIndex="2" />
                                                             <ProgressIndicator fx:id="cookieProgressBar" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" visible="false" GridPane.columnIndex="2" />
                                                          </children>

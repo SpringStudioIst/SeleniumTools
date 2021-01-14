@@ -156,6 +156,9 @@
             ]
           }
         ],
+        "actionList": [
+          "jump:280"
+        ],
         "noActionList": [
           "jump:330"
         ]

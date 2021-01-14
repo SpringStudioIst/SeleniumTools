@@ -175,35 +175,67 @@
       "actionId": 280,
       "title": "确认使用该字号",
       "start": "1000,0",
-      "enable": true,
+      "enable": false,
       "checkId": 110070
     },
     {
       "actionId": 290,
       "title": "获取[字号验证码]",
       "start": "1000,0",
-      "enable": true,
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
       "checkId": 110060
     },
     {
       "actionId": 300,
       "title": "解析[字号验证码]",
       "start": "300,0",
-      "enable": true,
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
       "checkId": 880071
     },
     {
       "actionId": 310,
       "title": "输入[字号验证码]",
       "start": "300,0",
-      "enable": true,
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
       "checkId": 880081
     },
     {
       "actionId": 320,
       "title": "点击[下一步]",
       "start": "300,0",
-      "enable": true,
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
       "checkId": 880110
     },
     {
