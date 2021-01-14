@@ -78,10 +78,15 @@ class TabConfigController : BaseController() {
             }
         }
         initBin("#edgeBinLink", "https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/")
+        initBin("#edgeBrowserBinLink", "https://www.microsoft.com/zh-cn/edge")
         initBin("#chromeBinLink", "https://chromedriver.storage.googleapis.com/index.html", false)
+        initBin("#chromeBrowserBinLink", "https://www.google.cn/chrome/", false)
         initBin("#huohuBinLink", "https://github.com/mozilla/geckodriver/releases", false)
+        initBin("#huohuBrowserBinLink", "http://www.firefox.com.cn/", false)
         initBin("#operaBinLink", "https://github.com/operasoftware/operachromiumdriver/releases", false)
+        initBin("#operaBrowserBinLink", "https://www.opera.com/zh-cn", false)
         initBin("#safariBinLink", "https://github.com/operasoftware/operachromiumdriver/releases", false)
+        initBin("#safariBrowserBinLink", "https://www.apple.com.cn/safari/", false)
         stage?.findByCss<ButtonBase>("#safariBinLink")?.apply {
             isDisable = true
             tooltip = Tooltip("内置")

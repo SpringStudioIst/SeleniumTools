@@ -2,7 +2,6 @@ import com.angcyo.library.ex.count
 import com.angcyo.library.ex.decode
 import com.angcyo.library.ex.encode
 import com.angcyo.library.ex.patternList
-import com.angcyo.selenium.auto.action.toKeyValue
 import com.angcyo.selenium.parse.ValueParse
 import com.angcyo.selenium.parse.args
 import org.junit.jupiter.api.Test
@@ -59,12 +58,16 @@ class ExampleUnitTest {
         val regex = "(?<=type:)(\\S+)".toRegex()
         println(text.patternList(regex.toPattern()))*/
 
-        val text = "input:$[abc] clear:true "
+        /*val text = "input:$[abc] clear:true "
         val regex = "(\\S+)(?=:)".toRegex()
         val regex2 = "(?<=:)(\\S*)".toRegex()
         println(text.patternList(regex.toPattern()))
         println(text.patternList(regex2.toPattern()))
-        println(text.toKeyValue())
+        println(text.toKeyValue())*/
+
+        val text = "[enable:100 -120 200 2.20]"
+        val regex = "(\\d+)".toRegex()
+        println(text.patternList(regex.toPattern()))
     }
 
     @Test
