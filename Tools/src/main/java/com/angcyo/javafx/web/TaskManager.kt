@@ -135,7 +135,13 @@ object TaskManager {
     //</editor-fold desc="check">
 }
 
-fun getCheckById(checkId: Long) = TaskManager.checkList.find { check -> check.checkId == checkId }
+fun TaskBean.initCheck(): TaskBean {
+    before?.initCheck()
+    actionList?.initCheck()
+    backActionList?.initCheck()
+    after?.initCheck()
+    return this
+}
 
 fun List<ActionBean>.initCheck() {
     forEach { action ->
@@ -145,14 +151,10 @@ fun List<ActionBean>.initCheck() {
 
 fun ActionBean.initCheck() {
     if (check == null) {
+        before?.initCheck()
         check = getCheckById(checkId)
+        after?.initCheck()
     }
 }
 
-fun TaskBean.initCheck(): TaskBean {
-    before?.initCheck()
-    after?.initCheck()
-    actionList?.initCheck()
-    backActionList?.initCheck()
-    return this
-}
+fun getCheckById(checkId: Long) = TaskManager.checkList.find { check -> check.checkId == checkId }

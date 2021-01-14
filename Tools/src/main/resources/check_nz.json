@@ -276,7 +276,8 @@
     "title": "选择[组织形式]",
     "event": [
       {
-        "cssList": [
+        "tags": "div",
+        "textList": [
           "$[organizationCodeSelect]"
         ]
       }
@@ -323,9 +324,23 @@
             "frameId": "layui-layer-iframe1"
           },
           {
+            "frameId": "layui-layer-iframe2"
+          },
+          {
             "frameId": "layui-layer-iframe3"
+          },
+          {
+            "frameId": "layui-layer-iframe4"
           }
         ],
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
+        },
         "cssList": [
           "#promiseMsgCheckbox"
         ]

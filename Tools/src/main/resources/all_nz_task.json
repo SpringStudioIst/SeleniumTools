@@ -282,6 +282,13 @@
     },
     {
       "actionId": 390,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 400,
       "title": "选择[名称组合方式]",
       "start": "1000,0",
       "enable": true,
@@ -296,42 +303,42 @@
       ]
     },
     {
-      "actionId": 400,
+      "actionId": 410,
       "title": "点击[提交]",
       "start": "300,0",
       "enable": true,
       "checkId": 880120
     },
     {
-      "actionId": 410,
+      "actionId": 420,
       "title": "勾选[承诺信息]",
       "start": "300,0",
       "enable": true,
       "checkId": 110140
     },
     {
-      "actionId": 420,
+      "actionId": 430,
       "title": "点击[确认][a]",
       "start": "300,0",
       "enable": true,
       "checkId": 880133
     },
     {
-      "actionId": 430,
+      "actionId": 440,
       "title": "点击[确定][a]",
       "start": "300,0",
       "enable": true,
       "checkId": 880134
     },
     {
-      "actionId": 440,
+      "actionId": 450,
       "title": "勾选[名称查询结果对比告知信息]",
       "start": "300,0",
       "enable": true,
       "checkId": 110140
     },
     {
-      "actionId": 450,
+      "actionId": 460,
       "title": "点击[确认符合申报条件并同意承担相关使用责任]",
       "start": "300,0",
       "enable": true,
