@@ -20,15 +20,23 @@ class DslTaskDebugItem : DslListItem() {
 
     var taskBean: TaskBean? = null
 
+    //点击内部的action
     var clickAction: (ActionBean) -> Unit = {
 
     }
 
+    //双击action
+    var doubleAction: (ActionBean) -> Unit = {
+
+    }
+
+    //加载任务
     var clickTaskAction: (TaskBean) -> Unit = {
 
     }
 
-    var doubleAction: (ActionBean) -> Unit = {
+    //启动任务
+    var startTaskAction: (TaskBean) -> Unit = {
 
     }
 
@@ -45,13 +53,27 @@ class DslTaskDebugItem : DslListItem() {
 
         (rootNode as? TitledPane)?.apply {
             text = "${taskBean?.title.or()}${taskBean?.des.des()} 共(${taskBean?.actionList?.size ?: 0})步"
-            graphic = button {
-                text = "load"
-                taskBean?.let { taskBean ->
-                    setOnMouseClicked {
-                        clickTaskAction(taskBean)
+            //alignment = Pos.CENTER_RIGHT
+            //textAlignment = TextAlignment.LEFT
+            graphic = hBox {
+                resetChildren(listOf(
+                    button {
+                        text = "load"
+                        taskBean?.let { taskBean ->
+                            setOnMouseClicked {
+                                clickTaskAction(taskBean)
+                            }
+                        }
+                    },
+                    button {
+                        text = "start"
+                        taskBean?.let { taskBean ->
+                            setOnMouseClicked {
+                                startTaskAction(taskBean)
+                            }
+                        }
                     }
-                }
+                ))
             }
 
             //内容

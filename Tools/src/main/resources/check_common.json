@@ -74,6 +74,7 @@
           "index": "0"
         },
         "actionList": [
+          "clear",
           "input:$[username]"
         ]
       }
@@ -98,6 +99,7 @@
           "index": "0"
         },
         "actionList": [
+          "clear",
           "input:$[password]"
         ]
       }
@@ -171,6 +173,7 @@
           "index": "0"
         },
         "actionList": [
+          "clear",
           "input:$[imageCode]"
         ]
       }
@@ -196,6 +199,7 @@
           "index": "0"
         },
         "actionList": [
+          "clear",
           "input:$[imageCode]"
         ]
       }
@@ -411,6 +415,28 @@
         },
         "actionList": [
           "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880140,
+    "title": "验证[公司设立登记]",
+    "event": [
+      {
+        "tags": "div",
+        "textList": [
+          "公司设立登记"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "true"
         ]
       }
     ]

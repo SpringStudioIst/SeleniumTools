@@ -33,7 +33,8 @@ object TaskManager {
 
     fun init() {
         checkList.resetAll(readResCheckList())
-        //getResTaskList()
+        backActionList.resetAll(readResBackActionList())
+        debugTaskList.resetAll(readResTaskList())
         readNameTaskList()
     }
 
@@ -73,10 +74,11 @@ object TaskManager {
 
     //<editor-fold desc="Task">
 
+    val debugTaskList = mutableListOf<TaskBean>()
     fun readResTaskList(): List<TaskBean> {
         val result = mutableListOf<TaskBean>()
         readResTask("all_nz_task.json")?.let { result.add(it.initCheck()) }
-        readResTask("amr_task.json")?.let { result.add(it.initCheck()) }
+        readResTask("all_gth_task.json")?.let { result.add(it.initCheck()) }
         return result
     }
 
@@ -114,15 +116,16 @@ object TaskManager {
     val checkList = mutableListOf<CheckBean>()
     fun readResCheckList(): List<CheckBean> {
         val result = mutableListOf<CheckBean>()
-        fun addCheck(checkBean: CheckBean) {
+        fun addBean(checkBean: CheckBean) {
             if (checkBean.checkId > 0 && result.find { it.checkId == checkBean.checkId } != null) {
                 //已经存在
             } else {
                 result.add(checkBean)
             }
         }
-        readResCheck("check_common.json")?.forEach { addCheck(it) }
-        readResCheck("check_nz.json")?.forEach { addCheck(it) }
+        readResCheck("check_common.json")?.forEach { addBean(it) }
+        readResCheck("check_nz.json")?.forEach { addBean(it) }
+        readResCheck("check_gth.json")?.forEach { addBean(it) }
         return result
     }
 
@@ -133,13 +136,46 @@ object TaskManager {
     }
 
     //</editor-fold desc="check">
+
+    //<editor-fold desc="back action">
+
+    /**保存所有的back[ActionBean]*/
+    val backActionList = mutableListOf<ActionBean>()
+    fun readResBackActionList(): List<ActionBean> {
+        val result = mutableListOf<ActionBean>()
+        fun addBean(actionBean: ActionBean) {
+            if (actionBean.actionId > 0 && result.find { it.actionId == actionBean.actionId } != null) {
+                //已经存在
+            } else {
+                result.add(actionBean)
+            }
+        }
+        readResBackAction("back_action.json")?.forEach { addBean(it) }
+        return result
+    }
+
+    /**从资源文件夹中, 获取[ActionBean]*/
+    fun readResBackAction(resName: String): List<ActionBean>? {
+        return getResourceAsStream(resName)?.bufferedReader()?.readText()
+            ?.fromJson<List<ActionBean>>(listType(ActionBean::class.java))
+    }
+
+    //</editor-fold desc="back action">
 }
 
+/**初始化任务中的[CheckBean]*/
 fun TaskBean.initCheck(): TaskBean {
     before?.initCheck()
     actionList?.initCheck()
-    backActionList?.initCheck()
     after?.initCheck()
+    backActionList = if (backActionList == null) {
+        TaskManager.backActionList.toMutableList()
+    } else {
+        backActionList?.toMutableList()?.apply {
+            addAll(TaskManager.backActionList)
+        }
+    }
+    backActionList?.initCheck()
     return this
 }
 

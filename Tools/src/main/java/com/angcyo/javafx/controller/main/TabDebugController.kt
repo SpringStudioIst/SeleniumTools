@@ -382,6 +382,7 @@ class TabDebugController : BaseController() {
 
         //双击查看大图
         screenshotImageView?.setOnMouseDoubleClicked {
+            L.i("show...")
             showImagePreview(image)
         }
         screenshotImageView1?.setOnMouseDoubleClicked {
@@ -440,8 +441,14 @@ class TabDebugController : BaseController() {
     fun _initDebugListView(stage: Stage?) {
         val debugListView = stage?.findByCss<ListView<DslListItem>>("#debugListView")
         debugListView?.renderList {
+            val taskList = TaskManager.debugTaskList.toMutableList()
+            taskList.add(TaskBean().apply {
+                title = "回退弹窗处理"
+                actionList = TaskManager.backActionList
+            })
+
             //load list
-            TaskManager.readResTaskList().forEach { bean ->
+            taskList.forEach { bean ->
                 DslTaskDebugItem()() {
                     taskBean = bean
                     clickAction = {
@@ -452,6 +459,9 @@ class TabDebugController : BaseController() {
                     }
                     clickTaskAction = {
                         showToCustomTaskPane(stage, it)
+                    }
+                    startTaskAction = {
+                        getSelectControl()?.start(it)
                     }
                 }
             }

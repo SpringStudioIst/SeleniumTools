@@ -1,7 +1,6 @@
 package com.angcyo.javafx
 
 import com.angcyo.http.base.fromJson
-import com.angcyo.javafx.base.ex.onBack
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.main.TabConfigController
 import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PATH
@@ -82,11 +81,9 @@ class App : BaseApp() {
         trayIcon = Tray.addTray(getImage("logo.png")!!, "$NAME $VERSION")
 
         //读取配置
-        onBack {
-            DslSelenium.initDriver(appConfigBean.driverPath)
-            HttpHelper.init()
-            TaskManager.init()
-        }
+        DslSelenium.initDriver(appConfigBean.driverPath)
+        HttpHelper.init()
+        TaskManager.init()
     }
 
     override fun stop() {

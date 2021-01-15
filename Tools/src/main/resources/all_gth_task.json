@@ -1,21 +1,22 @@
 {
-  "title": "[内资]企业注册登记",
-  "des": "2021-1-11",
+  "title": "[个体户]企业注册登记",
+  "des": "2021-1-15",
   "textMap": {
     "username": "angcyo",
     "password": "!!angcyo521",
-    "entType": "input[name='entType1'][value='1']",
+    "entType": "input[name='entType1'][value='3']",
     "entTypeDes": "内资企业",
-    "nzType": "input[value=GS]",
-    "nzTypeDes": "内资企业类型",
     "companyWord": "字号占位",
     "termsWord": "行业用语占位",
-    "entTypeSelect": "^（内资）有限公司$",
-    "entTypeSelectDes": "下拉选择企业类型(通过文本定位)",
-    "organizationCodeSelect": "^有限公司$",
-    "organizationCodeSelectDes": "下拉选择组织形式(通过文本定位)",
-    "compoundMode": "#compoundMode1",
-    "compoundModeDes": "名称组合方式"
+    "registeredCapital": "30",
+    "organizationWord": "组织形式用语占位",
+    "areaSelect": "^深圳龙华区$",
+    "areaSelectDes": "下拉选择行政区划(通过文本定位)",
+    "sanAreaSelect": "^民治$",
+    "sanAreaSelectDes": "街道可以为空",
+    "names": "黄克摇",
+    "numbers": "362526199201121016",
+    "address": "广东省深圳市龙华新区横岭四区"
   },
   "actionList": [
     {
@@ -90,21 +91,7 @@
       "title": "选择[企业类别]",
       "enable": true,
       "start": "1000,0",
-      "checkId": 110010
-    },
-    {
-      "actionId": 191,
-      "title": "选择[内资企业类别]",
-      "enable": true,
-      "start": "1000,0",
-      "conditionList": [
-        {
-          "textMapList": [
-            "nzType"
-          ]
-        }
-      ],
-      "checkId": 110020
+      "checkId": 120010
     },
     {
       "actionId": 200,
@@ -129,55 +116,97 @@
     },
     {
       "actionId": 230,
+      "title": "打开[行政区划]下拉",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 120020
+    },
+    {
+      "actionId": 240,
+      "title": "选择[行政区划]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 120030
+    },
+    {
+      "actionId": 230,
+      "title": "打开[行政区划][街道]下拉(如果有)",
+      "start": "1000,0",
+      "enable": true,
+      "conditionList": [
+        {
+          "textMapList": [
+            "sanAreaSelect"
+          ]
+        }
+      ],
+      "checkId": 120040
+    },
+    {
+      "actionId": 240,
+      "title": "选择[行政区划][街道](如果有)",
+      "start": "1000,0",
+      "conditionList": [
+        {
+          "actionResultList": [
+            230
+          ]
+        }
+      ],
+      "enable": true,
+      "checkId": 120050
+    },
+    {
+      "actionId": 250,
       "title": "输入[字号]",
       "start": "1000,0",
       "enable": true,
       "checkId": 110050
     },
     {
-      "actionId": 240,
+      "actionId": 260,
       "title": "获取[字号验证码]",
       "start": "1000,0",
       "enable": true,
       "checkId": 110060
     },
     {
-      "actionId": 250,
+      "actionId": 270,
       "title": "解析[字号验证码]",
       "start": "300,0",
       "enable": true,
       "checkId": 880071
     },
     {
-      "actionId": 260,
+      "actionId": 280,
       "title": "输入[字号验证码]",
       "start": "300,0",
       "enable": true,
       "checkId": 880081
     },
     {
-      "actionId": 270,
+      "actionId": 290,
       "title": "点击[下一步]",
       "start": "300,0",
       "enable": true,
       "checkId": 880110
     },
     {
-      "actionId": 271,
+      "actionId": 300,
       "title": "检查是否有[相似字号]",
       "start": "1000,0",
       "enable": true,
-      "checkId": 110061
+      "checkId": 120051
     },
     {
-      "actionId": 280,
+      "actionId": 310,
       "title": "确认使用该字号",
       "start": "1000,0",
       "enable": false,
       "checkId": 110070
     },
     {
-      "actionId": 290,
+      "actionId": 320,
       "title": "获取[字号验证码]",
       "start": "1000,0",
       "enable": false,
@@ -185,14 +214,14 @@
       "conditionList": [
         {
           "actionEnableList": [
-            280
+            310
           ]
         }
       ],
       "checkId": 110060
     },
     {
-      "actionId": 300,
+      "actionId": 330,
       "title": "解析[字号验证码]",
       "start": "300,0",
       "enable": false,
@@ -200,14 +229,14 @@
       "conditionList": [
         {
           "actionEnableList": [
-            280
+            310
           ]
         }
       ],
       "checkId": 880071
     },
     {
-      "actionId": 310,
+      "actionId": 340,
       "title": "输入[字号验证码]",
       "start": "300,0",
       "enable": false,
@@ -215,14 +244,14 @@
       "conditionList": [
         {
           "actionEnableList": [
-            280
+            310
           ]
         }
       ],
       "checkId": 880081
     },
     {
-      "actionId": 320,
+      "actionId": 350,
       "title": "点击[下一步]",
       "start": "300,0",
       "enable": false,
@@ -237,46 +266,25 @@
       "checkId": 880110
     },
     {
-      "actionId": 330,
+      "actionId": 360,
       "title": "输入[行业用语]",
       "start": "1000,0",
       "enable": true,
       "checkId": 110080
     },
     {
-      "actionId": 340,
+      "actionId": 370,
       "title": "点击[下一步]",
       "start": "300,0",
       "enable": true,
       "checkId": 880110
     },
     {
-      "actionId": 350,
-      "title": "打开[企业类型]下拉",
-      "start": "1000,0",
-      "enable": true,
-      "checkId": 110090
-    },
-    {
-      "actionId": 360,
-      "title": "选择[企业类型]",
-      "start": "1000,0",
-      "enable": true,
-      "checkId": 110100
-    },
-    {
-      "actionId": 370,
-      "title": "打开[组织形式]下拉",
-      "start": "1000,0",
-      "enable": true,
-      "checkId": 110110
-    },
-    {
       "actionId": 380,
-      "title": "选择[组织形式]",
-      "start": "1000,0",
+      "title": "输入[组织形式用语]",
+      "start": "300,0",
       "enable": true,
-      "checkId": 110120
+      "checkId": 120060
     },
     {
       "actionId": 390,
@@ -287,28 +295,41 @@
     },
     {
       "actionId": 400,
-      "title": "选择[名称组合方式]",
-      "start": "1000,0",
+      "title": "输入[出资额](万元)",
+      "start": "300,0",
       "enable": true,
-      "checkId": 110130,
-      "des": "如果指定了[compoundMode], 则执行, 否则跳过",
-      "conditionList": [
-        {
-          "textMapList": [
-            "compoundMode"
-          ]
-        }
-      ]
+      "checkId": 120070
     },
     {
       "actionId": 410,
+      "title": "点击[增加]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 120080
+    },
+    {
+      "actionId": 420,
+      "title": "输入[经营者]信息",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 120090
+    },
+    {
+      "actionId": 430,
+      "title": "点击[保存]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 120100
+    },
+    {
+      "actionId": 440,
       "title": "点击[提交]",
       "start": "300,0",
       "enable": true,
       "checkId": 880120
     },
     {
-      "actionId": 420,
+      "actionId": 450,
       "title": "验证[公司设立登记]",
       "start": "300,0",
       "enable": true,

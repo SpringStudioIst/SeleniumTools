@@ -1,0 +1,160 @@
+[
+  {
+    "actionId": 900001,
+    "title": "点击所有[提示]弹层中的[确定][确认]按钮",
+    "check": {
+      "event": [
+        {
+          "tags": "div",
+          "textList": [
+            "^提示$"
+          ]
+        }
+      ],
+      "handle": [
+        {
+          "selectList": [
+            {
+              "tags": "a button",
+              "textList": [
+                "^确定$"
+              ]
+            }
+          ],
+          "filter": {
+            "index": "0"
+          },
+          "actionList": [
+            "click"
+          ]
+        },
+        {
+          "selectList": [
+            {
+              "tags": "a button",
+              "textList": [
+                "^确认$"
+              ]
+            }
+          ],
+          "filter": {
+            "index": "0"
+          },
+          "actionList": [
+            "click"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "actionId": 900002,
+    "title": "点击iframe中的[承诺信息]",
+    "check": {
+      "event": [
+        {
+          "frame": {
+            "select": {
+              "tags": "iframe",
+              "attrList": [
+                "name:layui-layer-iframe\\d+"
+              ]
+            }
+          },
+          "tags": "div",
+          "textList": [
+            "承诺信息"
+          ]
+        }
+      ],
+      "handle": [
+        {
+          "selectList": [
+            {
+              "cssList": [
+                "#promiseMsgCheckbox"
+              ]
+            }
+          ],
+          "filter": {
+            "index": "0"
+          },
+          "actionList": [
+            "click"
+          ]
+        },
+        {
+          "selectList": [
+            {
+              "tags": "a button",
+              "textList": [
+                "确认"
+              ]
+            }
+          ],
+          "filter": {
+            "index": "0"
+          },
+          "actionList": [
+            "click"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "actionId": 900003,
+    "title": "点击iframe中的[名称查询结果对比告知信息]",
+    "check": {
+      "event": [
+        {
+          "frame": {
+            "select": {
+              "tags": "iframe",
+              "attrList": [
+                "name:layui-layer-iframe\\d+"
+              ]
+            }
+          },
+          "tags": "div",
+          "textList": [
+            "名称查询结果对比告知信息"
+          ]
+        }
+      ],
+      "handle": [
+        {
+          "selectList": [
+            {
+              "cssList": [
+                "#promiseMsgCheckbox"
+              ]
+            }
+          ],
+          "filter": {
+            "index": "0"
+          },
+          "actionList": [
+            "click"
+          ]
+        },
+        {
+          "selectList": [
+            {
+              "tags": "a button",
+              "textList": [
+                "确认"
+              ]
+            }
+          ],
+          "filter": {
+            "index": "0"
+          },
+          "actionList": [
+            "click"
+          ]
+        }
+      ]
+    }
+  }
+]

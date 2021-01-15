@@ -1,6 +1,6 @@
 [
   {
-    "checkId": 110010,
+    "checkId": 120010,
     "title": "选择[企业类别]",
     "event": [
       {
@@ -29,19 +29,13 @@
     ]
   },
   {
-    "checkId": 110020,
-    "title": "选择[内资企业类别]",
+    "checkId": 120020,
+    "title": "打开[行政区划]下拉",
     "event": [
       {
-        "frame": {
-          "frameId": "layui-layer-iframe1"
-        },
         "cssList": [
-          "$[nzType]"
-        ],
-        "filter": {
-          "index": "-1"
-        }
+          "#s2id_areaSelect4Mode1"
+        ]
       }
     ],
     "handle": [
@@ -56,22 +50,14 @@
     ]
   },
   {
-    "checkId": 110030,
-    "title": "点击[确认]",
+    "checkId": 120030,
+    "title": "选择[行政区划]",
     "event": [
       {
-        "frame": {
-          "select": {
-            "tags": "iframe",
-            "attrList": [
-              "name:layui-layer-iframe\\d+"
-            ]
-          }
-        },
+        "tags": "div",
         "textList": [
-          "确认"
-        ],
-        "tags": "button"
+          "$[areaSelect]"
+        ]
       }
     ],
     "handle": [
@@ -86,12 +72,34 @@
     ]
   },
   {
-    "checkId": 110040,
+    "checkId": 120040,
+    "title": "打开[行政区划][街道]下拉",
     "event": [
       {
-        "tags": "button",
+        "cssList": [
+          "#s2id_sanArea"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 120050,
+    "title": "选择[行政区划][街道]",
+    "event": [
+      {
+        "tags": "div",
         "textList": [
-          "我已了解上述法规、规则"
+          "$[sanAreaSelect]"
         ]
       }
     ],
@@ -101,60 +109,13 @@
           "index": "0"
         },
         "actionList": [
-          "removeAttr:#nextButton:disabled",
           "click"
         ]
       }
     ]
   },
   {
-    "checkId": 110050,
-    "title": "输入[字号]",
-    "event": [
-      {
-        "cssList": [
-          "input[placeholder=字号]"
-        ],
-        "rectList": [
-          ""
-        ]
-      }
-    ],
-    "handle": [
-      {
-        "filter": {
-          "index": "0"
-        },
-        "actionList": [
-          "clear",
-          "input:$[companyWord]"
-        ]
-      }
-    ]
-  },
-  {
-    "checkId": 110060,
-    "title": "获取[字号验证码]",
-    "event": [
-      {
-        "cssList": [
-          "#validateCodeImg"
-        ]
-      }
-    ],
-    "handle": [
-      {
-        "filter": {
-          "index": "0"
-        },
-        "actionList": [
-          "shot css:#validateCodeImg"
-        ]
-      }
-    ]
-  },
-  {
-    "checkId": 110061,
+    "checkId": 120051,
     "title": "检查是否有[相似字号]",
     "des": "如果没有[相似字号], 直接跳到输入[行业用语]",
     "handle": [
@@ -168,42 +129,24 @@
           }
         ],
         "actionList": [
-          "jump:280"
+          "jump:310"
         ],
         "noActionList": [
-          "jump:330"
+          "jump:360"
         ]
       }
     ]
   },
   {
-    "checkId": 110070,
-    "title": "确认使用该字号",
+    "checkId": 120060,
+    "title": "输入[组织形式用语]",
     "event": [
       {
         "cssList": [
-          "#isKeyWordConfirmUse"
-        ]
-      }
-    ],
-    "handle": [
-      {
-        "filter": {
-          "index": "0"
-        },
-        "actionList": [
-          "click"
-        ]
-      }
-    ]
-  },
-  {
-    "checkId": 110080,
-    "title": "输入[行业用语]",
-    "event": [
-      {
-        "cssList": [
-          "#industryName"
+          "input[placeholder=请输入组织形式用语]"
+        ],
+        "rectList": [
+          ""
         ]
       }
     ],
@@ -214,18 +157,21 @@
         },
         "actionList": [
           "clear",
-          "input:$[termsWord]"
+          "input:$[organizationWord]"
         ]
       }
     ]
   },
   {
-    "checkId": 110090,
-    "title": "打开[企业类型]下拉",
+    "checkId": 120070,
+    "title": "输入[出资额]",
     "event": [
       {
         "cssList": [
-          "#s2id_enterpriseType4Select"
+          "input[placeholder=请输入出资额]"
+        ],
+        "rectList": [
+          ""
         ]
       }
     ],
@@ -235,19 +181,20 @@
           "index": "0"
         },
         "actionList": [
-          "click"
+          "clear",
+          "input:$[registeredCapital]"
         ]
       }
     ]
   },
   {
-    "checkId": 110100,
-    "title": "选择[企业类型]",
+    "checkId": 120080,
+    "title": "点击[增加]",
     "event": [
       {
-        "tags": "div",
+        "tags": "button",
         "textList": [
-          "$[entTypeSelect]"
+          "增加"
         ]
       }
     ],
@@ -263,55 +210,95 @@
     ]
   },
   {
-    "checkId": 110110,
-    "title": "打开[组织形式]下拉",
+    "checkId": 120090,
+    "title": "输入[经营者]信息",
     "event": [
       {
-        "cssList": [
-          "#s2id_organizationCode4Select"
-        ]
-      }
-    ],
-    "handle": [
-      {
-        "filter": {
-          "index": "0"
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
         },
-        "actionList": [
-          "click"
-        ]
-      }
-    ]
-  },
-  {
-    "checkId": 110120,
-    "title": "选择[组织形式]",
-    "event": [
-      {
-        "tags": "div",
+        "tags": "td tr tbody",
         "textList": [
-          "$[organizationCodeSelect]"
+          "经营者"
         ]
       }
     ],
     "handle": [
       {
+        "selectList": [
+          {
+            "cssList": [
+              "input[placeholder=经营者姓名]"
+            ],
+            "rectList": [
+              ""
+            ]
+          }
+        ],
         "filter": {
           "index": "0"
         },
         "actionList": [
-          "click"
-        ]
+          "clear",
+          "input:$[names]"
+        ],
+        "ignore": true
+      },
+      {
+        "selectList": [
+          {
+            "cssList": [
+              "input[placeholder=证件号码]"
+            ],
+            "rectList": [
+              ""
+            ]
+          }
+        ],
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "clear",
+          "input:$[numbers]"
+        ],
+        "ignore": true
+      },
+      {
+        "selectList": [
+          {
+            "cssList": [
+              "input[placeholder=地址]"
+            ],
+            "rectList": [
+              ""
+            ]
+          }
+        ],
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "clear",
+          "input:$[address]"
+        ],
+        "ignore": true
       }
     ]
   },
   {
-    "checkId": 110130,
-    "title": "选择[名称组合方式]",
+    "checkId": 120100,
+    "title": "点击[保存]",
     "event": [
       {
-        "cssList": [
-          "$[compoundMode]"
+        "tags": "button",
+        "textList": [
+          "保存"
         ]
       }
     ],
