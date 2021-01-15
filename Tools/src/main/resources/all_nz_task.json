@@ -84,7 +84,7 @@
       "actionId": 180,
       "title": "点击[使用其他企业名称申请]",
       "enable": true,
-      "start": "1000,0",
+      "start": "5000",
       "checkId": 880100
     },
     {

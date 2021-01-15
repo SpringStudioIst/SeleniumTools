@@ -62,6 +62,9 @@
       {
         "cssList": [
           "input[placeholder=请输入账号]"
+        ],
+        "rectList": [
+          ""
         ]
       }
     ],
@@ -83,6 +86,9 @@
       {
         "cssList": [
           "input[placeholder=请输入密码]"
+        ],
+        "rectList": [
+          ""
         ]
       }
     ],
@@ -104,6 +110,9 @@
       {
         "cssList": [
           "input[placeholder=请输入验证码]"
+        ],
+        "rectList": [
+          ""
         ],
         "filter": {
           "relativeBy": "img:toRightOf:0"
@@ -150,6 +159,9 @@
       {
         "cssList": [
           "input[placeholder=请输入验证码]"
+        ],
+        "rectList": [
+          ""
         ]
       }
     ],
@@ -172,6 +184,9 @@
         "tags": "input",
         "attrList": [
           "placeholder:验证码"
+        ],
+        "rectList": [
+          ""
         ]
       }
     ],
@@ -298,12 +313,17 @@
   },
   {
     "checkId": 880131,
-    "title": "点击[确认] frame:layui-layer-iframe1",
+    "title": "点击[确认] frame:layui-layer-iframe[x]",
     "event": [
       {
         "tags": "button",
         "frame": {
-          "frameId": "layui-layer-iframe1"
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
         },
         "textList": [
           "^确认$"
@@ -345,12 +365,17 @@
   },
   {
     "checkId": 880133,
-    "title": "点击[确认][a] frame:layui-layer-iframe1",
+    "title": "点击[确认][a] frame:layui-layer-iframe[x]",
     "event": [
       {
         "tags": "a",
         "frame": {
-          "frameId": "layui-layer-iframe1"
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
         },
         "textList": [
           "^确认$"
