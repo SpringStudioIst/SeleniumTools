@@ -79,6 +79,8 @@ object TaskManager {
         val result = mutableListOf<TaskBean>()
         readResTask("all_nz_task.json")?.let { result.add(it.initCheck()) }
         readResTask("all_gth_task.json")?.let { result.add(it.initCheck()) }
+        readResTask("all_nz_mp_task.json")?.let { result.add(it.initCheck()) }
+        readResTask("all_gth_mp_task.json")?.let { result.add(it.initCheck()) }
         return result
     }
 

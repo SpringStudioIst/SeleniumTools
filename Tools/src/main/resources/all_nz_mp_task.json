@@ -1,0 +1,313 @@
+{
+  "title": "[内资秒批]企业注册登记",
+  "des": "2021-1-15",
+  "textMap": {
+    "username": "angcyo",
+    "password": "!!angcyo521",
+    "entType": "input[name='entType1'][value='6']",
+    "entTypeDes": "内资企业",
+    "nzType": "input[value=GS]",
+    "nzTypeDes": "内资企业类型",
+    "companyWord": "字号占位",
+    "termsWord": "行业用语占位",
+    "entTypeSelect": "^（内资）有限公司$",
+    "entTypeSelectDes": "下拉选择企业类型(通过文本定位)",
+    "organizationCodeSelect": "^有限公司$",
+    "organizationCodeSelectDes": "下拉选择组织形式(通过文本定位)",
+    "compoundMode": "#compoundMode1",
+    "compoundModeDes": "名称组合方式"
+  },
+  "actionList": [
+    {
+      "actionId": "1",
+      "title": "启动",
+      "config": {
+        "maximize": true
+      },
+      "checkId": 880010
+    },
+    {
+      "actionId": 100,
+      "title": "点击[我要申办]",
+      "start": "1000,0",
+      "checkId": 880020
+    },
+    {
+      "actionId": 110,
+      "title": "点击[帐号密码]",
+      "start": "1000,0",
+      "checkId": 880030
+    },
+    {
+      "actionId": 120,
+      "title": "输入账号",
+      "start": "1000,0",
+      "checkId": 880040
+    },
+    {
+      "actionId": 130,
+      "title": "输入密码",
+      "start": "1000,0",
+      "checkId": 880050
+    },
+    {
+      "actionId": 140,
+      "title": "获取登录[验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880060
+    },
+    {
+      "actionId": 150,
+      "title": "解析[登录验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880070
+    },
+    {
+      "actionId": 160,
+      "title": "输入[登录验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880080
+    },
+    {
+      "actionId": 170,
+      "title": "点击[登录]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 880090
+    },
+    {
+      "actionId": 180,
+      "title": "点击[使用其他企业名称申请]",
+      "enable": true,
+      "start": "5000",
+      "checkId": 880100
+    },
+    {
+      "actionId": 190,
+      "title": "选择[企业类别]",
+      "enable": true,
+      "start": "1000,0",
+      "checkId": 110010
+    },
+    {
+      "actionId": 200,
+      "title": "点击[确认]",
+      "enable": true,
+      "start": "1000,0",
+      "checkId": 110030
+    },
+    {
+      "actionId": 201,
+      "title": "点击[已知悉并继续申报]",
+      "start": "500,0",
+      "enable": true,
+      "checkId": 120040
+    },
+    {
+      "actionId": 210,
+      "title": "点击[我已了解上述法规、规则]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110040
+    },
+    {
+      "actionId": 220,
+      "title": "点击[下一步]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 230,
+      "title": "输入[字号]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110050
+    },
+    {
+      "actionId": 240,
+      "title": "获取[字号验证码]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110060
+    },
+    {
+      "actionId": 250,
+      "title": "解析[字号验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880071
+    },
+    {
+      "actionId": 260,
+      "title": "输入[字号验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880081
+    },
+    {
+      "actionId": 270,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 271,
+      "title": "检查是否有[相似字号]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110061
+    },
+    {
+      "actionId": 280,
+      "title": "确认使用该字号",
+      "start": "1000,0",
+      "enable": false,
+      "checkId": 110070
+    },
+    {
+      "actionId": 290,
+      "title": "获取[字号验证码]",
+      "start": "1000,0",
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
+      "checkId": 110060
+    },
+    {
+      "actionId": 300,
+      "title": "解析[字号验证码]",
+      "start": "300,0",
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
+      "checkId": 880071
+    },
+    {
+      "actionId": 310,
+      "title": "输入[字号验证码]",
+      "start": "300,0",
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
+      "checkId": 880081
+    },
+    {
+      "actionId": 320,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": false,
+      "autoEnable": true,
+      "conditionList": [
+        {
+          "actionEnableList": [
+            280
+          ]
+        }
+      ],
+      "checkId": 880110
+    },
+    {
+      "actionId": 330,
+      "title": "输入[行业用语]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110080
+    },
+    {
+      "actionId": 340,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 350,
+      "title": "打开[企业类型]下拉",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110090
+    },
+    {
+      "actionId": 360,
+      "title": "选择[企业类型]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110100
+    },
+    {
+      "actionId": 370,
+      "title": "打开[组织形式]下拉",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110110
+    },
+    {
+      "actionId": 380,
+      "title": "选择[组织形式]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110120
+    },
+    {
+      "actionId": 390,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110
+    },
+    {
+      "actionId": 400,
+      "title": "选择[名称组合方式]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110130,
+      "des": "如果指定了[compoundMode], 则执行, 否则跳过",
+      "conditionList": [
+        {
+          "textMapList": [
+            "compoundMode"
+          ]
+        }
+      ]
+    },
+    {
+      "actionId": 410,
+      "title": "点击[提交]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880120
+    },
+    {
+      "actionId": 420,
+      "title": "验证[公司设立登记]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880140
+    }
+  ],
+  "backActionList": [
+  ]
+}

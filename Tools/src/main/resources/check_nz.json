@@ -108,6 +108,28 @@
     ]
   },
   {
+    "checkId": 120040,
+    "event": [
+      {
+        "tags": "button",
+        "textList": [
+          "已知悉并继续申报"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "removeAttr:#nextButton:disabled",
+          "click"
+        ]
+      }
+    ]
+  },
+  {
     "checkId": 110050,
     "title": "输入[字号]",
     "event": [
