@@ -127,7 +127,7 @@
     "handle": [
       {
         "actionList": [
-          "code:$[imageCode] key:imageCode type:30400"
+          "code:$[imageCode] key:imageCode type:30400 debug"
         ]
       }
     ]
@@ -138,7 +138,7 @@
     "handle": [
       {
         "actionList": [
-          "code:$[imageCode] key:imageCode type:30600"
+          "code:$[imageCode] key:imageCode type:30600 debug"
         ]
       }
     ]

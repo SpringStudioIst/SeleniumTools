@@ -21,6 +21,7 @@ import com.angcyo.selenium.PairOutputType
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.auto.action.Action
 import com.angcyo.selenium.auto.action.ScreenshotAction
+import com.angcyo.selenium.auto.control.dslPutCode
 import com.angcyo.selenium.bean.ActionBean
 import com.angcyo.selenium.bean.CheckBean
 import com.angcyo.selenium.bean.HandleBean
@@ -350,6 +351,11 @@ class TabDebugController : BaseController() {
                 val exeJsResult = (driver as? RemoteWebDriver)?.exeJs("get_element_bounds.js", "button[tabindex='0']")
                 showBottomTipAndAppendLog("执行js返回:${exeJsResult}")
             }
+
+            val base64 =
+                "iVBORw0KGgoAAAANSUhEUgAAALQAAABGCAMAAABSSU4SAAAAP1BMVEUAAAAGQU00b3svanZXkp5NiJR4s78nYm5emaVGgY01cHwvanZXkp4gW2cFQEwAO0djnqqm4e1Uj5uY098zbnrFG7VfAAAAAXRSTlMAQObYZgAAA75JREFUeJzsmo2OmzAQhL3JXX6kRBeR93/X6gDbsz8G29iEqt1IVUvAfB6Pdxcad8B4vV55J16v194sufF6ZVJfr12oH49H+UVZ0EM36MejhjoHehiGY0GPnv7+/l4851fpPp6uhHbul3mFul9kM9P88VEP/Xw+q64rD/LhD1RDP5/7UBMwI3XVYPtAAzLTujKaQf+SpGhmffHD43K5FN2sDfOENUNPUAFspCQ4UUl9uZRSbw+5+MIFnDIh9N7QAlNSk8D8uNKzJxAT/pwShWA096HJvHm/JqE9n/ewZRHJnAvTgzrqCVhaewGpHZ0cf3tuNMcUK+/nIQUXF+XfwDXlpklSrlqwsbIJuzD/JnqdtiBb6y7ThNifcGXpjRoyO6WZyhMuOsXNW7JE6YbQTGTijOpEEJdKZa6iNkWBUTgFyQwFk8AMXhpl2ESyljFnTH+5OyjW1gB+RhuWuujCUN38x+cgChO63+/erYbSRrbrTU2RD5JA3E9Bad9ikHErzVyDnU0diYHcsUKIJVFtABKHeAYsyiFF1EpqJ6xOwSiq5vqvYDAHfXepT3K9pZQNWY5IwaniyJUW1YVmNxXWmYwkH9edzVJNmC8EnMTniZmECFIg90qaKk9s5Qwb2qaW6lqWd7C7ab36nE6nVbXJQrbG1Q4JDqDEPPUzmp9jGvp0GqkNAcxB5XF7eh41CBd2a1o/YF5VeoTmrWRiMNvBCWafvx1kiunwLUXi4rVZSseHpThNh1kusazJeRBYNGSM8Z+3W5o6P0Zm38qLhp09LdleEAfgkSCmutiXLipdF8lizSqfaO7xeug9MU9Alm9M7MQ2Zh27WIE4SflKAMhYOanoRoci8llb43lfOoWDqOLj3nhtXCP7JZ5kHoqoU5PR6ZpZHZzrmd9vPl/H7bdC3YDZgzGdWEbWzfTbSWjCrnzP4FrL0mNWSad72ITS5/O5EzX4QlpGwUBnmKH0+dyNWnT8uDs1NJF4ilCj3faB5lKp/ogxO/CyGVgku0KnXxDp3G28NeOBRbIrc6LLZI0cqafDj4ctdUh9rMs7TlgiYhJp/Xq2SVhSs//XWq96neJr4TuDiufrD8n89bVAnWAOSk/Hfipuu3GJlpjT/TTEz085dUdj8QYiWUEqlG4JLV/JGSm5zb2aKk3yVQ2xdzDtbtXUHaQ+cJujVb85SEf45pDAY+in9fjNscOmPnpYnv4no3Mf3SV6PLFk/lS4PjpAZ//AuToWoSt/HtRd6SVP7/7rsSbxV0L/j93iTwAAAP//7cUO6Bf0SxQAAAAASUVORK5CYII="
+            val file = "./screenshot/2021-01-14_17-39-54-503_imageCode.png"
+            showBottomTip(dslPutCode(base64))
         }
 
         //url
@@ -401,7 +407,7 @@ class TabDebugController : BaseController() {
         getSelectControl()?.let {
             it.action()
         }.elseNull {
-            val control = if(isSelectTaskControl()) "task" else "test"
+            val control = if (isSelectTaskControl()) "task" else "test"
             showBottomTip("请先[连接驱动][${control}]!")
         }
     }
