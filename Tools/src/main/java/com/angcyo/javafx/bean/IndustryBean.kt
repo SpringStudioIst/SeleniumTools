@@ -9,6 +9,7 @@ data class IndustryBean(
     var id: String? = null,
     var isParent: String? = null,
     var name: String? = null,
+    var code: String? = null,
     var nocheck: String? = null,
     var `open`: String? = null,
     var pId: String? = null,

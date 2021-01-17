@@ -37,4 +37,5 @@ data class History(
 
     var username: String? = null,
     var password: String? = null,
+    var cookie: String? = null,
 )

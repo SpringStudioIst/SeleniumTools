@@ -4,7 +4,7 @@ import com.angcyo.http.base.fromJson
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.main.TabConfigController
 import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PATH
-import com.angcyo.javafx.http.HttpHelper
+import com.angcyo.javafx.http.IndustryHelper
 import com.angcyo.javafx.ui.Tray
 import com.angcyo.javafx.ui.remove
 import com.angcyo.javafx.web.TaskManager
@@ -82,7 +82,7 @@ class App : BaseApp() {
 
         //读取配置
         DslSelenium.initDriver(appConfigBean.driverPath)
-        HttpHelper.init()
+        IndustryHelper.init()
         TaskManager.init()
     }
 

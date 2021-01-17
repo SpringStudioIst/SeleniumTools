@@ -5,12 +5,13 @@ import com.angcyo.http.base.toJson
 import com.angcyo.javafx.App
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
-import com.angcyo.javafx.base.CancelRunnable
 import com.angcyo.javafx.base.ex.*
 import com.angcyo.javafx.bean.AppConfigBean
+import com.angcyo.javafx.bean.history
 import com.angcyo.javafx.controller.MainController
-import com.angcyo.javafx.http.HttpHelper
+import com.angcyo.javafx.http.IndustryHelper
 import com.angcyo.javafx.ui.*
+import com.angcyo.library.ex.toElapsedTime
 import com.angcyo.selenium.DslSelenium
 import javafx.scene.control.*
 import javafx.stage.Stage
@@ -105,32 +106,30 @@ class TabConfigController : BaseController() {
             cookieUpdateNode.enable(!loading)
             cookieFieldNode.enable(!loading)
         }
+        cookieFieldNode?.text = app().appConfigBean.history().cookie
         cookieUpdateNode?.setOnAction {
+            val cookie = cookieFieldNode?.text ?: ""
+            app().appConfigBean.history().cookie = cookie
+            saveConfig()
+
             switchToLoading(true)
-            var lastRunnable: CancelRunnable? = null
             onBack {
-                HttpHelper.loadIndustryList(cookieFieldNode?.text ?: "") { response, throwable ->
-                    throwable?.let {
-                        switchToLoading(false)
-                        dslAlert {
-                            alertType = Alert.AlertType.ERROR
-                            icons.add(getImageFx("logo.png")!!)
-                            contentText = "更新失败:$it"
+                IndustryHelper.fetch(cookie)
+                onLater {
+                    dslAlert {
+                        contentText = buildString {
+                            appendln(
+                                "更新成功,耗时[${
+                                    IndustryHelper.duration().toElapsedTime(pattern = intArrayOf(-1, 1, 1))
+                                }]:"
+                            )
+                            appendln("[内资]行业用语${IndustryHelper.nzIndustryFetch.allChildList.size}条;")
+                            appendln("[内资秒批]行业用语${IndustryHelper.nzmpIndustryFetch.allChildList.size}条;")
+                            appendln("[个体户]行业用语${IndustryHelper.gthIndustryFetch.allChildList.size}条;")
+                            appendln("[个体户秒批]行业用语${IndustryHelper.gthmpIndustryFetch.allChildList.size}条;")
                         }
                     }
-                    response?.let {
-                        lastRunnable?.isEnd = true
-                        lastRunnable = onDelay(1_000) {
-                            switchToLoading(false)
-                            dslAlert {
-                                icons.add(getImageFx("logo.png")!!)
-                                contentText = "更新成功,共${HttpHelper.industryList.size}条!"
-                                expandableContent = TextArea().apply {
-                                    text = HttpHelper.industryList.toJson()
-                                }
-                            }
-                        }
-                    }
+                    switchToLoading(false)
                 }
             }
         }

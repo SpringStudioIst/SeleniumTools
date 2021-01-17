@@ -14,7 +14,6 @@ import com.angcyo.javafx.bean.CompanyWordBean
 import com.angcyo.javafx.bean.NameTaskBean
 import com.angcyo.javafx.bean.history
 import com.angcyo.javafx.controller.showBottomTip
-import com.angcyo.javafx.http.HttpHelper
 import com.angcyo.javafx.item.DslNameTaskItem
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.renderList
@@ -260,7 +259,7 @@ class TabNameController : BaseController() {
 
         //更新列表
         fun filterTermsWordList(word: String?) {
-            val all = HttpHelper.industryList.filter { !it.name.isNullOrEmpty() }.mapTo(mutableListOf()) {
+            /*val all = HttpHelper.industryList.filter { !it.name.isNullOrEmpty() }.mapTo(mutableListOf()) {
                 //"${it.id} ${it.name}"
                 "${it.name}"
             }
@@ -270,7 +269,7 @@ class TabNameController : BaseController() {
                 termsWordListView?.resetItemList(all.filter {
                     it.contains(word)
                 }, null)
-            }
+            }*/
         }
 
         //默认
