@@ -2,6 +2,7 @@ package com.angcyo.javafx.http
 
 import com.angcyo.http.base.fromJson
 import com.angcyo.http.base.listType
+import com.angcyo.javafx.base.ex.onBack
 import com.angcyo.javafx.bean.IndustryBean
 import com.angcyo.library.ex.*
 
@@ -56,12 +57,26 @@ object IndustryHelper {
     /**拉取所有分类的行业用语*/
     fun fetch(cookie: String) {
         startTime = nowTime()
-        nzIndustryFetch.fetch(cookie)
-        nzmpIndustryFetch.fetch(cookie)
-        gthIndustryFetch.fetch(cookie)
-        gthmpIndustryFetch.fetch(cookie)
+        sync<Unit>(4) { countDownLatch, atomicReference ->
+            onBack {
+                nzIndustryFetch.fetch(cookie)
+                countDownLatch.countDown()
+            }
+            onBack {
+                nzmpIndustryFetch.fetch(cookie)
+                countDownLatch.countDown()
+            }
+            onBack {
+                gthIndustryFetch.fetch(cookie)
+                countDownLatch.countDown()
+            }
+            onBack {
+                gthmpIndustryFetch.fetch(cookie)
+                countDownLatch.countDown()
+            }
+        }
         endTime = nowTime()
     }
 
-    fun duration() = startTime - endTime
+    fun duration() = endTime - startTime
 }

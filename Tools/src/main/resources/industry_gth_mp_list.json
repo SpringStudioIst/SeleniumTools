@@ -168,5 +168,85 @@
     "open": null,
     "pId": "IAP_INDUSTRY_FAST",
     "childList": null
+  },
+  {
+    "id": "1110",
+    "isParent": "false",
+    "name": "蔬菜",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "1120",
+    "isParent": "false",
+    "name": "海鲜",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "1130",
+    "isParent": "false",
+    "name": "生肉",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "1140",
+    "isParent": "false",
+    "name": "水果",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "9110",
+    "isParent": "false",
+    "name": "广告设计",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "9120",
+    "isParent": "false",
+    "name": "图文设计",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "9130",
+    "isParent": "false",
+    "name": "装饰设计",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
+  },
+  {
+    "id": "4110",
+    "isParent": "false",
+    "name": "桑拿",
+    "code": null,
+    "nocheck": null,
+    "open": null,
+    "pId": "IAP_INDUSTRY_FAST",
+    "childList": null
   }
 ]
