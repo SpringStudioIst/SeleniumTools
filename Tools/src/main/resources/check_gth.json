@@ -288,6 +288,11 @@
           "input:$[address]"
         ],
         "ignore": true
+      },
+      {
+        "actionList": [
+          "true"
+        ]
       }
     ]
   },
@@ -296,6 +301,14 @@
     "title": "点击[保存]",
     "event": [
       {
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
+        },
         "tags": "button",
         "textList": [
           "保存"

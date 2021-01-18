@@ -104,7 +104,7 @@
       "title": "点击[已知悉并继续申报]",
       "start": "500,0",
       "enable": true,
-      "checkId": 120040
+      "checkId": 210040
     },
     {
       "actionId": 210,
@@ -231,11 +231,36 @@
     },
     {
       "actionId": 330,
-      "title": "输入[行业用语]",
+      "title": "点击[选择行业用语]",
       "start": "1000,0",
       "enable": true,
-      "checkId": 110080
+      "checkId": 210080
     },
+    {
+      "actionId": 340,
+      "title": "输入[字典项名称]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 210090
+    }, {
+      "actionId": 350,
+      "title": "点击[搜索]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 210100
+    },
+{
+      "actionId": 360,
+  "title": "点击[行业用语][span]",
+  "start": "1000,0",
+      "enable": true,
+      "checkId": 210110
+    },
+
+
+
+
+
     {
       "actionId": 340,
       "title": "点击[下一步]",

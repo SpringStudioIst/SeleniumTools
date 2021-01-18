@@ -108,7 +108,7 @@
     ]
   },
   {
-    "checkId": 120040,
+    "checkId": 210040,
     "event": [
       {
         "tags": "button",
@@ -237,6 +237,116 @@
         "actionList": [
           "clear",
           "input:$[termsWord]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 210080,
+    "title": "点击[选择行业用语]",
+    "event": [
+      {
+        "cssList": [
+          "#industryBtn"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 210090,
+    "title": "输入[字典项名称]",
+    "event": [
+      {
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
+        },
+        "tagList": [
+          "input"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "clear",
+          "input:$[termsWord]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 210100,
+    "title": "点击[搜索]",
+    "event": [
+      {
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
+        },
+        "cssList": [
+          "#query"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 210110,
+    "title": "点击[行业用语][span]",
+    "event": [
+      {
+        "frame": {
+          "select": {
+            "tags": "iframe",
+            "attrList": [
+              "name:layui-layer-iframe\\d+"
+            ]
+          }
+        },
+        "tags": "span",
+        "textList": [
+          "$[termsWord]"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
         ]
       }
     ]

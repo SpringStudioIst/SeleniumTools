@@ -325,7 +325,12 @@ class TabDebugController : BaseController() {
         //refresh
         stage?.find<Node>("#refreshActionNode")?.setOnMouseClicked {
             _checkTestConnect {
-                (driver as? RemoteWebDriver)?.navigate()?.refresh()
+                onBack {
+                    (driver as? RemoteWebDriver)?.navigate()?.apply {
+                        refresh()
+                        showBottomTip("刷新完成!")
+                    }
+                }
             }
         }
 
