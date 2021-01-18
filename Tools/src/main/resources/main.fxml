@@ -37,7 +37,11 @@
           </Menu>
           <Menu mnemonicParsing="false" text="选项">
             <items>
-              <MenuItem mnemonicParsing="false" text="删除" />
+                  <RadioMenuItem fx:id="topMenuItem" mnemonicParsing="false" text="置顶窗口">
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="T" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </RadioMenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="帮助">
@@ -132,8 +136,8 @@
                                                                            <children>
                                                                               <Label text="账号:" />
                                                                               <Label text="密码:" GridPane.rowIndex="1" />
-                                                                              <TextField fx:id="accountNameNode" maxHeight="-Infinity" promptText="请输入工商网站的账号" GridPane.columnIndex="1" />
-                                                                              <TextField fx:id="accountPwNode" promptText="请输入工商网站的账号密码" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                              <ComboBox fx:id="accountComboBox" editable="true" maxWidth="1.7976931348623157E308" promptText="请输入登录网站的账号" GridPane.columnIndex="1" />
+                                                                              <ComboBox fx:id="passwordComboBox" editable="true" maxWidth="1.7976931348623157E308" promptText="请输入登录网站的密码" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                            </children>
                                                                         </GridPane>
                                                                      </content>
@@ -181,7 +185,7 @@
                                                                            <children>
                                                                               <GridPane hgap="5.0">
                                                                                 <columnConstraints>
-                                                                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" />
+                                                                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                                                                                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
                                                                                 </columnConstraints>
                                                                                 <rowConstraints>

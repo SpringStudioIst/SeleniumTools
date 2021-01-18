@@ -69,6 +69,19 @@ class TabConfigController : BaseController() {
             saveConfig(appConfigBean)
         }
 
+        //其他配置
+        stage?.findByCss<CheckBox>("#topCheckBox")?.apply {
+            isSelected = App.isAlwaysOnTopProperty.get()
+            selectedProperty().addListener { observable, oldValue, newValue ->
+                alwaysTop(newValue)
+            }
+        }
+
+        initLink()
+        initIndustry()
+    }
+
+    fun initLink() {
         //驱动下载
         fun initBin(css: String, url: String, enable: Boolean = true) {
             stage?.findByCss<ButtonBase>(css)?.apply {
@@ -92,7 +105,9 @@ class TabConfigController : BaseController() {
             isDisable = true
             tooltip = Tooltip("内置")
         }
+    }
 
+    fun initIndustry() {
         //行业用语秒批更新
         val cookieFieldNode: TextField? = stage?.findByCss("#cookieFieldNode")
         val cookieUpdateNode: Button? = stage?.findByCss("#cookieUpdateNode")
@@ -133,13 +148,17 @@ class TabConfigController : BaseController() {
                 }
             }
         }
-
-        //其他配置
-        stage?.findByCss<CheckBox>("#topCheckBox")?.apply {
-            isSelected = App.isAlwaysOnTopProperty.get()
-            selectedProperty().addListener { observable, oldValue, newValue ->
-                App.isAlwaysOnTopProperty.set(newValue)
-            }
-        }
     }
+
+    /**置顶窗口*/
+    fun alwaysTop(top: Boolean) {
+        ctl<MainController>()?.topMenuItem?.isSelected = top
+        stage?.findByCss<CheckBox>("#topCheckBox")?.isSelected = top
+        App.isAlwaysOnTopProperty.set(top)
+    }
+}
+
+fun updateConfig(action: AppConfigBean.() -> Unit) {
+    app().appConfigBean.apply(action)
+    TabConfigController.saveConfig()
 }

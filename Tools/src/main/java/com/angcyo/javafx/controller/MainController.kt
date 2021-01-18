@@ -1,5 +1,6 @@
 package com.angcyo.javafx.controller
 
+import com.angcyo.javafx.App
 import com.angcyo.javafx.BaseApp.Companion.app
 import com.angcyo.javafx.app
 import com.angcyo.javafx.base.BaseController
@@ -11,10 +12,7 @@ import com.angcyo.javafx.controller.main.*
 import com.angcyo.library.ex.isFileExist
 import com.angcyo.library.ex.nowTimeString
 import javafx.fxml.FXML
-import javafx.scene.control.Label
-import javafx.scene.control.MenuBar
-import javafx.scene.control.MenuItem
-import javafx.scene.control.TabPane
+import javafx.scene.control.*
 import okhttp3.internal.platform.Platform
 import java.io.File
 import java.net.URL
@@ -41,6 +39,9 @@ class MainController : BaseController() {
     /**关闭菜单*/
     lateinit var closeMenu: MenuItem
 
+    /**置顶窗口*/
+    lateinit var topMenuItem: RadioMenuItem
+
     /**主菜单*/
     lateinit var mainMenuBar: MenuBar
 
@@ -49,12 +50,19 @@ class MainController : BaseController() {
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         super.initialize(location, resources)
+
+        topMenuItem.isSelected = App.isAlwaysOnTopProperty.get()
+        topMenuItem.selectedProperty().addListener { observable, oldValue, newValue ->
+            ctl<TabConfigController>()?.alwaysTop(newValue)
+        }
+
         onLater {
-            tabHomeController.initialize(bottomTipNode.getStage(), location, resources)
-            tabNameController.initialize(bottomTipNode.getStage(), location, resources)
-            tabConfigController.initialize(bottomTipNode.getStage(), location, resources)
-            tabLogController.initialize(bottomTipNode.getStage(), location, resources)
-            tabDebugController.initialize(bottomTipNode.getStage(), location, resources)
+            stage = bottomTipNode.getStage()
+            tabHomeController.initialize(stage, location, resources)
+            tabNameController.initialize(stage, location, resources)
+            tabConfigController.initialize(stage, location, resources)
+            tabLogController.initialize(stage, location, resources)
+            tabDebugController.initialize(stage, location, resources)
 
             tabLogController.appendLog(buildString {
                 appendLine(Platform.get().toString())

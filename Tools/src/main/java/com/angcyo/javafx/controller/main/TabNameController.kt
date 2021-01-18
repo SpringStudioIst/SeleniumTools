@@ -14,6 +14,7 @@ import com.angcyo.javafx.bean.CompanyWordBean
 import com.angcyo.javafx.bean.NameTaskBean
 import com.angcyo.javafx.bean.history
 import com.angcyo.javafx.controller.showBottomTip
+import com.angcyo.javafx.http.IndustryHelper
 import com.angcyo.javafx.item.DslNameTaskItem
 import com.angcyo.javafx.list.DslListItem
 import com.angcyo.javafx.list.renderList
@@ -38,11 +39,11 @@ class TabNameController : BaseController() {
 
     /**帐号*/
     @NodeInject
-    var accountNameNode: TextField? = null
+    var accountComboBox: ComboBox<String>? = null
 
     /**密码*/
     @NodeInject
-    var accountPwNode: TextField? = null
+    var passwordComboBox: ComboBox<String>? = null
 
     /**字号*/
     @NodeInject
@@ -64,15 +65,28 @@ class TabNameController : BaseController() {
     override fun initialize(stage: Stage?, location: URL?, resources: ResourceBundle?) {
         super.initialize(stage, location, resources)
 
-        accountNameNode?.text = app().appConfigBean.history?.username
-        accountPwNode?.text = app().appConfigBean.history?.password
+        accountComboBox?.value = app().appConfigBean.history?.username
+        passwordComboBox?.value = app().appConfigBean.history?.password
 
         stage?.let {
+            initUserConfig(it)
             initCompanyType(it)
             initCompanyWord(it)
             initTradeTerms(it)
             initCreateTask(it)
         }
+    }
+
+    fun initUserConfig(stage: Stage) {
+        val history = app().appConfigBean.history()
+        accountComboBox?.resetItemList(
+            history.usernameList,
+            history.username ?: history.usernameList?.firstOrNull()
+        )
+        passwordComboBox?.resetItemList(
+            history.passwordList,
+            history.password ?: history.passwordList?.firstOrNull()
+        )
     }
 
     /**企业类型, 内资企业类型*/
@@ -83,8 +97,9 @@ class TabNameController : BaseController() {
 
         //企业类别
         typeToggleGroup.selectedToggleProperty().addListener { observable, oldValue, newValue ->
+            updateTradeTermsList()
             if (newValue is RadioButton) {
-                L.i(newValue.id)
+                //L.i(newValue.id)
                 //companyNzTypeFlowPane?.parent?.isDisable = newValue.id != "entValueNode1"
                 //stage.findByCss<Node>("#companyNzTypePane")?.isDisable = newValue.id != "entValueNode1"
                 //companyNzTypeFlowPane?.isDisable = newValue.id != "entValueNode1"
@@ -131,6 +146,7 @@ class TabNameController : BaseController() {
         companyNzTypeFlowPane?.children?.forEach {
             if (it is RadioButton) {
                 it.toggleGroup = nzTypeToggleGroup
+                it.enable(it.id == "nzValueGSNode")
             }
         }
     }
@@ -257,27 +273,11 @@ class TabNameController : BaseController() {
         //行业用语
         val termsWordListView: ListView<String>? = stage.find("termsWordListView")
 
-        //更新列表
-        fun filterTermsWordList(word: String?) {
-            /*val all = HttpHelper.industryList.filter { !it.name.isNullOrEmpty() }.mapTo(mutableListOf()) {
-                //"${it.id} ${it.name}"
-                "${it.name}"
-            }
-            if (word.isNullOrEmpty()) {
-                termsWordListView?.resetItemList(all)
-            } else {
-                termsWordListView?.resetItemList(all.filter {
-                    it.contains(word)
-                }, null)
-            }*/
-        }
-
-        //默认
-        filterTermsWordList("")
+        updateTradeTermsList()
 
         //监听输入改变
         termsWordComboBox?.setOnKeyReleased {
-            filterTermsWordList(termsWordComboBox?.editor?.text)
+            updateTradeTermsList()
         }
 
         //输入历史
@@ -291,6 +291,7 @@ class TabNameController : BaseController() {
         }
     }
 
+    /**任务相关*/
     fun initCreateTask(stage: Stage) {
         val createTaskButton: Button? = stage.find("createTaskButton")
         val runNameTaskButton: Button? = stage.find("runNameTaskButton")
@@ -303,29 +304,12 @@ class TabNameController : BaseController() {
             return false
         }
 
-        fun updateTaskList() {
-            nameTaskListView?.renderList {
-                TaskManager.nameTaskList.forEach {
-                    DslNameTaskItem()() {
-                        nameTaskBean = it
-                        deleteAction = {
-                            TaskManager.nameTaskList.remove(it)
-                            TaskManager.saveNameTask()
-                            onLater {
-                                updateTaskList()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         updateTaskList()
 
         //创建任务
         createTaskButton?.setOnAction {
-            val username = accountNameNode?.text
-            val password = accountPwNode?.text
+            val username = accountComboBox?.value
+            val password = passwordComboBox?.value
             val companyTypeNodeId = (typeToggleGroup.selectedToggle as? Node)?.id
             val nzCompanyTypeNodeId = (nzTypeToggleGroup.selectedToggle as? Node)?.id
             val companyWord = companyWordTextNode?.text
@@ -399,18 +383,36 @@ class TabNameController : BaseController() {
                 }
 
                 //保存历史记录
-                app().appConfigBean.history().apply {
-                    (termsWordList?.toMutableList() ?: mutableListOf()).apply {
-                        remove(termsWord)
-                        add(0, termsWord ?: "")
-                        termsWordList = this
+                updateConfig {
+                    history().apply {
+                        (termsWordList?.toMutableList() ?: mutableListOf()).apply {
+                            remove(termsWord)
+                            add(0, termsWord ?: "")
+                            termsWordList = this
+                        }
+
+                        this.username = username
+                        this.password = password
+
+                        (usernameList?.toMutableList() ?: mutableListOf()).apply {
+                            remove(username)
+                            add(0, username ?: "")
+                            usernameList = this
+                        }
+                        (passwordList?.toMutableList() ?: mutableListOf()).apply {
+                            remove(password)
+                            add(0, password ?: "")
+                            passwordList = this
+                        }
                     }
-                    this.username = username
-                    this.password = password
+
                 }
-                TabConfigController.saveConfig()
                 TaskManager.addNameTaskBean(bean)
 
+                //更新用户信息历史记录列表
+                initUserConfig(stage)
+
+                //更新列表
                 nameTaskListView?.renderList(false) {
                     itemsList.add(0, DslNameTaskItem().apply {
                         nameTaskBean = bean
@@ -423,6 +425,53 @@ class TabNameController : BaseController() {
         //运行任务
         runNameTaskButton?.setOnAction {
 
+        }
+    }
+
+    /**更新任务列表数据*/
+    fun updateTaskList() {
+        nameTaskListView?.renderList {
+            TaskManager.nameTaskList.forEach {
+                DslNameTaskItem()() {
+                    nameTaskBean = it
+                    deleteAction = {
+                        TaskManager.nameTaskList.remove(it)
+                        TaskManager.saveNameTask()
+                        onLater {
+                            updateTaskList()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**更新行业用语列表*/
+    fun updateTradeTermsList(word: String? = termsWordComboBox?.editor?.text) {
+        //行业用语
+        val termsWordListView: ListView<String>? = stage?.find("termsWordListView")
+
+        //选中的id
+        val industryFetch = when ((typeToggleGroup.selectedToggle as? Node)?.id) {
+            "entValueNode1" -> IndustryHelper.nzIndustryFetch
+            "entValueNode3" -> IndustryHelper.gthIndustryFetch
+            "entValueNode6" -> IndustryHelper.nzmpIndustryFetch
+            "entValueNode5" -> IndustryHelper.gthmpIndustryFetch
+            else -> null
+        }
+
+        industryFetch?.apply {
+            val all = allChildList.filter { !it.name.isNullOrEmpty() }.mapTo(mutableListOf()) {
+                //"${it.id} ${it.name}"
+                "${it.name}"
+            }
+            if (word.isNullOrEmpty()) {
+                termsWordListView?.resetItemList(all)
+            } else {
+                termsWordListView?.resetItemList(all.filter {
+                    it.contains(word)
+                }, null)
+            }
         }
     }
 }

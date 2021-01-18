@@ -1,9 +1,13 @@
 package com.angcyo.javafx
 
 import com.angcyo.http.base.fromJson
+import com.angcyo.javafx.base.ex.ctl
+import com.angcyo.javafx.base.ex.onBack
+import com.angcyo.javafx.base.ex.onLater
 import com.angcyo.javafx.bean.AppConfigBean
 import com.angcyo.javafx.controller.main.TabConfigController
 import com.angcyo.javafx.controller.main.TabConfigController.Companion.CONFIG_PATH
+import com.angcyo.javafx.controller.main.TabNameController
 import com.angcyo.javafx.http.IndustryHelper
 import com.angcyo.javafx.ui.Tray
 import com.angcyo.javafx.ui.remove
@@ -82,8 +86,17 @@ class App : BaseApp() {
 
         //读取配置
         DslSelenium.initDriver(appConfigBean.driverPath)
-        IndustryHelper.init()
-        TaskManager.init()
+        onBack {
+            TaskManager.init()
+            IndustryHelper.init()
+
+            onLater {
+                ctl<TabNameController>()?.apply {
+                    updateTradeTermsList()
+                    updateTaskList()
+                }
+            }
+        }
     }
 
     override fun stop() {

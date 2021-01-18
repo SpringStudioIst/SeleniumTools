@@ -36,6 +36,10 @@ data class History(
     var termsWordList: List<String>? = null,
 
     var username: String? = null,
+    var usernameList: List<String>? = null,
+
     var password: String? = null,
+    var passwordList: List<String>? = null,
+
     var cookie: String? = null,
 )
