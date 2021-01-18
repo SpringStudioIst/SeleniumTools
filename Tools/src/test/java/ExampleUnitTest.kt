@@ -2,6 +2,7 @@ import com.angcyo.library.ex.count
 import com.angcyo.library.ex.decode
 import com.angcyo.library.ex.encode
 import com.angcyo.library.ex.patternList
+import com.angcyo.selenium.auto.action.arg
 import com.angcyo.selenium.parse.ValueParse
 import com.angcyo.selenium.parse.args
 import org.junit.jupiter.api.Test
@@ -41,6 +42,9 @@ class ExampleUnitTest {
         val valueParse = ValueParse()
         //println(valueParse.parseExpression(text, "w:|width:", 100f))
         println(valueParse.parseExpression(text, "", 1f))
+
+        val t = "title:$[xxx] "
+        println(t.arg("title"))
     }
 
     /**测试正则表达式匹配*/

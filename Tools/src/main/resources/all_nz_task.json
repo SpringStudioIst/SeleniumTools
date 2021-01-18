@@ -8,8 +8,10 @@
     "entTypeDes": "内资企业",
     "nzType": "input[value=GS]",
     "nzTypeDes": "内资企业类型",
-    "companyWord": "字号占位",
-    "termsWord": "行业用语占位",
+    "companyWord": "顶尚",
+    "companyWordDes": "字号占位",
+    "termsWord": "云科技",
+    "termsWordDes": "行业用语占位",
     "entTypeSelect": "^（内资）有限公司$",
     "entTypeSelectDes": "下拉选择企业类型(通过文本定位)",
     "organizationCodeSelect": "^有限公司$",
@@ -79,10 +81,64 @@
       "checkId": 880090
     },
     {
+      "actionId": 171,
+      "title": "检查[身份验证]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 880091
+    },
+    {
+      "actionId": 172,
+      "title": "输入[短信验证码]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880092
+    },
+    {
+      "actionId": 173,
+      "title": "点击[确认]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880093,
+      "after": {
+        "start": "600,0",
+        "check": {
+          "event": [
+            {
+              "tags": "div",
+              "textList": [
+                "短信验证失败"
+              ]
+            }
+          ],
+          "handle": [
+            {
+              "selectList": [
+                {
+                  "tags": "button",
+                  "textList": [
+                    "我知道了"
+                  ]
+                }
+              ],
+              "actionList": [
+                "click"
+              ]
+            },
+            {
+              "actionList": [
+                "jump:171"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
       "actionId": 180,
       "title": "点击[使用其他企业名称申请]",
       "enable": true,
-      "start": "5000",
+      "start": "1000,0",
       "checkId": 880100
     },
     {
@@ -249,6 +305,27 @@
       "start": "300,0",
       "enable": true,
       "checkId": 880110
+    },
+    {
+      "actionId": 341,
+      "title": "检查是否有[近似行业]",
+      "start": "1000,0",
+      "enable": true,
+      "checkId": 110062
+    },
+    {
+      "actionId": 342,
+      "title": "点击[下一步]",
+      "start": "300,0",
+      "enable": true,
+      "checkId": 880110,
+      "conditionList": [
+        {
+          "actionResultList": [
+            341
+          ]
+        }
+      ]
     },
     {
       "actionId": 350,

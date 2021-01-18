@@ -228,6 +228,99 @@
     ]
   },
   {
+    "checkId": 880091,
+    "title": "检查[身份验证]",
+    "event": [
+      {
+        "tags": "p",
+        "textList": [
+          "^身份验证$"
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "selectList": [
+          {
+            "tags": "p",
+            "textList": [
+              "手机号.*验证码"
+            ]
+          }
+        ],
+        "actionList": [
+          "getText:tip"
+        ]
+      },
+      {
+        "actionList": [
+          "putText title:验证码 tip:$[tip] label:请输入短信验证码: prompt:输入短信验证码"
+        ]
+      }
+    ],
+    "other": [
+      {
+        "conditionList": [
+          {
+            "actionRunList": [
+              ".:>=3"
+            ]
+          }
+        ],
+        "actionList": [
+          "jump:180"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880092,
+    "title": "输入[短信验证码]",
+    "event": [
+      {
+        "cssList": [
+          "input[placeholder=请输入短信验证码]"
+        ],
+        "rectList": [
+          ""
+        ]
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "clear",
+          "input:$[putText]"
+        ]
+      }
+    ]
+  },
+  {
+    "checkId": 880093,
+    "title": "点击[确认]",
+    "event": [
+      {
+        "textList": [
+          "确认"
+        ],
+        "tags": "span"
+      }
+    ],
+    "handle": [
+      {
+        "filter": {
+          "index": "0"
+        },
+        "actionList": [
+          "click"
+        ]
+      }
+    ]
+  },
+  {
     "checkId": 880100,
     "title": "点击[使用其他企业名称申请]",
     "event": [

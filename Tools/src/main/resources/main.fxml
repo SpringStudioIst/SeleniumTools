@@ -443,7 +443,7 @@
                                                             </FlowPane>
                                                             <FlowPane hgap="5.0" prefWrapLength="0.0" vgap="5.0">
                                                                <children>
-                                                                  <Button fx:id="startNode" mnemonicParsing="false" text="启动任务" />
+                                                                  <Button fx:id="startNode" mnemonicParsing="false" text="启动自定义任务" />
                                                                   <Button fx:id="runActionNode" mnemonicParsing="false" text="执行自定义动作" />
                                                                   <Button fx:id="pauseActionNode" mnemonicParsing="false" text="暂停执行" />
                                                                   <Button fx:id="resumeActionNode" mnemonicParsing="false" text="恢复执行" />

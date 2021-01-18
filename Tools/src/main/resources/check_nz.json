@@ -199,6 +199,28 @@
     ]
   },
   {
+    "checkId": 110062,
+    "title": "检查是否有[近似行业], 需要手动确定",
+    "handle": [
+      {
+        "selectList": [
+          {
+            "tags": "legend",
+            "textList": [
+              "近似行业"
+            ]
+          }
+        ],
+        "actionList": [
+          "confirm title:注意 tip:发现[近似行业],请手动处理.处理后点击[确定]继续!"
+        ],
+        "noActionList": [
+          "true"
+        ]
+      }
+    ]
+  },
+  {
     "checkId": 110070,
     "title": "确认使用该字号",
     "event": [

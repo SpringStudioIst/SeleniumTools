@@ -21,7 +21,7 @@ import com.angcyo.selenium.PairOutputType
 import com.angcyo.selenium.auto.AutoControl
 import com.angcyo.selenium.auto.action.Action
 import com.angcyo.selenium.auto.action.ScreenshotAction
-import com.angcyo.selenium.auto.control.dslPutCode
+import com.angcyo.selenium.auto.controller.dslPutCode
 import com.angcyo.selenium.bean.ActionBean
 import com.angcyo.selenium.bean.CheckBean
 import com.angcyo.selenium.bean.HandleBean
@@ -466,7 +466,9 @@ class TabDebugController : BaseController() {
                         showToCustomTaskPane(stage, it)
                     }
                     startTaskAction = {
-                        getSelectControl()?.start(it)
+                        _checkTestConnect {
+                            restart(it)
+                        }
                     }
                 }
             }
